@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "8334021351",
+    "firebase_url": "https://sistemarequisicoes.firebaseio.com",
+    "project_id": "sistemarequisicoes",
+    "storage_bucket": "sistemarequisicoes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8334021351:android:93c384d4c08ab516",
+        "android_client_info": {
+          "package_name": "br.ufrn.imd.sgr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8334021351-bcbv457s04sm6kbnlvsb9u8c5ig9e92i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJCPLWNWJjolmeVtNbOD8rw6ywdrOKwoE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
