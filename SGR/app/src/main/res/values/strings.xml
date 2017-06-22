@@ -24,6 +24,26 @@
     <string name="forgot_password_msg">Entre com seu e-mail para envio da nova senha</string>
     <string name="manter_conectado">Manter logado.</string>
 
+
+    <string name="label_sincronizar">Sincronizar</string>
+    <string name="exames">Exames:</string>
+    <string name="label_requisicoes">Requisições</string>
+    <string name="label_nova_requisicao">Nova Requisição</string>
+    <string name="cancelar_requisicao">Cancelar</string>
+    <string name="encaminhar_requisicao">Encaminhar</string>
+    <string name="label_sair">Sair</string>
+    <string name="dados_paciente">Dados do Paciente</string>
+    <string name="numero_requisicao">Nº requisição</string>
+    <string name="situacao_requisicao">Situação</string>
+    <string name="paciente">Paciente</string>
+    <string name="nome_paciente">Nome do paciente</string>
+    <string name="laboratorio">Laboratório</string>
+    <string name="data_requisicao">Data da requisição</string>
+    <string name="data_entrega">Data da entrega</string>
+    <string name="label_configuracoes">Configurações</string>
+    <string name="label_desconectar">Desconectar</string>
+    <string name="label_requisicao">Requisição</string>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_requisicoes">RequisicoesActivity</string>
     <string name="large_text">
