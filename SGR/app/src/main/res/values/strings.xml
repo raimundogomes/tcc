@@ -22,6 +22,7 @@
     <string name="btn_sign_out">Sair</string>
     <string name="lbl_forgot_password">Esqueceu a senha?</string>
     <string name="forgot_password_msg">Entre com seu e-mail para envio da nova senha</string>
+    <string name="manter_conectado">Manter logado.</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_requisicoes">RequisicoesActivity</string>
