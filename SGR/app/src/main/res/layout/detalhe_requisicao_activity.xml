@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp"
+    android:theme="@style/AppTheme.TemaSGR"
+    android:orientation="vertical">
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1,2" >
+
+        <TableRow>
+            <TextView android:text="@string/numero_requisicao" android:textStyle="bold"/>
+            <TextView  android:text="@string/situacao_requisicao" android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView android:id="@+id/text_numeroRequisicao" />
+            <TextView android:id="@+id/text_situacaoRequisicao"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="6dp">
+            <TextView android:id="@+id/label_paciente" android:text="@string/paciente" android:textStyle="bold"/>
+            <TextView android:text="@string/laboratorio" android:textStyle="bold"/>
+        </TableRow>
+        <TableRow>
+             <TextView  android:id="@+id/text_paciente"
+                 android:elegantTextHeight="true" android:onClick="telefonarPaciente"
+                 android:drawableStart="@android:drawable/sym_action_call"/>
+
+             <TextView android:id="@+id/text_laboratorio" android:elegantTextHeight="true"
+                 android:drawableStart="@android:drawable/sym_action_call"  android:onClick="telefonarLaboratorio"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="6dp">
+            <TextView android:text="@string/data_requisicao" android:textStyle="bold"/>
+            <TextView android:text="@string/data_entrega"  android:textStyle="bold"/>
+        </TableRow>
+        <TableRow>
+
+            <TextView android:id="@+id/text_dataRequisicao"    android:layout_width="wrap_content" />
+            <TextView android:id="@+id/text_dataFinal"    android:layout_width="wrap_content" />
+        </TableRow>
+
+    </TableLayout>
+
+
+    <TextView android:layout_marginTop="10dp"
+            android:id="@+id/label_exames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exames"
+            android:textStyle="bold"/>
+
+    <ListView
+        android:id="@+id/list_exames"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".activities.NovaRequisicaoActivity" android:theme="@style/AppTheme.TemaSGR">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/lbProntuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prontuário: "
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txtProntuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/lbNomePaciente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paciente: "
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txtNomePaciente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/txtLaboratorio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Laboratório*"
+            android:textStyle="bold"/>
+
+        <Spinner android:id="@+id/spinnerLaboratorio"
+            android:layout_width="match_parent" android:background="#DDDDDD"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtExames"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Exames"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+
+        <CheckBox
+            android:id="@+id/checkBoxExameSangue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sangue"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButtonCalendarioSangue"
+                android:src="@drawable/calendario"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:ems="10"
+                android:hint="Data da coleta"
+                android:id="@+id/editTextDataAmostraExameSangue"
+                android:editable="false" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBoxExameUrina"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Urina"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButtonCalendarioUrina"
+                android:src="@drawable/calendario"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:ems="10"
+                android:hint="Data da coleta"
+                android:id="@+id/editTextDataAmostraExameUrina"
+                android:editable="false"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar"
+            android:id="@+id/buttonSalvar" />
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

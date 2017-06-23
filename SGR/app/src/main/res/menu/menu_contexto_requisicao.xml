@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_cancelar_requisicao"
+        android:icon="@mipmap/ic_close_black_24dp"
+        android:title="@string/cancelar_requisicao"/>
+
+    <item
+        android:id="@+id/menu_encaminhar_requisicao"
+        android:icon="@mipmap/ic_forward_black_24dp"
+        android:title="@string/encaminhar_requisicao"/>
+
+    <item
+        android:id="@+id/menu_dados_paciente"
+        android:icon="@mipmap/ic_person_black_24dp"
+        android:title="@string/dados_paciente"/>
+
+</menu>

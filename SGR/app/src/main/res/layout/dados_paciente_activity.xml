@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:theme="@style/AppTheme.TemaSGR">
+
+    <TableLayout android:layout_margin="10dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1,2" >
+
+        <TableRow>
+            <TextView android:id="@+id/label_paciente" android:text="Paciente " android:textStyle="bold"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView  android:id="@+id/text_paciente"/>
+        </TableRow>
+
+        <TableRow  android:layout_marginTop="10dp">
+            <TextView android:id="@+id/label_nomeMae" android:text="Nome da mãe" android:textStyle="bold"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView  android:id="@+id/text_nomeMae"/>
+        </TableRow>
+
+        <TableRow android:layout_marginTop="10dp">
+            <TextView android:layout_gravity="left" android:text="Prontuário " android:textStyle="bold"/>
+            <TextView android:text="CNS" android:gravity="left" android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView android:id="@+id/text_prontuario" android:layout_gravity="left" />
+            <TextView android:id="@+id/text_cns" android:layout_gravity="left" />
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="10dp">
+            <TextView android:id="@+id/label_fone" android:text="Telefone "
+                android:textStyle="bold"/>
+            <TextView android:layout_gravity="left" android:text="E-mail"
+                android:textStyle="bold"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:drawableLeft="@android:drawable/sym_action_call"
+            android:id="@+id/text_fone" android:onClick="telefonar"
+            android:elegantTextHeight="true" />
+            <TextView android:drawableLeft="@android:drawable/sym_action_email"
+                android:id="@+id/text_email"  android:onClick="enviarEmail"  android:elegantTextHeight="true"/>
+        </TableRow>
+    </TableLayout>
+
+
+
+</LinearLayout>
