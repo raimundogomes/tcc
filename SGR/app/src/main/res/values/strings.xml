@@ -45,7 +45,7 @@
     <string name="label_requisicao">Requisição</string>
 
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_requisicoes">RequisicoesActivity</string>
+    <string name="title_activity_requisicoes">Requisições</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

@@ -1,5 +1,7 @@
 package br.ufrn.imd.sgr;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,15 +11,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import br.ufrn.imd.sgr.activities.PesquisarPacienteActivity;
 import br.ufrn.imd.sgr.utils.Constantes;
+import br.ufrn.imd.sgr.utils.DetectaConexao;
 
 public class RequisicoesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_requisicoes);
+        setContentView(R.layout.activity_requisicoes2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,7 +66,7 @@ public class RequisicoesActivity extends AppCompatActivity {
                 desconectar();
                 break;
             case R.id.menu_nova_requisicao:
-              //  novaRequisicao();
+                novaRequisicao();
                 break;
             default:
                 break;
@@ -75,6 +83,42 @@ public class RequisicoesActivity extends AppCompatActivity {
         editor.clear().commit();
 
         finish();
+    }
+
+    public void exibirMensagemSicronizacao() {
+
+        final ProgressDialog dialog = new ProgressDialog(RequisicoesActivity.this);
+        dialog.setTitle("Sincronizando as requisições...");
+        dialog.setMessage("Aguarde, por favor.");
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        long delayInMillis = 2000;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, delayInMillis);
+
+    }
+
+    public void novaRequisicao() {
+
+        DetectaConexao detectaConexao = new DetectaConexao(getApplicationContext());
+        if(detectaConexao.existeConexao()){
+            Intent intent = new Intent(this, PesquisarPacienteActivity.class);
+            startActivityForResult(intent, Constantes.INDICE_ACTIVITY_NOVA_REQUISICAO);
+        }
+        else{
+            Toast toast = Toast.makeText(this, DetectaConexao.FALHA_CONEXAO,
+                    Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+
     }
 
 }
