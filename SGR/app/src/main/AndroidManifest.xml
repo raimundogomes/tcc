@@ -28,25 +28,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+
         <activity android:name=".ResetPasswordActivity" />
-        <activity
-            android:name=".RequisicoesActivity"
-            android:label="@string/title_activity_requisicoes"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".RequisicoesActivity" android:label="@string/title_activity_requisicoes"></activity>
 
         <activity android:name=".activities.PesquisarPacienteActivity"
             android:label="Pesquisar paciente"   android:theme="@style/AppTheme.NoActionBar">       </activity>
 
 
-        <activity  android:name=".activities.ListaRequisicaoActivity"   android:label="@string/label_requisicoes" >
-        </activity>
+        <activity  android:name=".activities.ListaRequisicaoActivity"   android:label="@string/label_requisicoes" ></activity>
 
         <activity  android:name=".activities.PacienteActivity"  android:label="@string/dados_paciente" ></activity>
 
-        <activity
-            android:name=".activities.DetalheRequisicaoActivity"
-            android:label="@string/label_requisicao"
-            ></activity>
+        <activity android:name=".activities.DetalheRequisicaoActivity" android:label="@string/label_requisicao"></activity>
 
         <activity  android:name=".activities.ConfiguracoesActivity" android:label="@string/label_configuracoes"></activity>
 

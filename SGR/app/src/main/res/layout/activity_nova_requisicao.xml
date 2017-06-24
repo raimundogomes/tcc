@@ -26,15 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"/>
-        </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
+            <TextView android:layout_marginLeft="15dp"
                 android:id="@+id/lbNomePaciente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +37,7 @@
                 android:id="@+id/txtNomePaciente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"/>
+                />
         </LinearLayout>
 
 
@@ -56,11 +49,17 @@
             android:textStyle="bold"
             android:layout_marginTop="10dp"/>
 
+
         <CheckBox
             android:id="@+id/checkBoxExameSangue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sangue"/>
+        <CheckBox
+            android:id="@+id/checkBoxExameSecrecao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Secreção"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

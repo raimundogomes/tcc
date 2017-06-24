@@ -1,31 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.ufrn.imd.sgr.RequisicoesActivity">
     <item
         android:id="@+id/menu_nova_requisicao"
-        android:showAsAction="ifRoom"
-        android:icon="@mipmap/ic_create_white_24dp"
         android:title="@string/label_nova_requisicao"
-        />
+        android:icon="@mipmap/ic_create_white_24dp"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_sincronizar"
         android:title="@string/label_sincronizar"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
          android:icon="@mipmap/ic_autorenew_white_24dp"/>
 
     <item
         android:id="@+id/menu_configuracoes"
         android:title="@string/label_configuracoes"
+        app:showAsAction="never"
         />
 
     <item
         android:id="@+id/menu_sair"
         android:icon="@mipmap/ic_exit_to_app_white_24dp"
-        android:showAsAction="ifRoom"
         android:title="@string/label_sair"
+        app:showAsAction="ifRoom"
        />
     <item
         android:id="@+id/menu_desconectar"
         android:title="@string/label_desconectar"
+        app:showAsAction="ifRoom"
         />
 </menu>
