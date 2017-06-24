@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/icone"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.TemaSGR">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
@@ -50,7 +50,7 @@
 
         <activity  android:name=".activities.ConfiguracoesActivity" android:label="@string/label_configuracoes"></activity>
 
-        <activity  android:name=".activities.NovaRequisicaoActivity" android:label="@string/label_nova_requisicao"></activity>
+        <activity  android:name=".activities.NovaRequisicaoActivity" android:label="@string/label_nova_requisicao" ></activity>
     </application>
 
 </manifest>

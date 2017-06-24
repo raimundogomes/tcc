@@ -1,9 +1,11 @@
 package br.ufrn.imd.sgr.activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,14 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.android.volley.Request;
-//import com.android.volley.RequestQueue;
-//import com.android.volley.Response;
-//import com.android.volley.VolleyError;
-//import com.android.volley.toolbox.JsonObjectRequest;
-//import com.android.volley.toolbox.Volley;
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import org.json.JSONException;
@@ -47,7 +49,7 @@ import br.ufrn.imd.sgr.model.TipoExame;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
-public class NovaRequisicaoActivity extends PrincipalActivity implements
+public class NovaRequisicaoActivity extends AppCompatActivity implements
         View.OnClickListener{
 
     public static final int ID_DATA_REQUISICAO_SANGUE = 0;
@@ -57,16 +59,9 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
     private static final String EDIT_SANGUE = "Sangue";
     private static final String EDIT_URINA = "Urina";
     private static final String LABORATRIO = "Laboratorio";
-   // private RequestQueue queue;
-
-    Laboratorio laboratorio1 = Laboratorio.CITOLOGIA;
-    Laboratorio laboratorio2 = Laboratorio.MICROBIOLOGIA;
-
-    private List<Laboratorio> listLaboratorio = new ArrayList<Laboratorio>();
+    private RequestQueue queue;
 
     private Paciente paciente;
-
-    private Spinner spinnerLaboratorio;
 
     private CheckBox checkBoxSangue;
 
@@ -96,7 +91,7 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_requisicao);
 
-  //      queue = Volley.newRequestQueue(NovaRequisicaoActivity.this);
+        queue = Volley.newRequestQueue(NovaRequisicaoActivity.this);
 
         //paciente
         Intent intent = getIntent();
@@ -104,17 +99,6 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
         paciente = (Paciente) intent.getExtras().get(Constantes.DADOS_PACIENTE_REQUISICAO_NOVA_ACTIVITY);
 
         atualizarDadosPaciente(paciente);
-
-        //Spinner dos laboratórios
-        spinnerLaboratorio = (Spinner) findViewById(R.id.spinnerLaboratorio);
-
-        listLaboratorio.add(laboratorio1);
-        listLaboratorio.add(laboratorio2);
-
-        ArrayAdapter adapterLaboratorio = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listLaboratorio);
-        adapterLaboratorio.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerLaboratorio.setAdapter(adapterLaboratorio);
 
         //exame de sangue
         checkBoxSangue = (CheckBox) findViewById(R.id.checkBoxExameSangue);
@@ -156,7 +140,6 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(EDIT_SANGUE, (String) txtDataAmostraExameSangue.getText().toString());
         outState.putString(EDIT_URINA, (String) txtDataAmostraExameUrina.getText().toString());
-        outState.putInt(LABORATRIO, spinnerLaboratorio.getSelectedItemPosition());
         super.onSaveInstanceState(outState);
     }
 
@@ -164,7 +147,6 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
         super.onRestoreInstanceState(savedInstanceState);
         txtDataAmostraExameSangue.setText(savedInstanceState.getString(EDIT_SANGUE));
         txtDataAmostraExameUrina.setText(savedInstanceState.getString(EDIT_URINA));
-        spinnerLaboratorio.setSelection(savedInstanceState.getInt(LABORATRIO));
     }
 
     @Override
@@ -198,7 +180,7 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
     private void salvarRequisicao(final Requisicao requisicao) {
         String url = Constantes.URL_REQUISICAO + "inserirRequisicao";
 
-     /*   final JSONObject jsonBody;
+        final JSONObject jsonBody;
         try {
 
             final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -246,7 +228,7 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
         } catch (JSONException e) {
             Log.d("Teste", e.toString());;
         }
-        */
+
     }
 
     private void persistirRequisicao(Requisicao requisicao) {
@@ -273,7 +255,7 @@ public class NovaRequisicaoActivity extends PrincipalActivity implements
         requisicao.setDataRequisicao(new Date());
 
         requisicao.setPaciente(paciente);
-        requisicao.setLaboratorio((Laboratorio) spinnerLaboratorio.getSelectedItem());
+        requisicao.setLaboratorio(Laboratorio.MICROBIOLOGIA);
 
         List<Exame> listExames = new ArrayList<>();
         if(checkBoxSangue.isChecked()){

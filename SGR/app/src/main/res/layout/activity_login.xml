@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="br.ufrn.imd.sgr.MainActivity">
+    tools:context="br.ufrn.imd.sgr.MainActivity" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorWindowBackground"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
@@ -32,8 +32,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -47,7 +46,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textColorHint="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 

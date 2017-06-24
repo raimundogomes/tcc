@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#b2dfdb</color>
-    <color name="colorPrimaryDark">#c9cccf</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorWindowBackground">#b2dfdb</color>
+    <color name="colorPrimaryDark">#00897b</color>
     <color name="colorAccent">#009688</color>
     <color name="primary">#009688</color>
     <color name="primary_text">#212121</color>
@@ -17,8 +18,6 @@
     <color name="input_register">#888888</color>
     <color name="input_register_bg">#3b4148</color>
     <color name="input_register_hint">#5e6266</color>
-    <color name="btn_login">#26ae90</color>
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
-    <color name="btn_logut_bg">#ff6861</color>
 </resources>
