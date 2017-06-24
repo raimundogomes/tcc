@@ -7,9 +7,7 @@ import java.util.Comparator;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.utils.Constantes;
 
-/**
- * Created by thiago on 05/06/16.
- */
+
 public class RequisicaoComparator implements Comparator<Requisicao> {
 
     private int criterio;

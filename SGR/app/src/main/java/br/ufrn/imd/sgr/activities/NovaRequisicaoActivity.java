@@ -166,8 +166,8 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
             if(validarRequisicao(requisicao)){
                 salvarRequisicao(requisicao);
             }else{
-           //     String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);
-                Toast toast = Toast.makeText(this, "sss", Toast.LENGTH_SHORT);
+                String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);
+                Toast toast = Toast.makeText(this, mensagemErro, Toast.LENGTH_SHORT);
                 toast.show();
             }
         }
