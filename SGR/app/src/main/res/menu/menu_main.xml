@@ -16,18 +16,20 @@
     <item
         android:id="@+id/menu_configuracoes"
         android:title="@string/label_configuracoes"
-        app:showAsAction="never"
+        app:showAsAction="ifRoom"
+        android:icon="@mipmap/ic_settings_white_24dp"
         />
 
     <item
         android:id="@+id/menu_sair"
         android:icon="@mipmap/ic_exit_to_app_white_24dp"
         android:title="@string/label_sair"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
        />
     <item
         android:id="@+id/menu_desconectar"
         android:title="@string/label_desconectar"
-        app:showAsAction="ifRoom"
+        android:icon="@mipmap/ic_close_black_24dp"
+        app:showAsAction="never"
         />
 </menu>
