@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ListaRequisicaoActivity extends Activity implements AdapterView.OnItemClickListener,
+public class ListaRequisicaoActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,
         AdapterView.OnItemLongClickListener,
         DialogInterface.OnClickListener,
         TextWatcher {
@@ -62,7 +63,7 @@ public class ListaRequisicaoActivity extends Activity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_requisicoes);
+        setContentView(R.layout.activity_requisicoes2);
 
         requisicaoDao = new RequisicaoDao(this);
 

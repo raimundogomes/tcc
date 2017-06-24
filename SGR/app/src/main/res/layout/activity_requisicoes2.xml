@@ -6,5 +6,23 @@
     android:fitsSystemWindows="true"
     tools:context="br.ufrn.imd.sgr.RequisicoesActivity" >
 
+    <LinearLayout android:layout_margin="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome paciente"  />
+
+        <ListView android:layout_marginTop="15dp"
+            android:id="@+id/list_requisicao"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>
