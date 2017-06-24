@@ -14,9 +14,7 @@ import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
-/**
- * Created by thiago on 28/05/16.
- */
+
 public class RequisicaoAdapter extends ArrayAdapter<Requisicao> {
 
     private Context context;

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,11 +34,15 @@ import br.ufrn.imd.sgr.adapter.RequisicaoAdapter;
 import br.ufrn.imd.sgr.comparator.RequisicaoComparator;
 import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Email;
+import br.ufrn.imd.sgr.model.Laboratorio;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.DateUtils;
 import br.ufrn.imd.sgr.utils.DetectaConexao;
 import br.ufrn.imd.sgr.utils.EmailUtil;
+import br.ufrn.imd.sgr.utils.ExamesBulder;
+import br.ufrn.imd.sgr.utils.PacienteFactory;
+import br.ufrn.imd.sgr.utils.RequisicaoBuilder;
 
 public class RequisicoesActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener,
@@ -73,6 +78,10 @@ public class RequisicoesActivity extends AppCompatActivity
             requisicoes = requisicaoDao.listar();
         }
 
+
+        requisicoes = new ArrayList<Requisicao>(RequisicaoBuilder.getRequisicoes().values());
+
+
         //queue = Volley.newRequestQueue(ListaRequisicaoActivity.this);
 
         ListView listView = (ListView) findViewById(R.id.list_requisicao);
@@ -94,7 +103,7 @@ public class RequisicoesActivity extends AppCompatActivity
         //edit search
         EditText editSearch = (EditText) findViewById(R.id.edit_search);
 
-       // editSearch.addTextChangedListener(this);
+        editSearch.addTextChangedListener(this);
 
     }
 

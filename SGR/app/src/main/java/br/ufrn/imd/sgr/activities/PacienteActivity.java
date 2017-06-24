@@ -3,6 +3,7 @@ package br.ufrn.imd.sgr.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.EmailUtil;
 
 
-public class PacienteActivity extends PrincipalActivity {
+public class PacienteActivity extends AppCompatActivity {
 
     private Paciente paciente;
 

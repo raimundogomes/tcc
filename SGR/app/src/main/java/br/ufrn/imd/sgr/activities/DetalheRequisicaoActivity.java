@@ -3,6 +3,7 @@ package br.ufrn.imd.sgr.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
 
-public class DetalheRequisicaoActivity extends PrincipalActivity {
+public class DetalheRequisicaoActivity extends AppCompatActivity {
 
     private Requisicao requisicao;
 
