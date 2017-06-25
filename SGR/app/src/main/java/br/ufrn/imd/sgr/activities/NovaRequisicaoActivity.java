@@ -1,6 +1,6 @@
 package br.ufrn.imd.sgr.activities;
 
-import android.app.Activity;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -96,12 +96,11 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
         //paciente
         Intent intent = getIntent();
 
-        paciente = (Paciente) intent.getExtras().get(Constantes.DADOS_PACIENTE_REQUISICAO_NOVA_ACTIVITY);
+          paciente = (Paciente) intent.getExtras().get(Constantes.DADOS_PACIENTE_REQUISICAO_NOVA_ACTIVITY);
 
-        atualizarDadosPaciente(paciente);
 
         //exame de sangue
-        checkBoxSangue = (CheckBox) findViewById(R.id.checkBoxExameSangue);
+        checkBoxSangue = (CheckBox) findViewById(R.id.checkBoxAbscessos);
         checkBoxSangue.setOnClickListener(this);
 
         txtDataAmostraExameSangue = (TextView) findViewById(R.id.editTextDataAmostraExameSangue);
@@ -113,11 +112,6 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
         checkBoxUrina = (CheckBox) findViewById(R.id.checkBoxExameUrina);
         checkBoxUrina.setOnClickListener(this);
 
-        txtDataAmostraExameUrina = (TextView) findViewById(R.id.editTextDataAmostraExameUrina);
-
-        imgBtnCalendarioUrina = (ImageButton) findViewById(R.id.imageButtonCalendarioUrina);
-        imgBtnCalendarioUrina.setOnClickListener(this);
-
         //salvar
         buttonSalvar = (Button) findViewById(R.id.buttonSalvar);
         buttonSalvar.setOnClickListener(this);
@@ -125,15 +119,6 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
         /////////////////
         requisicaoDao = new RequisicaoDao(this);
         pacienteDao = new PacienteDao(this);
-    }
-
-    private void atualizarDadosPaciente(Paciente paciente) {
-
-        TextView prontuario = (TextView) findViewById(R.id.txtProntuario);
-        prontuario.setText(paciente.getProntuario().toString());
-
-        TextView nome = (TextView) findViewById(R.id.txtNomePaciente);
-        nome.setText(paciente.getNome());
     }
 
     @Override
@@ -162,6 +147,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
         } else if(v == imgBtnCalendarioUrina){
             showDialog(ID_DATA_REQUISICAO_URINA);
         } else if(v == buttonSalvar){
+            montarRequisicao().setPaciente(paciente);
             Requisicao requisicao = montarRequisicao();
             if(validarRequisicao(requisicao)){
                 salvarRequisicao(requisicao);
@@ -185,7 +171,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
             final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             String jsonInString = gson.toJson(requisicao);
-            
+
             jsonBody = new JSONObject(jsonInString);
 
 
@@ -195,18 +181,18 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
                 public void onResponse(JSONObject response) {
                     Log.d("Teste", response.toString());
 
-                   try {
-                       Long numeroRequisicao = response.getLong("numero");
+                    try {
+                        Long numeroRequisicao = response.getLong("numero");
 
-                       requisicao.setNumero(numeroRequisicao);
+                        requisicao.setNumero(numeroRequisicao);
 
                     } catch (JSONException e) {// refatorar codigo. Lancar e tratar exceção.
-                       e.printStackTrace();
+                        e.printStackTrace();
                         Log.d("Teste", e.getMessage());
                     }
-                    
+
                     persistirRequisicao(requisicao);
-                    
+
                     Intent result = new Intent();
                     result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, requisicao);
                     setResult(RESULT_OK, result);
@@ -245,7 +231,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
         requisicaoDao.insert(requisicao);
 
-       // Log.d("Teste", requisicaoDao.listar().toString());
+        // Log.d("Teste", requisicaoDao.listar().toString());
     }
 
     private Requisicao montarRequisicao() {

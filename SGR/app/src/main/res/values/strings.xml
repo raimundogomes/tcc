@@ -49,4 +49,6 @@
     <string name="title_activity_pesquisar_paciente">Pesquisar paciente</string>
 
     <string name="erro_preenchimento_obrigatorio">Preenchimento Obrigatório</string>
+    <string name="label_sim">SIM</string>
+    <string name="label_nao">NÃO</string>
 </resources>

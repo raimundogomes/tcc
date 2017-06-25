@@ -6,60 +6,198 @@
     android:fitsSystemWindows="true"
     tools:context="br.ufrn.imd.sgr.activities.NovaRequisicaoActivity" >
 
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
     <LinearLayout android:layout_margin="10dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="INFORMAÇÕES SOBRE O PACIENTE"
+            android:textStyle="bold" />
+
+        <TextView android:textColor="@color/primary_text"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Submetido a algum procedimento invasivo?"/>
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_group_procedimento_invasivo"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/lbProntuario"
+            <RadioButton android:id="@+id/radio_proced_invasivo_sim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prontuário: "
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/txtProntuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"/>
-
-            <TextView android:layout_marginLeft="15dp"
-                android:id="@+id/lbNomePaciente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Paciente: "
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/txtNomePaciente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:text="@string/label_sim"
                 />
-        </LinearLayout>
+            <RadioButton android:id="@+id/radio_proced_invasivo_nao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_nao"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content" android:textColor="@color/primary_text"
+            android:layout_height="wrap_content" android:text="Internado nas últimas 72h?"/>
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_group_internado"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/radio_internado_sim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_sim"
+                />
+            <RadioButton android:id="@+id/radio_internado_nao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_nao"
+                />
+        </RadioGroup>
+
+        <TextView android:textColor="@color/primary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Fez uso de antibióticos nos últimos 10 dias?"/>
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_group_antibiotico"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/radio_antibiotico_sim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_sim"
+                />
+            <RadioButton android:id="@+id/radio_antibiotico_nao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_nao"
+                />
+        </RadioGroup>
 
 
         <TextView
             android:id="@+id/txtExames"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Exames"
+            android:text="CULTURA DE SECREÇÃO"
             android:textStyle="bold"
             android:layout_marginTop="10dp"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alwaysDrawnWithCache="false"
+            android:baselineAligned="false"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkBoxExameSangue"
-            android:layout_width="match_parent"
+            <CheckBox
+                android:id="@+id/checkBoxFeridaOperatoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ferida Operatória" />
+
+            <CheckBox
+                android:id="@+id/checkBoxAbscessos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abscessos" />
+
+            <CheckBox
+                android:id="@+id/checkBoxUlceras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Úlceras" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSwab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fragmento de tecido" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtCulturaSangue"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Sangue"/>
-        <CheckBox
-            android:id="@+id/checkBoxExameSecrecao"
-            android:layout_width="match_parent"
+            android:text="HEMOCULTURA"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_group_hemocultura"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Secreção"/>
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/radio_hemocultura_veia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Veia periférica" android:checked="true"
+                />
+            <RadioButton android:id="@+id/radio_hemocultura_cateter_central"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cateter Central"
+                />
+            <RadioButton android:id="@+id/radio_hemocultura_cateter_umbilical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cateter Umbilical"
+                />
+            <RadioButton android:id="@+id/radio_hemocultura_arteria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artéria"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/txtCulturaURINA"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="URUCULTURA"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_group_urucultura"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/radio_urucultura_jato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jato médio" android:checked="true"
+                />
+            <RadioButton android:id="@+id/radio_urucultura_svd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SVD"
+                />
+            <RadioButton android:id="@+id/radio_urucultura_sonda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sonda de alívio"
+                />
+            <RadioButton android:id="@+id/radio_urucultura_saco_coletor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saco coletor"
+                />
+            <RadioButton android:id="@+id/radio_urucultura_puncao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Punção subpúbica"
+                />
+        </RadioGroup>
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -71,14 +209,14 @@
                 android:id="@+id/imageButtonCalendarioSangue"
                 android:src="@drawable/calendario"/>
 
-            <EditText
+            <TextView android:drawableLeft="@android:drawable/ic_menu_my_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:ems="10"
-                android:hint="Data da coleta"
+                android:text="Data e hora da coleta"
                 android:id="@+id/editTextDataAmostraExameSangue"
-                android:editable="false" />
+                 />
         </LinearLayout>
 
         <CheckBox
@@ -87,35 +225,14 @@
             android:layout_height="wrap_content"
             android:text="Urina"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButtonCalendarioUrina"
-                android:src="@drawable/calendario"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:ems="10"
-                android:hint="Data da coleta"
-                android:id="@+id/editTextDataAmostraExameUrina"
-                android:editable="false"/>
-        </LinearLayout>
-
-        <Button
+        <Button android:layout_margin="@dimen/text_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar"
             android:id="@+id/buttonSalvar" />
 
 
-
     </LinearLayout>
 
-
+  </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

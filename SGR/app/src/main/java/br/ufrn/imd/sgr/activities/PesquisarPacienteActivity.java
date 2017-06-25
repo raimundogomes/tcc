@@ -3,8 +3,7 @@ package br.ufrn.imd.sgr.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,33 +11,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.adapter.PacienteAdapter;
+import br.ufrn.imd.sgr.business.PacienteServiceImpl;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
+import br.ufrn.imd.sgr.service.PacienteService;
 import br.ufrn.imd.sgr.utils.Constantes;
 
 public class PesquisarPacienteActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private RequestQueue queue;
-
     private ListView listview;
+
+    private PacienteService pacienteService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +34,13 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
 
         Button button = (Button) findViewById(R.id.botao_pesquisar_paciente);
 
-        queue = Volley.newRequestQueue(this);
-
         listview = (ListView) findViewById(R.id.listView_paciente);
 
         button.setOnClickListener(this);
 
         listview.setOnItemClickListener(this);
+
+        pacienteService = new PacienteServiceImpl();
 
     }
 
@@ -81,50 +68,22 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
 
         if(camposEstaoPreenchidos()) {
             String prontuario =  ((TextView)findViewById(R.id.text_prontuario)).getText().toString();
+            List<Paciente> lista;
 
             if(!"".equals(prontuario)){
-                Log.d("Teste", "pesquisar por prontuário");
-                pesquisarPaciente(prontuario, view);
+
+                lista = pacienteService.pesquisarPaciente(prontuario);
             }
             else{
+                String nome = ((TextView) findViewById(R.id.text_nome_paciente)).getText().toString();
 
-                pesquisarPacientesPeloNome(view);
+                lista = pacienteService.pesquisarPacientesPeloNome(nome);
+
             }
+
+            montarListaPacientes(lista, view);
 
         }
-    }
-
-    private void pesquisarPaciente(String prontuario, final View view) {
-        String urlPaciente = Constantes.URL_PACIENTE;
-
-       if(!"".equals(prontuario)){
-            urlPaciente += "prontuario/"+prontuario;
-        }
-
-        Log.d("Teste", urlPaciente);
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, urlPaciente, null, new Response
-                .Listener<JSONObject>(){
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("Teste", response.toString());
-                Gson gson = new Gson();
-
-                    Paciente paciente = gson.fromJson(response.toString(), Paciente.class);
-                    final List<Paciente> list = new ArrayList<Paciente>();
-                    list.add(paciente);
-
-                montarListaPacientes(list, view);
-
-            }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        queue.add(jsObjRequest);
     }
 
     private void montarListaPacientes(List<Paciente> list, View view) {
@@ -139,49 +98,6 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
 
         final PacienteAdapter adapter = new PacienteAdapter(view.getContext(), list);
         listview.setAdapter(adapter);
-    }
-
-    private void pesquisarPacientesPeloNome(final View view) {
-        try {
-            String nome = ((TextView) findViewById(R.id.text_nome_paciente)).getText().toString();
-            String urlNome = Constantes.URL_PACIENTE + "nome/" + nome;
-            JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, urlNome, null, new Response
-                    .Listener<JSONArray>() {
-
-                @Override
-                public void onResponse(JSONArray response) {
-                    try {
-                        Gson gson = new Gson();
-                        Log.i("Teste", "teste 1");
-                        final List<Paciente> list = new ArrayList<Paciente>();
-                        for (int i = 0; i < response.length(); ++i) {
-                            Paciente paciente = gson.fromJson(response.getJSONObject(i).toString(), Paciente.class);
-                            Log.i("Teste", paciente.getNome());
-                            list.add(paciente);
-                        }
-                        montarListaPacientes(list, view);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                    Toast.makeText(getApplicationContext(),
-                            "ERRO ", Toast.LENGTH_LONG)
-                            .show();
-                }
-            });
-
-            jsObjRequest.setTag("REST");
-
-            queue.add(jsObjRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
