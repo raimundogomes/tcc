@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,16 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,10 +40,12 @@ import br.ufrn.imd.sgr.activities.DetalheRequisicaoActivity;
 import br.ufrn.imd.sgr.activities.PacienteActivity;
 import br.ufrn.imd.sgr.activities.PesquisarPacienteActivity;
 import br.ufrn.imd.sgr.adapter.RequisicaoAdapter;
+import br.ufrn.imd.sgr.business.RequisicaoBusiness;
 import br.ufrn.imd.sgr.comparator.RequisicaoComparator;
 import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Email;
 import br.ufrn.imd.sgr.model.Requisicao;
+import br.ufrn.imd.sgr.model.StatusRequisicao;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.DateUtils;
 import br.ufrn.imd.sgr.utils.DetectaConexao;
@@ -46,10 +59,7 @@ public class RequisicoesActivity extends AppCompatActivity
 
     public static final String SUBJECT_EMAIL = "[SGR] - Encaminhamento de Requisição";
 
-    //  private RequestQueue queue;
-
     private List<Requisicao> requisicoes = new ArrayList<Requisicao>();
-
 
     private List<Requisicao> requisicoesfiltradas;
 
@@ -60,6 +70,7 @@ public class RequisicoesActivity extends AppCompatActivity
     private int criterioOrdenacaoSelecionado = Constantes.CRITERIO_DATA_REQUISICAO;
 
     private RequisicaoDao requisicaoDao;
+    private RequisicaoBusiness requisicaoBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +79,13 @@ public class RequisicoesActivity extends AppCompatActivity
 
         requisicaoDao = new RequisicaoDao(this);
 
+        requisicaoBusiness = new RequisicaoBusiness(RequisicoesActivity.this);
+
         if(requisicoes.size()==0){
             requisicoes = requisicaoDao.listar();
         }
 
-        //queue = Volley.newRequestQueue(ListaRequisicaoActivity.this);
+
 
         ListView listView = (ListView) findViewById(R.id.list_requisicao);
 
@@ -182,7 +195,8 @@ public class RequisicoesActivity extends AppCompatActivity
                 abrirConfiguracoes();
                 break;
             case R.id.menu_desconectar:
-                desconectar();
+                requisicaoBusiness.desconectar(this);
+                finish();
                 break;
             case R.id.menu_nova_requisicao:
                 novaRequisicao();
@@ -194,15 +208,7 @@ public class RequisicoesActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void desconectar() {
-        SharedPreferences sp = getSharedPreferences(Constantes.PREF_NAME, MODE_PRIVATE);
 
-        boolean b = sp.getBoolean(Constantes.CONFIGURACAO_CONECTADO, false);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.clear().commit();
-
-        finish();
-    }
 
     public void exibirMensagemSicronizacao() {
 
@@ -297,50 +303,14 @@ public class RequisicoesActivity extends AppCompatActivity
     @Override
     public void onClick(DialogInterface dialog, int which) {
 
-
         //realizar o cancelamento da requisição pelo serviço
-        cancelarRequisicaoServico(requisicaoSelecionada.getNumero());
+        requisicaoBusiness.cancelarRequisicaoServico(requisicaoSelecionada, getApplicationContext());
+        requisicaoSelecionada.setStatus(StatusRequisicao.CANCELADA);
+        requisicaoAdapter.notifyDataSetChanged();
 
     }
 
-    private void cancelarRequisicaoServico(long numeroRequisicao) {
 
-        String url = Constantes.URL_REQUISICAO + "cancelarRequisicao";
-
-  /*      final JSONObject jsonBody;
-        try {
-            jsonBody = new JSONObject("{\"numeroRequisicao\":\"" + numeroRequisicao +  "\"}");
-
-            Log.d("Teste", jsonBody.get("numeroRequisicao").toString());
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response
-                .Listener<JSONObject>(){
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("Teste", response.toString());
-                requisicaoSelecionada.setStatus(StatusRequisicao.CANCELADA);
-                requisicaoAdapter.notifyDataSetChanged();
-                requisicaoSelecionada = null;
-                Toast.makeText(getApplicationContext(),
-                        "Requisição cancelada com sucesso.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Teste", error.toString());
-                Toast.makeText(getApplicationContext(),
-                        "Não foi possível estabelecer conexão para cancelar a requisição.",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
-        queue.add(jsObjRequest);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -363,6 +333,43 @@ public class RequisicoesActivity extends AppCompatActivity
         }
 
         requisicaoAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case Constantes.INDICE_ACTIVITY_CONFIGURACOES:
+                if(resultCode == RESULT_OK){
+                    criterioOrdenacaoSelecionado = (int) data.getSerializableExtra(Constantes.CONFIGURACAO_ACTIVITY);
+                    Collections.sort(requisicoesfiltradas, new RequisicaoComparator(criterioOrdenacaoSelecionado));
+
+                    salvarConfiguracaoOrdenacao();
+
+                    requisicaoAdapter.notifyDataSetChanged();
+                }
+                break;
+            case Constantes.INDICE_ACTIVITY_NOVA_REQUISICAO:
+                if(resultCode == RESULT_OK){
+                    Requisicao novaRequisicao = (Requisicao) data.getSerializableExtra(Constantes.REQUISICAO_NOVA_ACTIVITY);
+                    requisicoes.add(novaRequisicao);
+                    requisicoesfiltradas.add(novaRequisicao);
+                    Collections.sort(requisicoes, new RequisicaoComparator(criterioOrdenacaoSelecionado));
+                    Collections.sort(requisicoesfiltradas, new RequisicaoComparator(criterioOrdenacaoSelecionado));
+                    requisicaoAdapter.notifyDataSetChanged();
+                    Toast.makeText(this, "Nova requisição inserida. Nº: " + novaRequisicao.getNumeroFormatado() , Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void salvarConfiguracaoOrdenacao() {
+        SharedPreferences preferencias = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putInt (Constantes.CONFIGURACAO_CRITERIO_SELECIONADO, criterioOrdenacaoSelecionado);
+        editor.commit();
     }
 
     @Override

@@ -124,4 +124,21 @@ public class RequisicaoDao {
         return data;
     }
 
+    public void cancelar(Requisicao requisicao) {
+
+        ContentValues values = montarContentValues(requisicao);
+
+        baseDao.getDatabase().update(REQUISICAO, values, "id = ?",
+                new String[] { "" + requisicao.getId()});
+
+    }
+
+    private ContentValues montarContentValues(Requisicao requisicao) {
+        ContentValues values = new ContentValues(1);
+
+        values.put("ID_SITUACAO", requisicao.getStatus().getCodigo());
+
+        return values;
+    }
+
 }
