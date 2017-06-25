@@ -44,9 +44,6 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pesquisar_paciente);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setTitle("sljakljklj");
-        setSupportActionBar(toolbar);
 
         Button button = (Button) findViewById(R.id.botao_pesquisar_paciente);
 

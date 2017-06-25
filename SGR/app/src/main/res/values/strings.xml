@@ -46,6 +46,7 @@
 
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_requisicoes">Requisições</string>
+    <string name="title_activity_pesquisar_paciente">Pesquisar paciente</string>
 
     <string name="erro_preenchimento_obrigatorio">Preenchimento Obrigatório</string>
 </resources>
