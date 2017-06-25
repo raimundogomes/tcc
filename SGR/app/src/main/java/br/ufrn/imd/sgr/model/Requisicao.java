@@ -27,20 +27,10 @@ public class Requisicao implements Serializable {
 
     private Laboratorio laboratorio;
 
-    private List<Exame> exames;
-
     private Date dataUltimaModificacao;
 
     public Requisicao() {
 
-    }
-
-    public List<Exame> getExames() {
-        return (exames ==null)? new ArrayList<Exame>(): exames;
-    }
-
-    public void setExames(List<Exame> exames) {
-        this.exames = exames;
     }
 
     public Requisicao(Date dataRequisicao, Paciente paciente, StatusRequisicao status) {
@@ -102,9 +92,6 @@ public class Requisicao implements Serializable {
         return String.format(FORMATO_NUMERO, this.numero);
     }
 
-    public String getExamesFormatados(){
-        return exames==null ? "": exames.toString();
-    }
 
     public Long getId() {
         return id;
@@ -132,7 +119,6 @@ public class Requisicao implements Serializable {
                 ", id=" + id +
                 ", numero=" + numero +
                 ", laboratorio=" + laboratorio +
-                ", exames=" + exames +
                 ", dataUltimaModificacao=" + dataUltimaModificacao +
                 '}';
     }

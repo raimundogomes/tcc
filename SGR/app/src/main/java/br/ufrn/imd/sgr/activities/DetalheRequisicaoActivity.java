@@ -35,8 +35,8 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_exames);
 
-        final ExameAdapter exameAdapter = new ExameAdapter(this,  requisicao.getExames());
-        listView.setAdapter(exameAdapter);
+//        final ExameAdapter exameAdapter = new ExameAdapter(this,  requisicao.getExames());
+//        listView.setAdapter(exameAdapter);
     }
 
     private void criarDadosRequisicao(Requisicao requisicao) {

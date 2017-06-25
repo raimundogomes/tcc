@@ -57,9 +57,9 @@ public class RequisicaoAdapter extends ArrayAdapter<Requisicao> {
         }
 
 
-        //solicitante
-        TextView textViewSolicitante = (TextView) view.findViewById(R.id.text_exames);
-        textViewSolicitante.setText(requisicao.getExamesFormatados());
+//        //solicitante
+//        TextView textViewSolicitante = (TextView) view.findViewById(R.id.text_exames);
+//        textViewSolicitante.setText(requisicao.getExamesFormatados());
 
         return view;
     }

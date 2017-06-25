@@ -323,8 +323,8 @@ public class ListaRequisicaoActivity extends AppCompatActivity implements Adapte
         corpoEmail = "Prezado(a) " + requisicaoSelecionada.getPaciente().getNome() + " segue as informações da sua requisição:" + "\n" +
                 "Número da requisição: " + requisicaoSelecionada.getNumeroFormatado() + "\n" +
                 "Data da requisição: " + DateUtils.obterDataPorExtenso(requisicaoSelecionada.getDataRequisicao()) + "\n" +
-                "Status da requisição: " + requisicaoSelecionada.getStatus().getDescricao() + "\n" +
-                "Exames: " + requisicaoSelecionada.getExamesFormatados();
+                "Status da requisição: " + requisicaoSelecionada.getStatus().getDescricao() + "\n";
+               // "Exames: " + requisicaoSelecionada.getExamesFormatados();
         return corpoEmail;
     }
 

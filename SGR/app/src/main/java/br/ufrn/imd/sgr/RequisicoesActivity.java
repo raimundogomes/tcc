@@ -79,7 +79,7 @@ public class RequisicoesActivity extends AppCompatActivity
 
         requisicaoDao = new RequisicaoDao(this);
 
-        requisicaoBusiness = new RequisicaoBusiness(RequisicoesActivity.this);
+        requisicaoBusiness = new RequisicaoBusiness(getApplicationContext());
 
         if(requisicoes.size()==0){
             requisicoes = requisicaoDao.listar();
@@ -286,8 +286,7 @@ public class RequisicoesActivity extends AppCompatActivity
         corpoEmail = "Prezado(a) " + requisicaoSelecionada.getPaciente().getNome() + " segue as informações da sua requisição:" + "\n" +
                 "Número da requisição: " + requisicaoSelecionada.getNumeroFormatado() + "\n" +
                 "Data da requisição: " + DateUtils.obterDataPorExtenso(requisicaoSelecionada.getDataRequisicao()) + "\n" +
-                "Status da requisição: " + requisicaoSelecionada.getStatus().getDescricao() + "\n" +
-                "Exames: " + requisicaoSelecionada.getExamesFormatados();
+                "Status da requisição: " + requisicaoSelecionada.getStatus().getDescricao() + "\n";
         return corpoEmail;
     }
 
@@ -307,6 +306,9 @@ public class RequisicoesActivity extends AppCompatActivity
         requisicaoBusiness.cancelarRequisicaoServico(requisicaoSelecionada, getApplicationContext());
         requisicaoSelecionada.setStatus(StatusRequisicao.CANCELADA);
         requisicaoAdapter.notifyDataSetChanged();
+        Toast.makeText(this,
+                "Requisição cancelada com sucesso.",
+                Toast.LENGTH_SHORT).show();
 
     }
 

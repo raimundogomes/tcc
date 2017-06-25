@@ -17,7 +17,8 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="INFORMAÇÕES SOBRE O PACIENTE"
+            android:background="@color/colorWindowBackground"
+            android:text="INFORMAÇÕES SOBRE O PACIENTE (OBRIGATÓRIO)"
             android:textStyle="bold" />
 
         <TextView android:textColor="@color/primary_text"
@@ -81,14 +82,16 @@
                 />
         </RadioGroup>
 
+        <Switch
+            android:id="@+id/culturaSecrecao"
+            android:layout_width="match_parent"
 
-        <TextView
-            android:id="@+id/txtExames"
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="CULTURA DE SECREÇÃO"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/colorWindowBackground"
+            android:layoutDirection="rtl"
+            android:text=" CULTURA DE SECREÇÃO"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -118,53 +121,60 @@
                 android:text="Úlceras" />
 
             <CheckBox
-                android:id="@+id/checkBoxSwab"
+                android:id="@+id/checkBoxFragmento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fragmento de tecido" />
         </LinearLayout>
 
-        <TextView
+        <Switch
             android:id="@+id/txtCulturaSangue"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HEMOCULTURA"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/colorWindowBackground"
+            android:layoutDirection="rtl"
+            android:text=" HEMOCULTURA"
+            android:textStyle="bold" />
+
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/radio_group_hemocultura"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+          >
             <RadioButton android:id="@+id/radio_hemocultura_veia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Veia periférica" android:checked="true"
+                android:text="Veia periférica"  android:enabled="false"
                 />
             <RadioButton android:id="@+id/radio_hemocultura_cateter_central"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content" android:enabled="false"
                 android:text="Cateter Central"
                 />
             <RadioButton android:id="@+id/radio_hemocultura_cateter_umbilical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content" android:enabled="false"
                 android:text="Cateter Umbilical"
                 />
             <RadioButton android:id="@+id/radio_hemocultura_arteria"
-                android:layout_width="wrap_content"
+                android:layout_width="wrap_content" android:enabled="false"
                 android:layout_height="wrap_content"
                 android:text="Artéria"
                 />
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/txtCulturaURINA"
-            android:layout_width="fill_parent"
+        <Switch
+            android:id="@+id/txtCulturaUrina"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="URUCULTURA"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/colorWindowBackground"
+            android:layoutDirection="rtl"
+            android:text=" URUCULTURA"
+            android:textStyle="bold" />
+
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/radio_group_urucultura"
             android:layout_width="fill_parent"
@@ -173,31 +183,36 @@
             <RadioButton android:id="@+id/radio_urucultura_jato"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jato médio" android:checked="true"
+                android:text="Jato médio" android:enabled="false"
                 />
             <RadioButton android:id="@+id/radio_urucultura_svd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SVD"
+                android:text="SVD" android:enabled="false"
                 />
             <RadioButton android:id="@+id/radio_urucultura_sonda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sonda de alívio"
+                android:text="Sonda de alívio" android:enabled="false"
                 />
             <RadioButton android:id="@+id/radio_urucultura_saco_coletor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Saco coletor"
+                android:text="Saco coletor" android:enabled="false"
                 />
             <RadioButton android:id="@+id/radio_urucultura_puncao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Punção subpúbica"
+                android:text="Punção subpúbica" android:enabled="false"
                 />
         </RadioGroup>
 
-
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWindowBackground"
+            android:text="DATA e HORA"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -209,21 +224,16 @@
                 android:id="@+id/imageButtonCalendarioSangue"
                 android:src="@drawable/calendario"/>
 
-            <TextView android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:ems="10"
                 android:text="Data e hora da coleta"
-                android:id="@+id/editTextDataAmostraExameSangue"
+                android:id="@+id/editTextDataColeta"
                  />
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/checkBoxExameUrina"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Urina"/>
 
         <Button android:layout_margin="@dimen/text_margin"
             android:layout_width="match_parent"
