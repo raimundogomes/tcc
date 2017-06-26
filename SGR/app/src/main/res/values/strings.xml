@@ -17,7 +17,7 @@
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Esqueceu sua senha?</string>
     <string name="btn_reset_password">Nova senha</string>
-    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="btn_back"><![CDATA[<< Voltar]]></string>
     <string name="btn_change">Change</string>
     <string name="btn_sign_out">Sair</string>
     <string name="lbl_forgot_password">Esqueceu a senha?</string>

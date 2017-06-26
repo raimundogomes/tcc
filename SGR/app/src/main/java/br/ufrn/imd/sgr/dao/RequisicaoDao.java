@@ -22,8 +22,8 @@ public class RequisicaoDao {
 
     public static final String REQUISICAO = "requisicao";
 
-    public static String[] COLUNAS_REQUISICAO = new String[]{"ID", "NUMERO", "DATA_REQUISICAO", "ID_SITUACAO", "ID_LABORATORIO",
-            "ID_PACIENTE", "DATA_COLETA", "DATA_ULTIMA_ATUALIZACAO"};
+    //public static String[] COLUNAS_REQUISICAO = new String[]{"ID", "NUMERO", "DATA_REQUISICAO", "ID_SITUACAO", "ID_LABORATORIO",
+     //       "ID_PACIENTE", "EMAIL_SOLICITANTE", "DATA_COLETA", "DATA_ULTIMA_ATUALIZACAO"};
 
     private BaseDao baseDao;
 
@@ -42,6 +42,8 @@ public class RequisicaoDao {
         values.put("ID_LABORATORIO", requisicao.getLaboratorio().getId());
 
         values.put("ID_PACIENTE", requisicao.getPaciente().getId());
+
+        values.put("EMAIL_SOLICITANTE", requisicao.getEmailSolicitante());
 
         values.put("DATA_REQUISICAO", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
 

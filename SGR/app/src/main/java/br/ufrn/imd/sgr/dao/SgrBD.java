@@ -31,6 +31,7 @@ public class SgrBD  extends SQLiteOpenHelper {
                     "(ID INTEGER PRIMARY KEY," +
                     " NUMERO INTEGER, " +
                     "ID_PACIENTE INTEGER, " +
+                    "EMAIL_SOLICITANTE TEXT, " +
                     "DATA_REQUISICAO TEXT(20), " +
                     "ID_SITUACAO INTEGER, " +
                     "ID_LABORATORIO INTEGER, " +

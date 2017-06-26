@@ -19,6 +19,8 @@ public class Requisicao implements Serializable {
 
     private Paciente paciente;
 
+    private String emailSolicitante;
+
     private StatusRequisicao status;
 
     private Long id;
@@ -136,5 +138,13 @@ public class Requisicao implements Serializable {
 
     public List<Exame> getExames() {
         return this.exames;
+    }
+
+    public String getEmailSolicitante() {
+        return emailSolicitante;
+    }
+
+    public String setEmailSolicitante(String email) {
+        return this.emailSolicitante = email;
     }
 }

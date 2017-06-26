@@ -327,7 +327,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
         List<Exame> listaExames = new ArrayList<>();
         
-        if(radioCulturaSangue.isActivated()){
+        if(radioCulturaSangue.isEnabled()){
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(radioCulturaSangue.getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.SANGUE);
@@ -335,7 +335,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
             listaExames.add(exame);
         }
 
-        if(radioCulturaUrina.isActivated()){
+        if(radioCulturaUrina.isEnabled()){
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(radioCulturaUrina.getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.URINA);
@@ -343,7 +343,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
             listaExames.add(exame);
         }
 
-        if(radioCulturaUrina.isActivated()){
+        if(radioCulturaUrina.isEnabled()){
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(radioTipoColetaSecrecao.getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.URINA);
