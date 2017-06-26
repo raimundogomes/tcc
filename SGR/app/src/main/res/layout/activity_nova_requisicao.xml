@@ -93,39 +93,62 @@
             android:text=" CULTURA DE SECREÇÃO"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alwaysDrawnWithCache="false"
-            android:baselineAligned="false"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/checkBoxFeridaOperatoria"
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/radio_group_secrecao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ferida Operatória" />
+                android:layout_height="wrap_content" android:orientation="vertical" >
+                <RadioButton
+                    android:id="@+id/radioFeridaOperatoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="Ferida Operatória" />
 
-            <CheckBox
-                android:id="@+id/checkBoxAbscessos"
+                <RadioButton
+                    android:id="@+id/radioAbscessos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="Abscessos" />
+                <RadioButton
+                    android:id="@+id/radioUlceras"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="Úlceras" />
+
+                <RadioButton
+                    android:id="@+id/radioFragmento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="Fragmento de tecido" />
+            </RadioGroup>
+
+        <TextView android:layout_marginTop="@dimen/activity_vertical_margin"
+
+            android:layout_width="wrap_content" android:textColor="@color/primary_text"
+            android:layout_height="wrap_content" android:text="Tipo da coleta?"/>
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_group_secrecao_tipo_coleta"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/radio_swab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Abscessos" />
-
-            <CheckBox
-                android:id="@+id/checkBoxUlceras"
+                android:text="@string/label_swab"
+                android:enabled="false"
+                />
+            <RadioButton android:id="@+id/radio_agulha"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Úlceras" />
+                android:text="@string/radio_aspirado_por_agulha"
+                />
+        </RadioGroup>
 
-            <CheckBox
-                android:id="@+id/checkBoxFragmento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fragmento de tecido" />
-        </LinearLayout>
 
         <Switch
             android:id="@+id/txtCulturaSangue"
@@ -172,7 +195,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/colorWindowBackground"
             android:layoutDirection="rtl"
-            android:text=" URUCULTURA"
+            android:text=" UROCULTURA"
             android:textStyle="bold" />
 
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"

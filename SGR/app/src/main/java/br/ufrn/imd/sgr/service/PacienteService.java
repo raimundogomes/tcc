@@ -1,5 +1,8 @@
 package br.ufrn.imd.sgr.service;
 
+import android.app.MediaRouteButton;
+import android.widget.ProgressBar;
+
 import java.util.List;
 
 import br.ufrn.imd.sgr.model.Paciente;
@@ -10,7 +13,7 @@ import br.ufrn.imd.sgr.model.Paciente;
 
 public interface PacienteService {
 
-    List<Paciente> pesquisarPaciente(String prontuario);
+    List<Paciente> pesquisarPaciente(String prontuario, ProgressBar progressBar);
 
     List<Paciente> pesquisarPacientesPeloNome(String nome);
 }

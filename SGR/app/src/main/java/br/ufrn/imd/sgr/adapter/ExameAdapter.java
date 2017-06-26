@@ -41,11 +41,11 @@ public class ExameAdapter extends ArrayAdapter<Exame> {
 
         if(exame.getDataColeta()!=null){
             TextView dataColeta = (TextView) view.findViewById(R.id.text_data_coleta);
-            dataColeta.setText(DateUtils.obterData(exame.getDataColeta()));
+         //   dataColeta.setText(DateUtils.obterData(exame.getDataColeta()));
         }
 
         TextView situacaoExame = (TextView) view.findViewById(R.id.text_situacao_exame);
-        situacaoExame.setText(exame.getSituacaoAmostra());
+        situacaoExame.setText(exame.getDescricao());
 
         TextView resultadoExame = (TextView) view.findViewById(R.id.text_resultado_exame);
         resultadoExame.setText(exame.getResultado());

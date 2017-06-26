@@ -3,14 +3,15 @@ package br.ufrn.imd.sgr.model;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by thiago on 29/05/16.
- */
 public class Exame implements Serializable {
 
     private TipoExame tipoExame;
 
-    private Amostra amostra;
+    private TipoColeta tipoColeta;
+
+    private String dataColeta;
+
+    private TipoMaterial tipoMaterial;
 
     private ResultadoExame resultadoExame = ResultadoExame.ANALISE_NAO_REALIZADA;
 
@@ -18,6 +19,30 @@ public class Exame implements Serializable {
 
     public String getResultadoCompleto() {
         return resultadoCompleto;
+    }
+
+    public TipoColeta getTipoColeta() {
+        return tipoColeta;
+    }
+
+    public void setTipoColeta(TipoColeta tipoColeta) {
+        this.tipoColeta = tipoColeta;
+    }
+
+    public String getDataColeta() {
+        return dataColeta;
+    }
+
+    public void setDataColeta(String dataColeta) {
+        this.dataColeta = dataColeta;
+    }
+
+    public TipoMaterial getTipoMaterial() {
+        return tipoMaterial;
+    }
+
+    public void setTipoMaterial(TipoMaterial tipoMaterial) {
+        this.tipoMaterial = tipoMaterial;
     }
 
     public void setResultadoCompleto(String resultadoCompleto) {
@@ -36,7 +61,6 @@ public class Exame implements Serializable {
 
     public Exame(TipoExame tipo) {
         tipoExame = tipo;
-        amostra = new Amostra();
     }
 
 
@@ -47,30 +71,6 @@ public class Exame implements Serializable {
 
     public String getDescricao(){
         return tipoExame.getDescricao();
-    }
-
-
-    public Amostra getAmostra() {
-        return amostra;
-    }
-
-    public void setAmostra(Amostra amostra) {
-        this.amostra = amostra;
-    }
-
-    public Date getDataColeta() {
-        if(amostra !=null){
-            return amostra.getDataColeta();
-        }
-        return null;
-    }
-
-    public String getSituacaoAmostra() {
-        if(amostra !=null){
-          return amostra.getSituacaoAmostra().getDescricao();
-        }
-
-        return "";
     }
 
     public String getResultado(){

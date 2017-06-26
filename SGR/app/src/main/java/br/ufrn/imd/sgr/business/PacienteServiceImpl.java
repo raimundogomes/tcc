@@ -1,6 +1,9 @@
 package br.ufrn.imd.sgr.business;
 
+import android.app.MediaRouteButton;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,7 +30,7 @@ import br.ufrn.imd.sgr.utils.VolleyApplication;
 
 public class PacienteServiceImpl implements PacienteService {
 
-    public List<Paciente> pesquisarPaciente(String prontuario) {
+    public List<Paciente> pesquisarPaciente(String prontuario, final ProgressBar progressBar) {
         String urlPaciente = Constantes.URL_PACIENTE;
 
         if(!"".equals(prontuario)){
@@ -44,6 +47,7 @@ public class PacienteServiceImpl implements PacienteService {
                 Gson gson = new Gson();
 
                 Paciente paciente = gson.fromJson(response.toString(), Paciente.class);
+                progressBar.setVisibility(View.GONE);
 
                 list.add(paciente);
 

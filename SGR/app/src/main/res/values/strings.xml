@@ -51,4 +51,6 @@
     <string name="erro_preenchimento_obrigatorio">Preenchimento Obrigatório</string>
     <string name="label_sim">SIM</string>
     <string name="label_nao">NÃO</string>
+    <string name="label_swab">SWAB</string>
+    <string name="radio_aspirado_por_agulha">Aspirado por agulha</string>
 </resources>

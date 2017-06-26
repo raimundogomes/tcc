@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.model.Requisicao;
+import br.ufrn.imd.sgr.model.TipoExame;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
 
@@ -56,10 +58,9 @@ public class RequisicaoAdapter extends ArrayAdapter<Requisicao> {
             textViewPaciente.setText(requisicao.getPaciente().getNome());
         }
 
+        TextView textViewExames = (TextView) view.findViewById(R.id.text_exames);
 
-//        //solicitante
-//        TextView textViewSolicitante = (TextView) view.findViewById(R.id.text_exames);
-//        textViewSolicitante.setText(requisicao.getExamesFormatados());
+        textViewExames.setText(requisicao.getExames().toString());
 
         return view;
     }

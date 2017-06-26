@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -38,14 +37,14 @@ import java.util.List;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.business.RequisicaoBusiness;
-import br.ufrn.imd.sgr.dao.PacienteDao;
-import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Laboratorio;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.model.StatusRequisicao;
-import br.ufrn.imd.sgr.model.TipoColetaSangue;
+import br.ufrn.imd.sgr.model.TipoColeta;
+import br.ufrn.imd.sgr.model.TipoExame;
+import br.ufrn.imd.sgr.model.TipoMaterial;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.DateUtils;
 import br.ufrn.imd.sgr.utils.VolleyApplication;
@@ -55,10 +54,12 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
     private Requisicao requisicao;
 
-    private CheckBox checkBoxFeridaOperatoria;
-    private CheckBox checkBoxAbscessos;
-    private CheckBox checkBoxUlceras;
-    private CheckBox checkBoxFragmento;
+    private RadioButton radioFeridaOperatoria;
+    private RadioButton radioAbscessos;
+    private RadioButton radioUlcera;
+    private RadioButton radioFragmentoTecido;
+    private RadioButton radioSwab;
+    private RadioButton radioAspiradoAgulha;
 
     private RadioGroup radioCulturaSangue;
     private RadioButton radioVeia;
@@ -87,9 +88,10 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
     private Button buttonSalvar;
 
-    private  TipoColetaSangue tipoColetaSangue;
+    private RequisicaoBusiness requisicaoService;
+    private RadioGroup radioTipoColetaSecrecao;
+    private RadioGroup radioCulturaSecrecao;
 
-    RequisicaoBusiness requisicaoService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,37 +100,29 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
         requisicaoService = new RequisicaoBusiness(getApplicationContext());
 
-        //paciente
-        Intent intent = getIntent();
-
-        Paciente paciente = (Paciente) intent.getExtras().get(Constantes.DADOS_PACIENTE_REQUISICAO_NOVA_ACTIVITY);
-
-        requisicao = new Requisicao();
-
-        requisicao.setPaciente(paciente);
-
-
-        //Cultura de secreção
-        checkBoxFeridaOperatoria = (CheckBox) findViewById(R.id.checkBoxFeridaOperatoria);
-        checkBoxFeridaOperatoria.setEnabled(false);
-
-        checkBoxAbscessos = (CheckBox) findViewById(R.id.checkBoxAbscessos);
-        checkBoxAbscessos.setEnabled(false);
-
-        checkBoxUlceras = (CheckBox) findViewById(R.id.checkBoxUlceras);
-        checkBoxUlceras.setEnabled(false);
-
-        checkBoxFragmento = (CheckBox) findViewById(R.id.checkBoxFragmento);
-        checkBoxFragmento.setEnabled(false);
+        iniciarRequisicao();
 
         txtDataColeta = (TextView) findViewById(R.id.editTextDataColeta);
-
         imgBtnCalendarioSangue = (ImageButton) findViewById(R.id.imageButtonCalendarioSangue);
         imgBtnCalendarioSangue.setOnClickListener(this);
 
         //salvar
         buttonSalvar = (Button) findViewById(R.id.buttonSalvar);
         buttonSalvar.setOnClickListener(this);
+
+        //Cultura de secreção
+        radioCulturaSecrecao = (RadioGroup) findViewById(R.id.radio_group_secrecao);
+        radioFeridaOperatoria = (RadioButton) findViewById(R.id.radioFeridaOperatoria);
+        radioAbscessos = (RadioButton) findViewById(R.id.radioAbscessos);
+
+        radioUlcera = (RadioButton) findViewById(R.id.radioUlceras);
+        radioFragmentoTecido = (RadioButton) findViewById(R.id.radioFragmento);
+
+
+        radioTipoColetaSecrecao = (RadioGroup) findViewById(R.id.radio_group_secrecao_tipo_coleta); 
+        radioSwab = (RadioButton) findViewById(R.id.radio_swab);
+        radioAspiradoAgulha = (RadioButton) findViewById(R.id.radio_agulha);
+
 
         switchCulturaSangue = (Switch) findViewById(R.id.txtCulturaSangue);
 
@@ -141,7 +135,6 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
         switchCulturaUrina.setOnCheckedChangeListener(this);
 
         switchCulturaSangue.setOnCheckedChangeListener(this);
-
 
         radioCulturaSangue = (RadioGroup) findViewById(R.id.radio_group_hemocultura);
         radioVeia = (RadioButton) findViewById(R.id.radio_hemocultura_veia);
@@ -156,51 +149,44 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
         radioSvd = (RadioButton) findViewById(R.id.radio_urucultura_svd);
         radioPuncao = (RadioButton) findViewById(R.id.radio_urucultura_puncao);
 
-        radioCulturaSangue.setOnClickListener(this);
-
-        radioCulturaUrina.setOnClickListener(this);
-
     }
 
-    public void atualizarTipoColetaSangue(View v){
-        switch(radioCulturaSangue.getCheckedRadioButtonId()) {
-            case R.id.radio_hemocultura_veia:
-                tipoColetaSangue = TipoColetaSangue.VEIA;
-                break;
-            case R.id.radio_hemocultura_cateter_umbilical:
-                tipoColetaSangue = TipoColetaSangue.CATETER_UMBILICAL;
-                break;
-            case R.id.radio_hemocultura_cateter_central:
-                tipoColetaSangue = TipoColetaSangue.CATETER_CENTRAL;
-                break;
-            case R.id.radio_hemocultura_arteria:
-                tipoColetaSangue = TipoColetaSangue.ARTERIA;
-                break;
-            default:
-                break;
-        }
+    private void iniciarRequisicao() {
+        //paciente
+        Intent intent = getIntent();
+
+        Paciente paciente = (Paciente) intent.getExtras().get(Constantes.DADOS_PACIENTE_REQUISICAO_NOVA_ACTIVITY);
+
+        requisicao = new Requisicao();
+
+        requisicao.setPaciente(paciente);
     }
 
     public void onCheckedChanged(CompoundButton buttonView,  boolean isChecked) {
 
         if(buttonView == switchCulturaSecrecao) {
             if (isChecked) {
-                checkBoxFeridaOperatoria.setEnabled(true);
-                checkBoxAbscessos.setEnabled(true);
-                checkBoxUlceras.setEnabled(true);
-                checkBoxFragmento.setEnabled(true);
+                radioFeridaOperatoria.setEnabled(true);
+                radioAbscessos.setEnabled(true);
+                radioUlcera.setEnabled(true);
+                radioFragmentoTecido.setEnabled(true);
+                radioSwab.setEnabled(true);
+                radioAspiradoAgulha.setEnabled(true);
             } else {
-                checkBoxFeridaOperatoria.setEnabled(false);
-                checkBoxFeridaOperatoria.setChecked(false);
+                radioFeridaOperatoria.setEnabled(false);
+                radioFeridaOperatoria.setChecked(false);
 
-                checkBoxAbscessos.setEnabled(false);
-                checkBoxAbscessos.setChecked(false);
+                radioAbscessos.setEnabled(false);
+                radioAbscessos.setChecked(false);
 
-                checkBoxUlceras.setEnabled(false);
-                checkBoxUlceras.setChecked(false);
+                radioUlcera.setEnabled(false);
+                radioUlcera.setChecked(false);
 
-                checkBoxFragmento.setEnabled(false);
-                checkBoxFragmento.setChecked(false);
+                radioFragmentoTecido.setEnabled(false);
+                radioFragmentoTecido.setChecked(false);
+
+                radioSwab.setEnabled(false);
+                radioAspiradoAgulha.setEnabled(false);
             }
         }else if(buttonView== switchCulturaSangue){
             if (isChecked) {
@@ -249,10 +235,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
 
-        if(v==radioCulturaSangue){
-            atualizarTipoColetaSangue(v);
-        }
-        else if(v == imgBtnCalendarioSangue){
+        if(v == imgBtnCalendarioSangue){
             showDialog(0);
         } else if(v == buttonSalvar){
 
@@ -295,16 +278,10 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
                     try {
                         numeroRequisicao = response.getLong("numero");
                     } catch (JSONException e) {
-                      e.printStackTrace(); //TODO ?????
+                      e.printStackTrace(); //TODO refatorar codigo. Lancar e tratar exceção.
                     }
 
                     requisicao.setNumero(numeroRequisicao);
-
-
-//                    } catch (JSONException e) {//TODO refatorar codigo. Lancar e tratar exceção.
-//                        e.printStackTrace();
-//                        Log.d("Teste", e.getMessage());
-//                    }
 
                     requisicaoService.persistirRequisicao(requisicao);
 
@@ -339,7 +316,8 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
 
     private void montarRequisicao() {
-        //Requisicao requisicao = new Requisicao();
+
+       // requisicao.setTipoColetaUrina(obterTipoColetaUrina());
 
         requisicao.setStatus(StatusRequisicao.SOLICITADA);
         requisicao.setDataRequisicao(new Date());
@@ -347,8 +325,78 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
         requisicao.setLaboratorio(Laboratorio.MICROBIOLOGIA);
 
-        List<Exame> listExames = new ArrayList<>();
+        List<Exame> listaExames = new ArrayList<>();
+        
+        if(radioCulturaSangue.isActivated()){
+            Exame exame = new Exame();
+            exame.setTipoColeta(obterTipoColeta(radioCulturaSangue.getCheckedRadioButtonId()));
+            exame.setTipoMaterial(TipoMaterial.SANGUE);
+            exame.setTipoExame(TipoExame.SANGUE);
+            listaExames.add(exame);
+        }
 
+        if(radioCulturaUrina.isActivated()){
+            Exame exame = new Exame();
+            exame.setTipoColeta(obterTipoColeta(radioCulturaUrina.getCheckedRadioButtonId()));
+            exame.setTipoMaterial(TipoMaterial.URINA);
+            exame.setTipoExame(TipoExame.URINA);
+            listaExames.add(exame);
+        }
+
+        if(radioCulturaUrina.isActivated()){
+            Exame exame = new Exame();
+            exame.setTipoColeta(obterTipoColeta(radioTipoColetaSecrecao.getCheckedRadioButtonId()));
+            exame.setTipoMaterial(TipoMaterial.URINA);
+            exame.setTipoExame(TipoExame.SECRECAO);
+            listaExames.add(exame);
+        }
+
+        requisicao.setExames(listaExames);
+    }
+
+    private TipoMaterial obterTipoMaterial(){
+        switch(radioCulturaSecrecao.getCheckedRadioButtonId()) {
+            case R.id.radioFeridaOperatoria:
+                return TipoMaterial.FERIDA_OPERATORIA;
+            case R.id.radioAbscessos:
+                return TipoMaterial.ABSCESSO;
+            case R.id.radioUlceras:
+                return TipoMaterial.ULCERA;
+            case R.id.radioFragmento:
+                return TipoMaterial.FRAGMENTO_TECIDO;
+            default:
+                return null;
+        }
+    }
+
+    private TipoColeta obterTipoColeta(int idTipo) {
+        
+        switch(idTipo) {
+            case R.id.radio_urucultura_jato:
+                return TipoColeta.JATO_MEDIO;
+            case R.id.radio_urucultura_saco_coletor:
+                return TipoColeta.SACO_COLETOR;
+            case R.id.radio_urucultura_sonda:
+                return TipoColeta.SONDA_ALIVIO;
+            case R.id.radio_urucultura_svd:
+                return TipoColeta.SVD;
+            case R.id.radio_urucultura_puncao:
+                return TipoColeta.PUNCAO_SUBPUBICA;
+            case R.id.radio_hemocultura_veia:
+                return TipoColeta.VEIA;
+            case R.id.radio_hemocultura_cateter_umbilical:
+                return TipoColeta.CATETER_UMBILICAL;
+            case R.id.radio_hemocultura_cateter_central:
+                return TipoColeta.CATETER_CENTRAL;
+            case R.id.radio_hemocultura_arteria:
+                return TipoColeta.ARTERIA;
+            case R.id.radio_swab:
+                return TipoColeta.CATETER_CENTRAL;
+            case R.id.radio_agulha:
+                return TipoColeta.ARTERIA;
+            default:
+                return null;
+        }
 
     }
 

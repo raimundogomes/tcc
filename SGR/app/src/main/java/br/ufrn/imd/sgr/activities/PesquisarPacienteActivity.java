@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
 
     private ListView listview;
 
+    private ProgressBar progressBar;
+
     private PacienteService pacienteService;
 
     @Override
@@ -33,6 +36,8 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_pesquisar_paciente);
 
         Button button = (Button) findViewById(R.id.botao_pesquisar_paciente);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         listview = (ListView) findViewById(R.id.listView_paciente);
 
@@ -70,18 +75,23 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
             String prontuario =  ((TextView)findViewById(R.id.text_prontuario)).getText().toString();
             List<Paciente> lista;
 
+            progressBar.setVisibility(View.VISIBLE);
+
             if(!"".equals(prontuario)){
 
-                lista = pacienteService.pesquisarPaciente(prontuario);
+                lista = pacienteService.pesquisarPaciente(prontuario, progressBar);
             }
             else{
+
                 String nome = ((TextView) findViewById(R.id.text_nome_paciente)).getText().toString();
 
                 lista = pacienteService.pesquisarPacientesPeloNome(nome);
 
+
             }
 
             montarListaPacientes(lista, view);
+
 
         }
     }
@@ -96,8 +106,9 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
             txt_lista_paciente.setVisibility(View.VISIBLE);
         }
 
-        final PacienteAdapter adapter = new PacienteAdapter(view.getContext(), list);
+        PacienteAdapter adapter = new PacienteAdapter(view.getContext(), list);
         listview.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

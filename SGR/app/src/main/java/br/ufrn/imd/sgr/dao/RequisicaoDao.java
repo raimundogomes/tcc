@@ -22,7 +22,8 @@ public class RequisicaoDao {
 
     public static final String REQUISICAO = "requisicao";
 
-    public static String[] COLUNAS_REQUISICAO = new String[]{"ID", "NUMERO", "DATA_REQUISICAO", "ID_SITUACAO", "ID_LABORATORIO", "ID_PACIENTE", "DATA_ULTIMA_ATUALIZACAO"};
+    public static String[] COLUNAS_REQUISICAO = new String[]{"ID", "NUMERO", "DATA_REQUISICAO", "ID_SITUACAO", "ID_LABORATORIO",
+            "ID_PACIENTE", "DATA_COLETA", "DATA_ULTIMA_ATUALIZACAO"};
 
     private BaseDao baseDao;
 
@@ -34,7 +35,7 @@ public class RequisicaoDao {
 
     public void insert(Requisicao requisicao) {
 
-        ContentValues values = new ContentValues(3);
+        ContentValues values = new ContentValues(7);
 
         values.put("NUMERO", requisicao.getNumero());
         values.put("ID_SITUACAO", requisicao.getStatus().getCodigo());
@@ -44,11 +45,13 @@ public class RequisicaoDao {
 
         values.put("DATA_REQUISICAO", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
 
+        values.put("DATA_COLETA", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
+
         values.put("DATA_ULTIMA_ATUALIZACAO", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
 
         long id = baseDao.getDatabase().insert(REQUISICAO, null, values);
 
-        requisicao.setId(id);
+        requisicao.setId(id);/////
 
 
     }

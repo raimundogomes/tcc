@@ -41,7 +41,13 @@
         android:text="Pesquisar "
         android:drawableLeft="@mipmap/ic_search_black_24dp"
         android:id="@+id/botao_pesquisar_paciente" />
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
     <TextView
         android:id="@+id/text_selecao_paciente"
         android:textStyle="bold"

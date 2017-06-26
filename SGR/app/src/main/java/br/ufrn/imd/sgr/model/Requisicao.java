@@ -29,6 +29,8 @@ public class Requisicao implements Serializable {
 
     private Date dataUltimaModificacao;
 
+    private List<Exame> exames = new ArrayList<Exame>();
+
     public Requisicao() {
 
     }
@@ -126,5 +128,13 @@ public class Requisicao implements Serializable {
     public void setSituacao(int situacao) {
 
         this.setStatus(StatusRequisicao.getStatusRequisicaoByCodigo(situacao));
+    }
+
+    public void setExames(List<Exame> exames) {
+        this.exames = exames;
+    }
+
+    public List<Exame> getExames() {
+        return this.exames;
     }
 }

@@ -34,6 +34,7 @@ public class SgrBD  extends SQLiteOpenHelper {
                     "DATA_REQUISICAO TEXT(20), " +
                     "ID_SITUACAO INTEGER, " +
                     "ID_LABORATORIO INTEGER, " +
+                    "DATA_COLETA TEXT(20), " +
                     "DATA_ULTIMA_ATUALIZACAO TEXT(20)" +
                     "); ";
 
@@ -42,7 +43,10 @@ public class SgrBD  extends SQLiteOpenHelper {
                     "(ID INTEGER PRIMARY KEY," +
                     "DATA_AMOSTRA TEXT(20), " +
                     "ID_SITUACAO INTEGER, " +
-                    "ID_REQUISICAO INTEGER, " +
+                    "ID_REQUISICAO INTEGER , " +
+                    "TIPO_EXAME INTEGER, " +
+                    "TIPO_COLETA INTEGER, " +
+                    "TIPO_MATERIAL INTEGER, " +
                     "RESULTADO TEXT ); ";
 
     private static final String INSERT_PACIENTES = "INSERT INTO PACIENTE VALUES (";

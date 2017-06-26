@@ -3,8 +3,8 @@ package br.ufrn.imd.sgr.model;
 
 public enum TipoExame {
 
-    SANGUE (0, "Sangue"),
-    URINA   (1, "Urina"),
+    SANGUE (0, "Hemocultura"),
+    URINA   (1, "Urocultura"),
     SECRECAO (2, "Secrecao");
 
     private int codigo;

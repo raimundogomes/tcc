@@ -28,8 +28,6 @@
 
         <activity android:name=".activities.PesquisarPacienteActivity" android:label="@string/title_activity_pesquisar_paciente" />
 
-        <activity  android:name=".activities.ListaRequisicaoActivity"   android:label="@string/label_requisicoes" />
-
         <activity  android:name=".activities.PacienteActivity"  android:label="@string/dados_paciente" />
 
         <activity android:name=".activities.DetalheRequisicaoActivity" android:label="@string/label_requisicao"/>
