@@ -39,4 +39,15 @@ public enum TipoColeta {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public static TipoColeta getTipoColetaPeloCodigo(int codigo){
+
+        for (TipoColeta tipoColeta: TipoColeta.values()){
+            if(tipoColeta.codigo== codigo){
+                return tipoColeta;
+            }
+        }
+
+        return null;
+    }
 }

@@ -33,7 +33,7 @@ public class RequisicaoDao {
 
     }
 
-    public void insert(Requisicao requisicao) {
+    public Requisicao insert(Requisicao requisicao) {
 
         ContentValues values = new ContentValues(7);
 
@@ -54,6 +54,8 @@ public class RequisicaoDao {
         long id = baseDao.getDatabase().insert(REQUISICAO, null, values);
 
         requisicao.setId(id);/////
+
+        return requisicao;
 
 
     }
@@ -86,10 +88,10 @@ public class RequisicaoDao {
 
 
 
-                requisicao.setDataRequisicao(montarData(cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))));
+                requisicao.setDataRequisicao(baseDao.montarData(cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))));
                 requisicao.setSituacao(cursor.getInt(cursor.getColumnIndex("ID_SITUACAO")));
                 requisicao.setLaboratorio(Laboratorio.getLaboratorioById(cursor.getInt(cursor.getColumnIndex("ID_LABORATORIO"))));
-                requisicao.setDataUltimaModificacao(montarData(cursor.getString(cursor.getColumnIndex("DATA_ULTIMA_ATUALIZACAO"))));
+                requisicao.setDataUltimaModificacao(baseDao.montarData(cursor.getString(cursor.getColumnIndex("DATA_ULTIMA_ATUALIZACAO"))));
 
                 Paciente paciente = montarPaciente(cursor);
 
@@ -116,18 +118,6 @@ public class RequisicaoDao {
         return p;
     }
 
-    private Date montarData(String string) {
-        Date data;
-
-        try {
-            data = BaseDao.FORMATE_DATE.parse(string );
-        } catch (ParseException e) {
-            e.printStackTrace();
-            data = new Date();
-
-        }
-        return data;
-    }
 
     public void cancelar(Requisicao requisicao) {
 

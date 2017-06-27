@@ -9,9 +9,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.adapter.ExameAdapter;
+import br.ufrn.imd.sgr.business.ExameServiceImpl;
+import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Requisicao;
+import br.ufrn.imd.sgr.service.ExameService;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
@@ -19,6 +24,8 @@ import br.ufrn.imd.sgr.utils.DateUtils;
 public class DetalheRequisicaoActivity extends AppCompatActivity {
 
     private Requisicao requisicao;
+
+    private ExameService exameService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +40,14 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
 
         criarDadosRequisicao(requisicao);
 
+        exameService = new ExameServiceImpl(getApplicationContext());
+
+        List<Exame> exames = exameService.consultarExames(requisicao.getId());
+
         ListView listView = (ListView) findViewById(R.id.list_exames);
 
-//        final ExameAdapter exameAdapter = new ExameAdapter(this,  requisicao.getExames());
-//        listView.setAdapter(exameAdapter);
+        final ExameAdapter exameAdapter = new ExameAdapter(this,  exames);
+        listView.setAdapter(exameAdapter);
     }
 
     private void criarDadosRequisicao(Requisicao requisicao) {

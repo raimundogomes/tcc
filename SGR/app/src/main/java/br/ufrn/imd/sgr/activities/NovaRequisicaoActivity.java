@@ -82,7 +82,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
     private static TextView txtDataColeta;
 
-    private static Date dataAmostraExameSangue;
+    private static String dataAmostraExameSangue;
 
     private DatePickerDialog datePickerDialogSangue;
 
@@ -327,15 +327,16 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
         List<Exame> listaExames = new ArrayList<>();
         
-        if(radioCulturaSangue.isEnabled()){
+        if(switchCulturaSangue.isChecked()){
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(radioCulturaSangue.getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.SANGUE);
             exame.setTipoExame(TipoExame.SANGUE);
+            exame.setDataColeta(dataAmostraExameSangue);
             listaExames.add(exame);
         }
 
-        if(radioCulturaUrina.isEnabled()){
+        if(switchCulturaUrina.isChecked()){
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(radioCulturaUrina.getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.URINA);
@@ -343,10 +344,10 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
             listaExames.add(exame);
         }
 
-        if(radioCulturaUrina.isEnabled()){
+        if(switchCulturaSecrecao.isChecked()){
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(radioTipoColetaSecrecao.getCheckedRadioButtonId()));
-            exame.setTipoMaterial(TipoMaterial.URINA);
+            exame.setTipoMaterial(obterTipoMaterial());
             exame.setTipoExame(TipoExame.SECRECAO);
             listaExames.add(exame);
         }
@@ -417,7 +418,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
     private DatePickerDialog.OnDateSetListener mDateSetListenerSangue = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            dataAmostraExameSangue = DateUtils.obterData(year, monthOfYear, dayOfMonth);
+            dataAmostraExameSangue = dayOfMonth + "/" + monthOfYear  + "/" +year;
             NovaRequisicaoActivity.txtDataColeta.setText(DateUtils.obterDataPorExtenso(year, monthOfYear, dayOfMonth));
         }
     };

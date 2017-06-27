@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:theme="@style/AppTheme.TemaSGR">
+    android:layout_height="match_parent" >
 
-    <TableLayout  android:stretchColumns="0,1,2,3"
+    <TableLayout  android:stretchColumns="0,1,2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TableRow android:background="#c3c3c3">
+        <TableRow android:background="@color/colorWindowBackground">
             <TextView android:id="@+id/text_exame" android:textStyle="bold" android:padding="3dp"
-                android:background="#c3c3c3" />
+                />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:text="Material"  android:textStyle="bold"/>
+            <TextView android:text="Método da coleta"  android:textStyle="bold"/>
+
+
+        </TableRow>
+
+        <TableRow>
+            <TextView android:id="@+id/text_tipo_material" />
+            <TextView android:id="@+id/text_tipo_coleta" />
         </TableRow>
         <TableRow>
-            <TextView android:text="Amostra"  android:textStyle="bold"/>
-            <TextView android:id="@+id/text_situacao_exame" />
-            <TextView android:text="Coleta"  android:textStyle="bold"/>
-            <TextView  android:id="@+id/text_data_coleta" />
+            <TextView android:text=" Data da Coleta"  android:textStyle="bold"/>
+            <TextView android:text=" Situação do exame"  android:textStyle="bold"/>
         </TableRow>
+        <TableRow>
+            <TextView  android:id="@+id/text_data_coleta" />
+            <TextView  android:id="@+id/text_situacao_exame" />
+        </TableRow>
+
 
         <TableRow android:layout_marginTop="6dp">
             <TextView android:text="Resultado"  android:textStyle="bold"/>

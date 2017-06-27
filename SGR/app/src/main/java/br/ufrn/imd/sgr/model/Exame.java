@@ -1,9 +1,10 @@
 package br.ufrn.imd.sgr.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Exame implements Serializable {
+
+    private long id;
 
     private TipoExame tipoExame;
 
@@ -11,11 +12,14 @@ public class Exame implements Serializable {
 
     private String dataColeta;
 
+    private SituacaoExame situacaoExame = SituacaoExame.COLETADO;
+
     private TipoMaterial tipoMaterial;
 
     private ResultadoExame resultadoExame = ResultadoExame.ANALISE_NAO_REALIZADA;
 
     private String resultadoCompleto ;
+    private long idRequisicao;
 
     public String getResultadoCompleto() {
         return resultadoCompleto;
@@ -83,11 +87,35 @@ public class Exame implements Serializable {
 
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public TipoExame getTipoExame() {
         return tipoExame;
     }
 
     public void setTipoExame(TipoExame tipoExame) {
         this.tipoExame = tipoExame;
+    }
+
+    public long getIdRequisicao() {
+        return idRequisicao;
+    }
+
+    public long setIdRequisicao(long idRequisicao) {
+        return this.idRequisicao = idRequisicao;
+    }
+
+    public SituacaoExame getSituacaoExame() {
+        return situacaoExame;
+    }
+
+    public void setSituacaoExame(SituacaoExame situacaoExame) {
+        this.situacaoExame = situacaoExame;
     }
 }

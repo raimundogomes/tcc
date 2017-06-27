@@ -35,4 +35,15 @@ public enum TipoMaterial {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public static TipoMaterial getTipoMaterialPeloCodigo(int codigo){
+
+        for (TipoMaterial tipo: TipoMaterial.values()){
+            if(tipo.codigo== codigo){
+                return tipo;
+            }
+        }
+
+        return null;
+    }
 }

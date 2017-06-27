@@ -36,16 +36,22 @@ public class ExameAdapter extends ArrayAdapter<Exame> {
             view = LayoutInflater.from(context).inflate(R.layout.item_list_exames, null);
         }
 
-        TextView descricaoExame = (TextView) view.findViewById(R.id.text_exame);
-        descricaoExame.setText(exame.getDescricao());
+        TextView textExame = (TextView) view.findViewById(R.id.text_exame);
+        textExame.setText(exame.getDescricao());
+
+        TextView tipoColeta = (TextView) view.findViewById(R.id.text_tipo_coleta);
+        tipoColeta.setText(exame.getTipoColeta().getDescricao());
+
+        TextView tipoMaterial = (TextView) view.findViewById(R.id.text_tipo_material);
+        tipoMaterial.setText(exame.getTipoMaterial().getDescricao());
 
         if(exame.getDataColeta()!=null){
             TextView dataColeta = (TextView) view.findViewById(R.id.text_data_coleta);
-         //   dataColeta.setText(DateUtils.obterData(exame.getDataColeta()));
+            dataColeta.setText(exame.getDataColeta());
         }
 
         TextView situacaoExame = (TextView) view.findViewById(R.id.text_situacao_exame);
-        situacaoExame.setText(exame.getDescricao());
+        situacaoExame.setText(exame.getSituacaoExame().getDescricao());
 
         TextView resultadoExame = (TextView) view.findViewById(R.id.text_resultado_exame);
         resultadoExame.setText(exame.getResultado());

@@ -13,8 +13,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
+import br.ufrn.imd.sgr.dao.ExameDao;
 import br.ufrn.imd.sgr.dao.PacienteDao;
 import br.ufrn.imd.sgr.dao.RequisicaoDao;
+import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.utils.Constantes;
@@ -23,13 +27,16 @@ import br.ufrn.imd.sgr.utils.VolleyApplication;
 
 public class RequisicaoBusiness {
 
-    RequisicaoDao requisicaoDao;
+    private RequisicaoDao requisicaoDao;
 
-    PacienteDao pacienteDao;
+    private PacienteDao pacienteDao;
+
+    private ExameDao exameDao;
 
     public RequisicaoBusiness(Context applicationContext){
         requisicaoDao = new RequisicaoDao(applicationContext);
         pacienteDao = new PacienteDao(applicationContext);
+        exameDao = new ExameDao(applicationContext);
     }
 
     public void cancelarRequisicaoServico(final Requisicao requisicao, final Context applicationContext) {
@@ -92,7 +99,15 @@ public class RequisicaoBusiness {
 
         requisicao.getPaciente().setId(pacienteBD.getId());
 
-        requisicaoDao.insert(requisicao);
+        requisicao = requisicaoDao.insert(requisicao);
+
+
+
+        for (Exame exame :requisicao.getExames() ) {
+            exame.setIdRequisicao(requisicao.getId());
+            exameDao.insert(exame);
+        }
+
 
         // Log.d("Teste", requisicaoDao.listar().toString());
     }

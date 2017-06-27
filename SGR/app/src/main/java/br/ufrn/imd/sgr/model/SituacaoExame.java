@@ -1,20 +1,20 @@
 package br.ufrn.imd.sgr.model;
 
 
-public enum SituacaoAmostra {
+public enum SituacaoExame {
 
-    COLETADA(1, "Coletada"),
+    COLETADO(1, "Coletado"),
 
     EM_ANALISE(2, "Em análise"),
 
-    LIBERADA(3, "Liberada"),
+    LIBERADO(3, "Liberado"),
 
-    CANCELADA(4, "Cancelada");
+    CANCELADO(4, "Cancelado");
 
     private int codigo;
     private String descricao;
 
-    SituacaoAmostra(int codigo, String descricao) {
+    SituacaoExame(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -33,5 +33,16 @@ public enum SituacaoAmostra {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public static SituacaoExame getSituacaoExamePeloCodigo(int codigo){
+
+        for (SituacaoExame situacaoExame: SituacaoExame.values()){
+            if(situacaoExame.codigo== codigo){
+                return situacaoExame;
+            }
+        }
+
+        return null;
     }
 }

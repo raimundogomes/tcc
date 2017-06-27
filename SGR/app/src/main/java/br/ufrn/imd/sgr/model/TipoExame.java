@@ -31,4 +31,15 @@ public enum TipoExame {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public static TipoExame getTipoExamePeloCodigo(int codigo){
+
+        for (TipoExame tipoExame: TipoExame.values()){
+            if(tipoExame.codigo== codigo){
+                return tipoExame;
+            }
+        }
+
+        return null;
+    }
 }

@@ -3,7 +3,9 @@ package br.ufrn.imd.sgr.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by netou on 07/11/2016.
@@ -42,5 +44,18 @@ public class BaseDao {
 
     public void setDatabase(SQLiteDatabase database) {
         this.database = database;
+    }
+
+    public Date montarData(String string) {
+        Date data;
+
+        try {
+            data = BaseDao.FORMATE_DATE.parse(string );
+        } catch (ParseException e) {
+            e.printStackTrace();
+            data = new Date();
+
+        }
+        return data;
     }
 }

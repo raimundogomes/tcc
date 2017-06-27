@@ -42,15 +42,13 @@ public class SgrBD  extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_EXAME =
             " CREATE TABLE EXAME " +
                     "(ID INTEGER PRIMARY KEY," +
-                    "DATA_AMOSTRA TEXT(20), " +
+                    "DATA_COLETA TEXT(20), " +
                     "ID_SITUACAO INTEGER, " +
                     "ID_REQUISICAO INTEGER , " +
                     "TIPO_EXAME INTEGER, " +
                     "TIPO_COLETA INTEGER, " +
                     "TIPO_MATERIAL INTEGER, " +
                     "RESULTADO TEXT ); ";
-
-    private static final String INSERT_PACIENTES = "INSERT INTO PACIENTE VALUES (";
 
     SgrBD(Context context) {
         super(context, DATABASE_NAME, null, 1);
