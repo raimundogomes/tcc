@@ -33,6 +33,10 @@ public class Requisicao implements Serializable {
 
     private List<Exame> exames = new ArrayList<Exame>();
 
+    private Boolean internadoUltimas72Horas;
+    private Boolean submetidoProcedimentoInvasivo;
+    private Boolean fezUsoAntibiotico;
+
     public Requisicao() {
 
     }
@@ -146,5 +150,29 @@ public class Requisicao implements Serializable {
 
     public String setEmailSolicitante(String email) {
         return this.emailSolicitante = email;
+    }
+
+    public void setInternadoUltimas72Horas(Boolean internadoUltimas72Horas) {
+        this.internadoUltimas72Horas = internadoUltimas72Horas;
+    }
+
+    public Boolean getInternadoUltimas72Horas() {
+        return internadoUltimas72Horas;
+    }
+
+    public void setSubmetidoProcedimentoInvasivo(Boolean submetidoProcedimentoInvasivo) {
+        this.submetidoProcedimentoInvasivo = submetidoProcedimentoInvasivo;
+    }
+
+    public Boolean getSubmetidoProcedimentoInvasivo() {
+        return submetidoProcedimentoInvasivo;
+    }
+
+    public void setFezUsoAntibiotico(Boolean fezUsoAntibiotico) {
+        this.fezUsoAntibiotico = fezUsoAntibiotico;
+    }
+
+    public Boolean getFezUsoAntibiotico() {
+        return fezUsoAntibiotico;
     }
 }

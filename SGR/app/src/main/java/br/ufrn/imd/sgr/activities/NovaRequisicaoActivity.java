@@ -92,6 +92,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
     private RadioGroup radioTipoColetaSecrecao;
     private RadioGroup radioCulturaSecrecao;
 
+    DadosPaciente dadosPaciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,9 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
         txtDataColeta = (TextView) findViewById(R.id.editTextDataColeta);
         imgBtnCalendarioSangue = (ImageButton) findViewById(R.id.imageButtonCalendarioSangue);
         imgBtnCalendarioSangue.setOnClickListener(this);
+
+        dadosPaciente = new DadosPaciente(this);
+
 
         //salvar
         buttonSalvar = (Button) findViewById(R.id.buttonSalvar);
@@ -317,11 +321,14 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
     private void montarRequisicao() {
 
-       // requisicao.setTipoColetaUrina(obterTipoColetaUrina());
-
         requisicao.setStatus(StatusRequisicao.SOLICITADA);
         requisicao.setDataRequisicao(new Date());
 
+        requisicao.setInternadoUltimas72Horas(dadosPaciente.internadoUltimas72Horas());
+
+        requisicao.setSubmetidoProcedimentoInvasivo(dadosPaciente.submetidoProcedimentoIvasivo());
+
+        requisicao.setFezUsoAntibiotico(dadosPaciente.usouAntibiotico());
 
         requisicao.setLaboratorio(Laboratorio.MICROBIOLOGIA);
 
