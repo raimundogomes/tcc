@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import br.ufrn.imd.sgr.model.Laboratorio;
@@ -15,7 +13,7 @@ import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 
 /**
- * Created by netou on 07/11/2016.
+ * Created by neto on 07/11/2016.
  */
 
 public class RequisicaoDao {
@@ -44,6 +42,12 @@ public class RequisicaoDao {
         values.put("ID_PACIENTE", requisicao.getPaciente().getId());
 
         values.put("EMAIL_SOLICITANTE", requisicao.getEmailSolicitante());
+
+        values.put("FOI_INTERNADO", requisicao.getInternadoUltimas72Horas()==Boolean.TRUE ? 1 : 0);
+
+        values.put("FEZ_PROCEDIMENTO_INVASIVO", requisicao.getSubmetidoProcedimentoInvasivo()==Boolean.TRUE ? 1:0);
+
+        values.put("USA_ANTIBIOTICO", requisicao.getUsouAntibiotico()==Boolean.TRUE ? 1: 0);
 
         values.put("DATA_REQUISICAO", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
 
@@ -83,8 +87,8 @@ public class RequisicaoDao {
                 requisicao.setId(cursor.getLong(0));
                 requisicao.setNumero(cursor.getInt(cursor.getColumnIndex("NUMERO")));
 
-                Log.d("Teste", cursor.getInt(cursor.getColumnIndex("NUMERO"))+"");
-                Log.d("Teste", cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))+"");
+                Log.d("SGR", cursor.getInt(cursor.getColumnIndex("NUMERO"))+"");
+                Log.d("SGR", cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))+"");
 
 
 

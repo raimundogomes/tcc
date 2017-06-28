@@ -172,7 +172,7 @@ public class Requisicao implements Serializable {
         this.fezUsoAntibiotico = fezUsoAntibiotico;
     }
 
-    public Boolean getFezUsoAntibiotico() {
+    public Boolean getUsouAntibiotico() {
         return fezUsoAntibiotico;
     }
 }
