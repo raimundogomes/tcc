@@ -21,6 +21,11 @@ public class DateUtils {
                 calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Retorna a data no formato dd/MM/yyyy HH:mm
+     * @param data
+     * @return
+     */
     public static String obterData(Date data){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return format.format(data);
@@ -36,8 +41,8 @@ public class DateUtils {
         return calendar.getTime();
     }
 
-    public static String obterDataServico(Date data){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    public static String obterDataDDMMYYY(Date data){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(data);
     }
 }

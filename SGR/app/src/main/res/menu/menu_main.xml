@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.ufrn.imd.sgr.RequisicoesActivity">
+    tools:context="br.ufrn.imd.sgr.activities.RequisicoesActivity">
     <item
         android:id="@+id/menu_nova_requisicao"
         android:title="@string/label_nova_requisicao"

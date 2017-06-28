@@ -3,20 +3,22 @@ package br.ufrn.imd.sgr.activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -79,11 +81,11 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
     private Switch switchCulturaSangue;
     private Switch switchCulturaUrina;
 
-    private ImageButton imgBtnCalendarioSangue;
+    private Button botaoDataSecrecao;
 
-    private static TextView txtDataColeta;
+    private Button botaoHoraSecrecao;
 
-    private static String dataAmostraExameSangue;
+    private static String dataColetaSecrecao;
 
     private DatePickerDialog datePickerDialogSangue;
 
@@ -104,9 +106,12 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
         iniciarRequisicao();
 
-        txtDataColeta = (TextView) findViewById(R.id.editTextDataColeta);
-        imgBtnCalendarioSangue = (ImageButton) findViewById(R.id.imageButtonCalendarioSangue);
-        imgBtnCalendarioSangue.setOnClickListener(this);
+        botaoDataSecrecao = (Button) findViewById(R.id.bt_data_secrecao);
+        botaoDataSecrecao.setText(" " +DateUtils.obterDataDDMMYYY(new Date()));
+        botaoDataSecrecao.setOnClickListener(this);
+
+        botaoHoraSecrecao = (Button) findViewById(R.id.bt_hora_secrecao);
+        botaoHoraSecrecao.setOnClickListener(this);
 
         dadosPaciente = new DadosPaciente(this);
 
@@ -240,7 +245,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
 
-        if(v == imgBtnCalendarioSangue){
+        if(v == botaoDataSecrecao){
             showDialog(0);
         } else if(v == buttonSalvar){
 
@@ -253,6 +258,8 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
                 Toast toast = Toast.makeText(this, mensagemErro, Toast.LENGTH_SHORT);
                 toast.show();
             }
+        }else if(v== botaoHoraSecrecao){
+            showDialog(1);
         }
     }
 
@@ -345,7 +352,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
             exame.setTipoColeta(obterTipoColeta(radioCulturaSangue.getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.SANGUE);
             exame.setTipoExame(TipoExame.SANGUE);
-            exame.setDataColeta(dataAmostraExameSangue);
+            exame.setDataColeta(dataColetaSecrecao);
             listaExames.add(exame);
         }
 
@@ -417,22 +424,46 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        Calendar calendario = GregorianCalendar.getInstance();
 
-        int ano = calendario.get(Calendar.YEAR);
-        int mes = calendario.get(Calendar.MONTH);
-        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+        if(id==0) {
+            Calendar calendario = GregorianCalendar.getInstance();
+
+            int ano = calendario.get(Calendar.YEAR);
+            int mes = calendario.get(Calendar.MONTH);
+            int dia = calendario.get(Calendar.DAY_OF_MONTH);
 
 
-        return new DatePickerDialog(this, mDateSetListenerSangue, ano, mes, dia);
+            return new DatePickerDialog(this, mDateSetListenerSangue, ano, mes, dia);
+        }
+
+        final Calendar c = Calendar.getInstance();
+        int Hora = c.get(Calendar.HOUR_OF_DAY);
+        int  Minuto = c.get(Calendar.MINUTE);
+        return new TimePickerDialog(
+                this,
+                timePickerListener,
+                Hora,
+                Minuto,
+                true  );
 
     }
+
+
+    private TimePickerDialog.OnTimeSetListener timePickerListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int selectedHour,
+                                      int selectedMinute) {
+                    botaoHoraSecrecao.setText(" " + selectedHour + ":"+selectedMinute);
+
+                }
+            };
+
 
     private DatePickerDialog.OnDateSetListener mDateSetListenerSangue = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            dataAmostraExameSangue = dayOfMonth + "/" + monthOfYear  + "/" +year;
-            NovaRequisicaoActivity.txtDataColeta.setText(DateUtils.obterDataPorExtenso(year, monthOfYear, dayOfMonth));
+            dataColetaSecrecao = " " +dayOfMonth + "/" + monthOfYear  + "/" +year;
+            botaoDataSecrecao.setText(dataColetaSecrecao);
         }
     };
 

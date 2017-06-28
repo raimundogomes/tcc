@@ -128,7 +128,7 @@
 
         <TextView android:layout_marginTop="@dimen/activity_vertical_margin"
 
-            android:layout_width="wrap_content" android:textColor="@color/primary_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:text="Tipo da coleta?"/>
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/radio_group_secrecao_tipo_coleta"
@@ -197,7 +197,9 @@
             android:layoutDirection="rtl"
             android:text=" UROCULTURA"
             android:textStyle="bold" />
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:orientation="horizontal">
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/radio_group_urucultura"
             android:layout_width="fill_parent"
@@ -230,31 +232,42 @@
                 />
         </RadioGroup>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWindowBackground"
-            android:text="DATA e HORA"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageButton
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButtonCalendarioSangue"
-                android:src="@drawable/calendario"/>
-
+                android:layout_height="wrap_content" android:orientation="vertical">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:ems="10"
                 android:text="Data e hora da coleta"
                 android:id="@+id/editTextDataColeta"
-                 />
+                />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:orientation="horizontal">
+
+
+                    <Button android:background="@null" android:enabled="true"
+
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/bt_data_secrecao"
+
+                        android:drawableLeft="@drawable/calendar"          />
+
+                    <Button android:background="@null" android:enabled="true" android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_width="wrap_content" android:text="--:--"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bt_hora_secrecao"
+                        android:drawableLeft="@drawable/ic_access_time_black"
+
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
 
