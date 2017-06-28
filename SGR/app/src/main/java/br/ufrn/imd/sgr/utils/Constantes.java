@@ -15,6 +15,9 @@ public final class Constantes {
 
     public static final String CONFIGURACAO_CONECTADO = "CONFIGURACAO_CONECTADO";
 
+    public static final String EMAIL = "EMAIL";
+
+
     public static final int CRITERIO_NUMERO_REQUISICAO = 0;
     public static final int CRITERIO_DATA_REQUISICAO = 1;
     public static final int CRITERIO_NOME_PACIENTE = 2;

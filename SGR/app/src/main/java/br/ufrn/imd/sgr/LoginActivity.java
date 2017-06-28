@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,8 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-	//	if(savedInstanceState==null) {
+        setContentView(R.layout.activity_login);
 
         SharedPreferences preferencias = getSharedPreferences(Constantes.PREF_NAME, MODE_PRIVATE);
         boolean conectado = preferencias.getBoolean(Constantes.CONFIGURACAO_CONECTADO, false);
@@ -42,22 +42,12 @@ public class LoginActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, RequisicoesActivity.class));
         }
-	//	}
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        //if (auth.getCurrentUser() != null) {
-        //    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        //    finish();
-        //}
 
-        // set the view now
-        setContentView(R.layout.activity_login);
-
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
+        // campos da tela
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -96,9 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
+
                                 progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
                                     // there was an error
@@ -108,23 +96,26 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    salvarPreferenciaManterLogado();
+                                    salvarInformacoesLogin();
                                     Intent intent = new Intent(LoginActivity.this, RequisicoesActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
                             }
 
-                            private void salvarPreferenciaManterLogado() {
-                                SharedPreferences preferencias = getSharedPreferences(Constantes.PREF_NAME, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = preferencias.edit();
-                                editor.putBoolean(Constantes.CONFIGURACAO_CONECTADO, manterConectado.isChecked());
-                                editor.commit();
 
-                            }
                         });
             }
         });
+    }
+
+    private void salvarInformacoesLogin() {
+        SharedPreferences preferencias = getSharedPreferences(Constantes.PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putBoolean(Constantes.CONFIGURACAO_CONECTADO, manterConectado.isChecked());
+        editor.putString(Constantes.EMAIL, inputEmail.getText().toString());
+        editor.commit();
+
     }
 }
 

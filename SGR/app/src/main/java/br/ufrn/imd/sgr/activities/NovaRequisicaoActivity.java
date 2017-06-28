@@ -4,6 +4,7 @@ package br.ufrn.imd.sgr.activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -320,6 +321,11 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements
 
 
     private void montarRequisicao() {
+
+        SharedPreferences preferencias = getSharedPreferences(Constantes.PREF_NAME, MODE_PRIVATE);
+        String email = preferencias.getString(Constantes.EMAIL, "");
+
+        requisicao.setEmailSolicitante(email);
 
         requisicao.setStatus(StatusRequisicao.SOLICITADA);
         requisicao.setDataRequisicao(new Date());
