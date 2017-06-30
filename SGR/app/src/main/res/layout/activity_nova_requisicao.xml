@@ -93,7 +93,9 @@
             android:text=" CULTURA DE SECREÇÃO"
             android:textStyle="bold" />
 
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:orientation="horizontal">
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/radio_group_secrecao"
                 android:layout_width="match_parent"
@@ -125,7 +127,43 @@
                     android:enabled="false"
                     android:text="Fragmento de tecido" />
             </RadioGroup>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:ems="10"
+                android:text="Data e hora da coleta"
+                android:id="@+id/editTextDataColeta"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:orientation="horizontal">
 
+
+                <Button android:background="@null" android:enabled="true"
+
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+
+                    android:id="@+id/bt_data_secrecao"
+                    android:onClick="atualizarDataColetaSecrecao"
+
+                    android:drawableLeft="@drawable/calendar"          />
+
+                <Button android:background="@null" android:enabled="true" android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_width="wrap_content" android:text="--:--"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_hora_secrecao"
+                    android:drawableLeft="@drawable/ic_access_time_black"
+                    android:onClick="atualizarHoraColetaSecrecao"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
         <TextView android:layout_marginTop="@dimen/activity_vertical_margin"
 
             android:layout_width="wrap_content"
@@ -148,6 +186,7 @@
                 android:text="@string/radio_aspirado_por_agulha"
                 />
         </RadioGroup>
+
 
 
         <Switch
@@ -232,41 +271,7 @@
                 />
         </RadioGroup>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:ems="10"
-                android:text="Data e hora da coleta"
-                android:id="@+id/editTextDataColeta"
-                />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:orientation="horizontal">
 
-
-                    <Button android:background="@null" android:enabled="true"
-
-                        android:layout_width="wrap_content"
-
-                        android:layout_height="wrap_content"
-
-                        android:id="@+id/bt_data_secrecao"
-
-                        android:drawableLeft="@drawable/calendar"          />
-
-                    <Button android:background="@null" android:enabled="true" android:layout_marginLeft="@dimen/text_margin"
-                        android:layout_width="wrap_content" android:text="--:--"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/bt_hora_secrecao"
-                        android:drawableLeft="@drawable/ic_access_time_black"
-
-                        />
-                </LinearLayout>
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -275,7 +280,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar"
-            android:id="@+id/buttonSalvar" />
+            android:id="@+id/buttonSalvar"
+            android:onClick="salvar"/>
 
 
     </LinearLayout>
