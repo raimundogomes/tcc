@@ -247,7 +247,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
             new TimePickerDialog.OnTimeSetListener() {
                 public void onTimeSet(TimePicker view, int selectedHour,
                                       int selectedMinute) {
-                    exameSecrecao.getBotaoHoraSecrecao().setText(" " + selectedHour + ":"+selectedMinute);
+                    exameSecrecao.getBotaoHoraSecrecao().setText( selectedHour + ":"+selectedMinute);
 
                 }
             };

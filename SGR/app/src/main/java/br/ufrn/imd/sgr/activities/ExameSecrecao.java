@@ -88,6 +88,9 @@ public class ExameSecrecao {
             radioFragmentoTecido.setEnabled(true);
             radioSwab.setEnabled(true);
             radioAspiradoAgulha.setEnabled(true);
+
+            botaoDataSecrecao.setEnabled(true);
+            botaoHoraSecrecao.setEnabled(true);
         } else {
             radioFeridaOperatoria.setEnabled(false);
             radioFeridaOperatoria.setChecked(false);
@@ -103,6 +106,9 @@ public class ExameSecrecao {
 
             radioSwab.setEnabled(false);
             radioAspiradoAgulha.setEnabled(false);
+
+            botaoDataSecrecao.setEnabled(false);
+            botaoHoraSecrecao.setEnabled(false);
         }
     }
 
