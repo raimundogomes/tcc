@@ -12,19 +12,26 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.ufrn.imd.sgr.activities.NovaRequisicaoActivity;
+import br.ufrn.imd.sgr.activities.RequisicoesActivity;
 import br.ufrn.imd.sgr.dao.ExameDao;
 import br.ufrn.imd.sgr.dao.PacienteDao;
 import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
+import br.ufrn.imd.sgr.model.ListaRequisicaoTO;
 import br.ufrn.imd.sgr.model.StatusRequisicao;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.VolleyApplication;
@@ -209,6 +216,78 @@ public class RequisicaoBusiness {
         }
 
         return requisicao;
+
+    }
+
+    public Requisicao atualizarRequisicoes( final RequisicoesActivity novaRequisicaoActivity) {
+        String url = Constantes.URL_REQUISICAO + "consultarRequisicoesAtualizadas";
+
+        ListaRequisicaoTO req= new ListaRequisicaoTO();
+
+        SharedPreferences preferencias = novaRequisicaoActivity.getSharedPreferences(Constantes.PREF_NAME, novaRequisicaoActivity.MODE_PRIVATE);
+        String email = preferencias.getString(Constantes.EMAIL, "");
+        req.setEmailSolicitante(email);
+        req.setDataUltimaAtualizacao(new Date());
+
+        Map map = new HashMap<Long, Date>();
+
+        List<Requisicao> lista = consultarRequisicoesSolicitadas();
+
+        for (Requisicao r: lista) {
+            map.put(r.getId(), r.getDataUltimaModificacao());
+        }
+
+        req.setMapIdDataUltimaAtualizao(map);
+
+        final JSONObject jsonBody;
+        try {
+
+            final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+            String jsonInString = gson.toJson(req);
+
+            Log.d("SGR", jsonInString);
+
+            jsonBody = new JSONObject(jsonInString);
+
+
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response
+                    .Listener<JSONObject>(){
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("Teste", response.toString());
+
+                    String resultado = response.toString();
+
+                    Type listType = new TypeToken<List<Requisicao>>() {}.getType();
+
+                    List<String> yourList = new Gson().fromJson(resultado, listType);
+
+                    Intent result = new Intent();
+                    result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, resultado);
+                    novaRequisicaoActivity.setResult(RequisicoesActivity.RESULT_OK, result);
+                    novaRequisicaoActivity.finish();
+
+
+                }
+            },new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Log.d("Teste", error.toString());
+                    Toast.makeText(novaRequisicaoActivity,
+                            "Não foi possível estabelecer conexão para inserir a requisição.",
+                            Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            VolleyApplication.getInstance().getRequestQueue().add(jsObjRequest);
+
+        } catch (JSONException e) {
+            Log.d("Teste", e.toString());
+        }
+
+        return new Requisicao();
 
     }
 

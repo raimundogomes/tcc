@@ -1,12 +1,14 @@
 package br.ufrn.imd.sgr.business;
 
-import android.app.MediaRouteButton;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -25,10 +27,17 @@ import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.VolleyApplication;
 
 /**
- * Created by netou on 25/06/2017.
+ * Created by Raimundo Gomes Neto on 25/06/2017.
+ *
  */
 
 public class PacienteServiceImpl implements PacienteService {
+
+    private Context applicationContext;
+
+    public PacienteServiceImpl(Context contexto){
+       applicationContext = contexto;
+    }
 
     public List<Paciente> pesquisarPaciente(String prontuario, final ProgressBar progressBar) {
         String urlPaciente = Constantes.URL_PACIENTE;
@@ -55,14 +64,22 @@ public class PacienteServiceImpl implements PacienteService {
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-               // throw new Exception(error.getMessage());
+                if(error instanceof TimeoutError){
+                    Toast.makeText( applicationContext, "Serviço está fora. Procure setor de informática da maternidade. " , Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText( applicationContext, "ERRO: " +error.networkResponse.statusCode + " - Paciente não encontrado. " , Toast.LENGTH_SHORT).show();
+                }
+
+                progressBar.setVisibility(View.GONE);
             }
         });
         VolleyApplication.getInstance().getRequestQueue().add(jsObjRequest);
         return list;
     }
 
-    public List<Paciente> pesquisarPacientesPeloNome(String nome) {
+    public List<Paciente> pesquisarPacientesPeloNome(String nome,  final ProgressBar progressBar) {
 
         final List<Paciente> listaPaciente = new ArrayList<Paciente>();
 
@@ -81,6 +98,7 @@ public class PacienteServiceImpl implements PacienteService {
                         Log.i("Teste", paciente.getNome());
                         listaPaciente.add(paciente);
                     }
+                    progressBar.setVisibility(View.GONE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -90,7 +108,15 @@ public class PacienteServiceImpl implements PacienteService {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                if(error instanceof TimeoutError){
+                    Toast.makeText( applicationContext, "Serviço está fora. Procure setor de informática da maternidade. " , Toast.LENGTH_SHORT).show();
 
+                }
+                else{
+                    Toast.makeText( applicationContext, "ERRO: " +error.networkResponse.statusCode + " - Paciente não encontrado. " , Toast.LENGTH_SHORT).show();
+                }
+
+                progressBar.setVisibility(View.GONE);
 
             }
         });

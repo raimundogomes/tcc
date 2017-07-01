@@ -45,7 +45,7 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
 
         listview.setOnItemClickListener(this);
 
-        pacienteService = new PacienteServiceImpl();
+        pacienteService = new PacienteServiceImpl(this);
 
     }
 
@@ -85,7 +85,7 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
 
                 String nome = ((TextView) findViewById(R.id.text_nome_paciente)).getText().toString();
 
-                lista = pacienteService.pesquisarPacientesPeloNome(nome);
+                lista = pacienteService.pesquisarPacientesPeloNome(nome, progressBar);
 
 
             }
