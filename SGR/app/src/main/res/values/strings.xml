@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SGR</string>
+    <string name="app_name">Sistema de gestão de requisições</string>
 
     <!-- Strings related to login -->
     <string name="action_sign_in_short">Registrar</string>

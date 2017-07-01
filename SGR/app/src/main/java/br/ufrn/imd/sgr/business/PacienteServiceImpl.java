@@ -66,7 +66,7 @@ public class PacienteServiceImpl implements PacienteService {
             public void onErrorResponse(VolleyError error) {
                 if(error instanceof TimeoutError){
                     Toast.makeText( applicationContext, "Serviço está fora. Procure setor de informática da maternidade. " , Toast.LENGTH_SHORT).show();
-
+                    list.add(new Paciente(1l,"PACIENTE DESCONHECIDO", "18/08/1983", "Maria", "8989", "1919191"));
                 }
                 else{
                     Toast.makeText( applicationContext, "ERRO: " +error.networkResponse.statusCode + " - Paciente não encontrado. " , Toast.LENGTH_SHORT).show();
@@ -110,6 +110,7 @@ public class PacienteServiceImpl implements PacienteService {
             public void onErrorResponse(VolleyError error) {
                 if(error instanceof TimeoutError){
                     Toast.makeText( applicationContext, "Serviço está fora. Procure setor de informática da maternidade. " , Toast.LENGTH_SHORT).show();
+                    listaPaciente.add(new Paciente(1l,"PACIENTE DESCONHECIDO", "18/08/1983", "Maria", "8989", "1919191"));
 
                 }
                 else{

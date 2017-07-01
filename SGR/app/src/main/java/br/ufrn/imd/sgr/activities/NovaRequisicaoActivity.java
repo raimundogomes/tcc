@@ -115,7 +115,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         montarRequisicao();
 
         if (requisicaoService.validarRequisicao(requisicao)) {
-            requisicao = requisicaoService.salvarRequisicao(requisicao, this);
+            requisicao = requisicaoService.salvarRequisicaoSemInternet(requisicao, this);
 
         } else {
             String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);
@@ -180,7 +180,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
         if (exameSangue.getSwitchCulturaSangue().isChecked()) {
             Exame exame = new Exame();
-            exame.setTipoColeta(obterTipoColeta(exameSangue.getRadioCulturaSangue().getCheckedRadioButtonId()));
+            exame.setTipoColeta(exameSangue.getTipoColeta());
             exame.setTipoMaterial(TipoMaterial.SANGUE);
             exame.setTipoExame(TipoExame.SANGUE);
             exame.setDataColeta(exameSangue.getDataColeta());
@@ -189,7 +189,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
         if (exameUrina.getSwitchCulturaUrina().isChecked()) {
             Exame exame = new Exame();
-            exame.setTipoColeta(obterTipoColeta(exameUrina.getRadioCulturaUrina().getCheckedRadioButtonId()));
+            exame.setTipoColeta(exameUrina.getTipoColeta());
             exame.setTipoMaterial(TipoMaterial.URINA);
             exame.setDataColeta(exameUrina.getDataColeta());
             exame.setTipoExame(TipoExame.URINA);
@@ -198,7 +198,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
         if (exameSecrecao.getSwitchCulturaSecrecao().isChecked()) {
             Exame exame = new Exame();
-            exame.setTipoColeta(obterTipoColeta(exameSecrecao.getRadioTipoColetaSecrecao().getCheckedRadioButtonId()));
+            exame.setTipoColeta(exameSecrecao.getTipoColeta());
             exame.setTipoMaterial(exameSecrecao.obterTipoMaterial());
             exame.setDataColeta(exameSecrecao.getDataColeta());
             exame.setTipoExame(TipoExame.SECRECAO);
@@ -207,36 +207,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         return listaExames;
     }
 
-    private TipoColeta obterTipoColeta(int idTipo) {
 
-        switch (idTipo) {
-            case R.id.radio_urucultura_jato:
-                return TipoColeta.JATO_MEDIO;
-            case R.id.radio_urucultura_saco_coletor:
-                return TipoColeta.SACO_COLETOR;
-            case R.id.radio_urucultura_sonda:
-                return TipoColeta.SONDA_ALIVIO;
-            case R.id.radio_urucultura_svd:
-                return TipoColeta.SVD;
-            case R.id.radio_urucultura_puncao:
-                return TipoColeta.PUNCAO_SUBPUBICA;
-            case R.id.radio_hemocultura_veia:
-                return TipoColeta.VEIA;
-            case R.id.radio_hemocultura_cateter_umbilical:
-                return TipoColeta.CATETER_UMBILICAL;
-            case R.id.radio_hemocultura_cateter_central:
-                return TipoColeta.CATETER_CENTRAL;
-            case R.id.radio_hemocultura_arteria:
-                return TipoColeta.ARTERIA;
-            case R.id.radio_swab:
-                return TipoColeta.CATETER_CENTRAL;
-            case R.id.radio_agulha:
-                return TipoColeta.ARTERIA;
-            default:
-                return null;
-        }
-
-    }
 
     @Override
     protected Dialog onCreateDialog(int id) {

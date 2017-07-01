@@ -12,6 +12,7 @@ import android.widget.TimePicker;
 import java.util.Date;
 
 import br.ufrn.imd.sgr.R;
+import br.ufrn.imd.sgr.model.TipoColeta;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
 /**
@@ -74,6 +75,23 @@ public class ExameSangue {
             botaoData.setEnabled(false);
             botaoHora.setEnabled(false);
         }
+    }
+
+    public TipoColeta getTipoColeta() {
+
+        switch (radioCulturaSangue.getCheckedRadioButtonId()) {
+            case R.id.radio_hemocultura_veia:
+                return TipoColeta.VEIA;
+            case R.id.radio_hemocultura_cateter_umbilical:
+                return TipoColeta.CATETER_UMBILICAL;
+            case R.id.radio_hemocultura_cateter_central:
+                return TipoColeta.CATETER_CENTRAL;
+            case R.id.radio_hemocultura_arteria:
+                return TipoColeta.ARTERIA;
+            default:
+                return null;
+        }
+
     }
 
     public DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {

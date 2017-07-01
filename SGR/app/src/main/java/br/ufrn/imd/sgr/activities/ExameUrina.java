@@ -12,6 +12,7 @@ import android.widget.TimePicker;
 import java.util.Date;
 
 import br.ufrn.imd.sgr.R;
+import br.ufrn.imd.sgr.model.TipoColeta;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
 /**
@@ -76,6 +77,24 @@ public class ExameUrina {
             botaoData.setEnabled(false);
             botaoHora.setEnabled(false);
         }
+    }
+
+    public TipoColeta getTipoColeta(){
+
+        switch (radioCulturaUrina.getCheckedRadioButtonId()) {
+            case R.id.radio_urucultura_jato:
+                return TipoColeta.JATO_MEDIO;
+            case R.id.radio_urucultura_saco_coletor:
+                return TipoColeta.SACO_COLETOR;
+            case R.id.radio_urucultura_sonda:
+                return TipoColeta.SONDA_ALIVIO;
+            case R.id.radio_urucultura_svd:
+                return TipoColeta.SVD;
+            case R.id.radio_urucultura_puncao:
+                return TipoColeta.PUNCAO_SUBPUBICA;
+        }
+
+        return null;
     }
 
     public String getDataColeta() {

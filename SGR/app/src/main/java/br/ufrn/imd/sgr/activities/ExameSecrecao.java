@@ -13,6 +13,7 @@ import android.widget.TimePicker;
 import java.util.Date;
 
 import br.ufrn.imd.sgr.R;
+import br.ufrn.imd.sgr.model.TipoColeta;
 import br.ufrn.imd.sgr.model.TipoMaterial;
 import br.ufrn.imd.sgr.utils.DateUtils;
 
@@ -67,10 +68,13 @@ public class ExameSecrecao {
         switch(radioCulturaSecrecao.getCheckedRadioButtonId()) {
             case R.id.radioFeridaOperatoria:
                 return TipoMaterial.FERIDA_OPERATORIA;
+
             case R.id.radioAbscessos:
                 return TipoMaterial.ABSCESSO;
+
             case R.id.radioUlceras:
                 return TipoMaterial.ULCERA;
+
             case R.id.radioFragmento:
                 return TipoMaterial.FRAGMENTO_TECIDO;
             default:
@@ -120,6 +124,17 @@ public class ExameSecrecao {
 
     public String getDataColeta() {
         return botaoDataSecrecao.getText() + " " + botaoHoraSecrecao.getText();
+    }
+
+    public TipoColeta getTipoColeta(){
+        switch (radioTipoColetaSecrecao.getCheckedRadioButtonId()) {
+            case R.id.radio_swab:
+                return TipoColeta.SWAB;
+            case R.id.radio_agulha:
+                return TipoColeta.ASPIRADO_AGULHA;
+            default:
+                return null;
+        }
     }
 
     public Button getBotaoHoraSecrecao() {

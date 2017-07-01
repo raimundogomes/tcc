@@ -104,7 +104,7 @@ public class RequisicaoBusiness {
 
 
     public void persistirRequisicao(Requisicao requisicao) {
-
+        requisicao.setNumero(1l);
         Paciente pacienteBD = pacienteDao.consultarPeloProntuario(requisicao.getPaciente().getProntuario());
 
         if(pacienteBD.getId()==null){
@@ -214,6 +214,19 @@ public class RequisicaoBusiness {
         } catch (JSONException e) {
             Log.d("Teste", e.toString());
         }
+
+        return requisicao;
+
+    }
+
+    public Requisicao salvarRequisicaoSemInternet(final Requisicao requisicao,final NovaRequisicaoActivity novaRequisicaoActivity) {
+
+        persistirRequisicao(requisicao);
+
+        Intent result = new Intent();
+        result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, requisicao);
+        novaRequisicaoActivity.setResult(novaRequisicaoActivity.RESULT_OK, result);
+        novaRequisicaoActivity.finish();
 
         return requisicao;
 

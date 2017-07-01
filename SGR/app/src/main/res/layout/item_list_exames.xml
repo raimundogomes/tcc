@@ -23,8 +23,8 @@
             <TextView android:id="@+id/text_tipo_coleta" />
         </TableRow>
         <TableRow>
-            <TextView android:text=" Data da Coleta"  android:textStyle="bold"/>
-            <TextView android:text=" Situação do exame"  android:textStyle="bold"/>
+            <TextView android:text="Data da Coleta"  android:textStyle="bold"/>
+            <TextView android:text="Situação do exame"  android:textStyle="bold"/>
         </TableRow>
         <TableRow>
             <TextView  android:id="@+id/text_data_coleta" />

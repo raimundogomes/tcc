@@ -12,8 +12,8 @@ public enum TipoColeta {
     SONDA_ALIVIO   (6, "Sonda alívio"),
     PUNCAO_SUBPUBICA (7, "Punção subpúbica"),
     SACO_COLETOR (8, "Saco coletor"),
-    SWAB (8, "SWAB"),
-    ASPIRADO_AGULHA (8, "SWAB");
+    SWAB (9, "SWAB"),
+    ASPIRADO_AGULHA (10, "SWAB");
 
     private int codigo;
 
