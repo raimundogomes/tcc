@@ -1,10 +1,14 @@
 package br.ufrn.imd.sgr.activities;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TimePicker;
 
 import java.util.Date;
 
@@ -55,10 +59,8 @@ public class ExameSecrecao {
 
         botaoDataSecrecao = (Button) activity.findViewById(R.id.bt_data_secrecao);
         botaoDataSecrecao.setText(" " + DateUtils.obterDataDDMMYYY(new Date()));
-       // botaoDataSecrecao.setOnClickListener(activity);
 
         botaoHoraSecrecao = (Button) activity.findViewById(R.id.bt_hora_secrecao);
-     //   botaoHoraSecrecao.setOnClickListener(activity);
     }
 
     public TipoMaterial obterTipoMaterial(){
@@ -127,5 +129,23 @@ public class ExameSecrecao {
     public Button getBotaoDataSecrecao() {
         return botaoDataSecrecao;
     }
+
+    public DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            String dataColetaSecrecao = " " +dayOfMonth + "/" + (monthOfYear+1)  + "/" +year;
+            botaoDataSecrecao.setText(dataColetaSecrecao);
+        }
+    };
+
+    public TimePickerDialog.OnTimeSetListener timePickerListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int selectedHour,
+                                      int selectedMinute) {
+                    botaoHoraSecrecao.setText(selectedHour + ":"+selectedMinute);
+
+                }
+            };
+
 
 }

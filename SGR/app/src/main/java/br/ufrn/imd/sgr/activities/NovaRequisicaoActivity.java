@@ -7,14 +7,12 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,7 +33,14 @@ import br.ufrn.imd.sgr.model.TipoExame;
 import br.ufrn.imd.sgr.model.TipoMaterial;
 import br.ufrn.imd.sgr.utils.Constantes;
 
-public class NovaRequisicaoActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
+public class NovaRequisicaoActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+
+    private static final int DATA_COLETA_SECRECAO = 0;
+    private static final int HORA_COLETA_SECRECAO = 1;
+    private static final int DATA_COLETA_SANGUE = 2;
+    private static final int HORA_COLETA_SANGUE = 3;
+    private static final int DATA_COLETA_URINA = 4;
+    private static final int HORA_COLETA_URINA = 5;
 
     private Requisicao requisicao;
 
@@ -78,15 +83,15 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         requisicao.setPaciente(paciente);
     }
 
-    public void onCheckedChanged(CompoundButton buttonView,  boolean isChecked) {
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        if(buttonView == exameSecrecao.getSwitchCulturaSecrecao()) {
+        if (buttonView == exameSecrecao.getSwitchCulturaSecrecao()) {
             exameSecrecao.atualizaRadioButtons(isChecked);
-        }else if(buttonView== exameSangue.getSwitchCulturaSangue()){
+        } else if (buttonView == exameSangue.getSwitchCulturaSangue()) {
 
             exameSangue.atualizaRadioButtons(isChecked);
 
-        }else if(buttonView == exameUrina.getSwitchCulturaUrina()){
+        } else if (buttonView == exameUrina.getSwitchCulturaUrina()) {
 
             exameUrina.atualizaRadioButtons(isChecked);
 
@@ -102,32 +107,49 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-       // txtDataColeta.setText(savedInstanceState.getString(EDIT_SANGUE));
+        // txtDataColeta.setText(savedInstanceState.getString(EDIT_SANGUE));
     }
 
     public void salvar(View v) {
 
         montarRequisicao();
 
-        if(requisicaoService.validarRequisicao(requisicao)){
+        if (requisicaoService.validarRequisicao(requisicao)) {
             requisicao = requisicaoService.salvarRequisicao(requisicao, this);
 
-        }else{
+        } else {
             String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);
             Toast toast = Toast.makeText(this, mensagemErro, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
 
-    public void atualizarDataColetaSecrecao(View v){
-        showDialog(0);
+    public void atualizarDataColetaSecrecao(View v) {
+        showDialog(DATA_COLETA_SECRECAO);
+        Log.d("NovaRequisicaoActivity", "atualizarDataColetaSecrecao DATA_COLETA_SECRECAO");
     }
 
-    public void atualizarHoraColetaSecrecao(View v){
-        showDialog(1);
+    public void atualizarHoraColetaSecrecao(View v) {
+        showDialog(HORA_COLETA_SECRECAO);
     }
 
+    public void atualizarDataColetaSangue(View v) {
+        showDialog(DATA_COLETA_SANGUE);
+        Log.d("NovaRequisicaoActivity", "atualizarHoraColetaUrina DATA_COLETA_SANGUE");
+    }
 
+    public void atualizarHoraColetaSangue(View v) {
+        showDialog(HORA_COLETA_SANGUE);
+    }
+
+    public void atualizarDataColetaUrina(View v) {
+        showDialog(DATA_COLETA_URINA);
+        Log.d("NovaRequisicaoActivity", "atualizarDataColetaUrina DATA_COLETA_URINA");
+    }
+
+    public void atualizarHoraColetaUrina(View v) {
+        showDialog(HORA_COLETA_URINA);
+    }
 
 
     private void montarRequisicao() {
@@ -153,31 +175,32 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         requisicao.setExames(listaExames);
     }
 
-    @NonNull
     private List<Exame> contruirExames() {
         List<Exame> listaExames = new ArrayList<>();
 
-        if(exameSangue.getSwitchCulturaSangue().isChecked()){
+        if (exameSangue.getSwitchCulturaSangue().isChecked()) {
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(exameSangue.getRadioCulturaSangue().getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.SANGUE);
             exame.setTipoExame(TipoExame.SANGUE);
-            exame.setDataColeta(exameSecrecao.getDataColeta());
+            exame.setDataColeta(exameSangue.getDataColeta());
             listaExames.add(exame);
         }
 
-        if(exameUrina.getSwitchCulturaUrina().isChecked()){
+        if (exameUrina.getSwitchCulturaUrina().isChecked()) {
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(exameUrina.getRadioCulturaUrina().getCheckedRadioButtonId()));
             exame.setTipoMaterial(TipoMaterial.URINA);
+            exame.setDataColeta(exameUrina.getDataColeta());
             exame.setTipoExame(TipoExame.URINA);
             listaExames.add(exame);
         }
 
-        if(exameSecrecao.getSwitchCulturaSecrecao().isChecked()){
+        if (exameSecrecao.getSwitchCulturaSecrecao().isChecked()) {
             Exame exame = new Exame();
             exame.setTipoColeta(obterTipoColeta(exameSecrecao.getRadioTipoColetaSecrecao().getCheckedRadioButtonId()));
             exame.setTipoMaterial(exameSecrecao.obterTipoMaterial());
+            exame.setDataColeta(exameSecrecao.getDataColeta());
             exame.setTipoExame(TipoExame.SECRECAO);
             listaExames.add(exame);
         }
@@ -185,8 +208,8 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
     }
 
     private TipoColeta obterTipoColeta(int idTipo) {
-        
-        switch(idTipo) {
+
+        switch (idTipo) {
             case R.id.radio_urucultura_jato:
                 return TipoColeta.JATO_MEDIO;
             case R.id.radio_urucultura_saco_coletor:
@@ -215,51 +238,45 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
     }
 
-
     @Override
     protected Dialog onCreateDialog(int id) {
 
-        if(id==0) {
-            Calendar calendario = GregorianCalendar.getInstance();
+        Calendar calendario = GregorianCalendar.getInstance();
 
-            int ano = calendario.get(Calendar.YEAR);
-            int mes = calendario.get(Calendar.MONTH);
-            int dia = calendario.get(Calendar.DAY_OF_MONTH);
-
-
-            return new DatePickerDialog(this, mDateSetListenerSangue, ano, mes, dia);
-        }
-
+        int ano = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
         final Calendar c = Calendar.getInstance();
         int Hora = c.get(Calendar.HOUR_OF_DAY);
-        int  Minuto = c.get(Calendar.MINUTE);
-        return new TimePickerDialog(
-                this,
-                timePickerListener,
-                Hora,
-                Minuto,
-                true  );
+        int Minuto = c.get(Calendar.MINUTE);
+
+        if (id == DATA_COLETA_SECRECAO) {
+            return new DatePickerDialog(this, exameSecrecao.dataPickerListener, ano, mes, dia);
+        }
+
+        if (id == HORA_COLETA_SECRECAO) {
+            return new TimePickerDialog(this, exameSecrecao.timePickerListener, Hora, Minuto, true);
+        }
+
+        if (id == DATA_COLETA_SANGUE) {
+            return new DatePickerDialog(this, exameSangue.dataPickerListener, ano, mes, dia);
+        }
+
+        if (id == HORA_COLETA_SANGUE) {
+            return new TimePickerDialog(this, exameSangue.timePickerListener, Hora, Minuto, true);
+        }
+
+        if (id == DATA_COLETA_URINA) {
+            return new DatePickerDialog(this, exameUrina.dataPickerListener, ano, mes, dia);
+        }
+
+        if (id == HORA_COLETA_URINA) {
+            return new TimePickerDialog(this, exameUrina.timePickerListener, Hora, Minuto, true);
+        }
+
+
+        return null;
 
     }
-
-
-    private TimePickerDialog.OnTimeSetListener timePickerListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int selectedHour,
-                                      int selectedMinute) {
-                    exameSecrecao.getBotaoHoraSecrecao().setText( selectedHour + ":"+selectedMinute);
-
-                }
-            };
-
-
-    private DatePickerDialog.OnDateSetListener mDateSetListenerSangue = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            String dataColetaSecrecao = " " +dayOfMonth + "/" + (monthOfYear+1)  + "/" +year;
-            exameSecrecao.getBotaoDataSecrecao().setText(dataColetaSecrecao);
-        }
-    };
-
-
 }
+
