@@ -25,6 +25,7 @@ import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
+import br.ufrn.imd.sgr.model.StatusRequisicao;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.VolleyApplication;
 
@@ -121,7 +122,35 @@ public class RequisicaoBusiness {
     }
 
     public boolean validarRequisicao(final Requisicao requisicao){
-        return requisicao.getPaciente() != null && requisicao.getLaboratorio()!= null;
+        if(requisicao.getInternadoUltimas72Horas()==null){
+            return false;
+        }
+
+        if(requisicao.getSubmetidoProcedimentoInvasivo() == null){
+            return false;
+        }
+
+        if(requisicao.getUsouAntibiotico() ==null){
+            return false;
+        }
+
+        if(requisicao.getExames().size()== 0){
+            return false;
+        }
+
+        for (Exame e: requisicao.getExames()) {
+            if( e.getTipoColeta()== null){
+                return false;
+            }
+            if(e.getTipoMaterial()==null){
+                return false;
+            }
+            if(e.getDataColeta()==null){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public Requisicao salvarRequisicao(final Requisicao requisicao,final NovaRequisicaoActivity novaRequisicaoActivity) {
@@ -183,4 +212,8 @@ public class RequisicaoBusiness {
 
     }
 
+    public List<Requisicao> consultarRequisicoesSolicitadas(){
+        List<Requisicao> lista = requisicaoDao.consultarPorSituacao(StatusRequisicao.SOLICITADA.getCodigo());
+        return  lista;
+    }
 }

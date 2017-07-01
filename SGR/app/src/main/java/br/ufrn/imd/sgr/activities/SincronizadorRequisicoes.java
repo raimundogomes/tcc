@@ -17,6 +17,10 @@ import br.ufrn.imd.sgr.utils.DetectaConexao;
 
 public class SincronizadorRequisicoes {
 
+    public SincronizadorRequisicoes(RequisicoesActivity activity){
+
+    }
+
     public void sicronizarRequisicoes(List<Requisicao> requisicoes, Context contexto) {
 
         DetectaConexao detectaConexao = new DetectaConexao(contexto);

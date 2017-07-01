@@ -140,4 +140,34 @@ public class RequisicaoDao {
         return values;
     }
 
+    public List<Requisicao> consultarPorSituacao(int idSituacao){
+
+
+        String rawQuery = "SELECT * FROM " + REQUISICAO + " WHERE ID_SITUACAO = " + idSituacao ;
+
+        Cursor cursor = baseDao.getDatabase().rawQuery(rawQuery, null );
+
+        List<Requisicao> requisicoes = new ArrayList<Requisicao>();
+        if (cursor.moveToFirst()){
+            do{
+                Requisicao requisicao = new Requisicao();
+
+                requisicao.setId(cursor.getLong(0));
+                requisicao.setNumero(cursor.getInt(cursor.getColumnIndex("NUMERO")));
+
+                Log.d("SGR", cursor.getInt(cursor.getColumnIndex("NUMERO"))+"");
+                Log.d("SGR", cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))+"");
+
+                requisicao.setDataRequisicao(baseDao.montarData(cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))));
+                requisicao.setSituacao(cursor.getInt(cursor.getColumnIndex("ID_SITUACAO")));
+                requisicao.setLaboratorio(Laboratorio.getLaboratorioById(cursor.getInt(cursor.getColumnIndex("ID_LABORATORIO"))));
+                requisicao.setDataUltimaModificacao(baseDao.montarData(cursor.getString(cursor.getColumnIndex("DATA_ULTIMA_ATUALIZACAO"))));
+
+                requisicoes.add(requisicao);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return requisicoes;
+    }
+
 }

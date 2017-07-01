@@ -198,7 +198,9 @@ public class RequisicoesActivity extends AppCompatActivity
 
     public void exibirMensagemSicronizacao() {
 
-        final ProgressDialog dialog = new ProgressDialog(RequisicoesActivity.this);
+        requisicaoBusiness.consultarRequisicoesSolicitadas();
+
+        final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("Sincronizando as requisições...");
         dialog.setMessage("Aguarde, por favor.");
         dialog.setIndeterminate(true);

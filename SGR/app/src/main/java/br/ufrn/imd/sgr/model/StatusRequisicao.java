@@ -3,10 +3,8 @@ package br.ufrn.imd.sgr.model;
 
 public enum StatusRequisicao {
     SOLICITADA (0, "Solicitada"),
-    RECEBIDA_PELO_LABORATORIO(1, "Recebida pelo laboratório"),
-    LAUDO_PARCIAL (2, "Laudo parcial"),
-    CANCELADA (3, "Cancelada"),
-    LAUDO_DEFINITIVO(4, "Realizado");
+    CANCELADA (2, "Cancelada"),
+    FINALIZADA(3, "Finalizada");
 
     private int codigo;
 

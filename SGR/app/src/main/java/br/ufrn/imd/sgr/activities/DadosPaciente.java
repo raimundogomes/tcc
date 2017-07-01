@@ -48,10 +48,10 @@ public class DadosPaciente {
         }
 
     public Boolean usouAntibiotico(){
-        switch (radioGroupAntibiotico .getCheckedRadioButtonId()) {
-            case R.id.radio_internado_sim:
+        switch (radioGroupAntibiotico.getCheckedRadioButtonId()) {
+            case R.id.radio_antibiotico_sim:
                 return true;
-            case R.id.radio_internado_nao:
+            case R.id.radio_antibiotico_nao:
                 return false;
         }
         return null;
