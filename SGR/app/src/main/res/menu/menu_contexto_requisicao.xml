@@ -4,7 +4,7 @@
     <item
         android:id="@+id/menu_cancelar_requisicao"
         android:icon="@mipmap/ic_close_black_24dp"
-        android:title="@string/cancelar_requisicao"/>
+        android:title="@string/cancelar_requisicao"  />
 
     <item
         android:id="@+id/menu_dados_paciente"

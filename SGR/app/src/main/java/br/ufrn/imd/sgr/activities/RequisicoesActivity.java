@@ -40,7 +40,7 @@ import br.ufrn.imd.sgr.utils.EmailUtil;
 public class RequisicoesActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener,
         AdapterView.OnItemLongClickListener,
-        DialogInterface.OnClickListener,
+
         TextWatcher {
 
     public static final String SUBJECT_EMAIL = "[SGR] - Encaminhamento de Requisição";
@@ -161,6 +161,21 @@ public class RequisicoesActivity extends AppCompatActivity
     }
 
     private void excluirRequisicao() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Confirme a exclusão da requisição de número " + requisicaoSelecionada.getNumeroFormatado() + "?");
+        builder.setPositiveButton("Sim" ,new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                // if this button is clicked, close
+                // current activity
+                excluir();
+            }
+        });
+        builder.setNegativeButton("Não", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void excluir() {
         requisicaoServiceImpl.excluir(requisicaoSelecionada.getId());
         requisicoes.remove(requisicaoSelecionada);
         requisicoesfiltradas.remove(requisicaoSelecionada);
@@ -291,15 +306,20 @@ public class RequisicoesActivity extends AppCompatActivity
 
     private void cancelarRequisicao() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Confirma o cancelamento da requisção de número " + requisicaoSelecionada.getNumeroFormatado() + "?");
-        builder.setPositiveButton("Sim", this);
+        builder.setMessage("Confirme o cancelamento da requisição de número " + requisicaoSelecionada.getNumeroFormatado() + "?");
+        builder.setPositiveButton("Sim" ,new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, close
+                        // current activity
+                       cancelar();
+                    }
+                });
         builder.setNegativeButton("Não", null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
+    public void cancelar() {
 
         //realizar o cancelamento da requisição pelo serviço
         requisicaoServiceImpl.cancelarRequisicaoServico(requisicaoSelecionada, getApplicationContext());

@@ -19,7 +19,7 @@ import br.ufrn.imd.sgr.R;
 public class ResetPasswordActivity extends AppCompatActivity {
 
     private EditText inputEmail;
-    private Button btnReset, btnBack;
+    private Button btnReset;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
 
@@ -30,17 +30,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         inputEmail = (EditText) findViewById(R.id.email);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
-        btnBack = (Button) findViewById(R.id.btn_back);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override

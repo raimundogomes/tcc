@@ -234,6 +234,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         int Minuto = calendario.get(Calendar.MINUTE);
 
         if (id == DATA_COLETA_SECRECAO) {
+
             return new DatePickerDialog(this, exameSecrecao.dataPickerListener, ano, mes, dia);
         }
 
