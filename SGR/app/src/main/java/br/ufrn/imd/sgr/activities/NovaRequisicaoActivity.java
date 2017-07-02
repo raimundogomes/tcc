@@ -114,7 +114,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         montarRequisicao();
 
         if (requisicaoService.validarRequisicao(requisicao)) {
-            requisicao = requisicaoService.salvarRequisicaoSemInternet(requisicao, this);
+            requisicao = requisicaoService.salvarRequisicao(requisicao, this);
 
         } else {
             String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);
@@ -184,6 +184,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
             exame.setTipoExame(TipoExame.SANGUE);
             exame.setDataColeta(exameSangue.getDataColeta());
             listaExames.add(exame);
+            requisicao.setTemHemocultura(true);
         }
 
         if (exameUrina.getSwitchCulturaUrina().isChecked()) {
@@ -193,6 +194,8 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
             exame.setDataColeta(exameUrina.getDataColeta());
             exame.setTipoExame(TipoExame.URINA);
             listaExames.add(exame);
+
+            requisicao.setTemUrocultura(true);
         }
 
         if (exameSecrecao.getSwitchCulturaSecrecao().isChecked()) {
@@ -202,6 +205,8 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
             exame.setDataColeta(exameSecrecao.getDataColeta());
             exame.setTipoExame(TipoExame.SECRECAO);
             listaExames.add(exame);
+
+            requisicao.setTemSecrecao(true);
         }
         return listaExames;
     }

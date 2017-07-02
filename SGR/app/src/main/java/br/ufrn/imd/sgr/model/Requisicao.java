@@ -37,6 +37,10 @@ public class Requisicao implements Serializable {
     private Boolean submetidoProcedimentoInvasivo;
     private Boolean fezUsoAntibiotico;
 
+    private boolean temHemocultura = false;
+    private boolean temUrocultura = false;
+    private boolean temSecrecao = false;
+
     public Requisicao() {
 
     }
@@ -45,7 +49,6 @@ public class Requisicao implements Serializable {
         this.dataRequisicao = dataRequisicao;
         this.paciente = paciente;
         this.status = status;
-        this.numero = numero++;
     }
     
     public Date getDataRequisicao() {
@@ -173,5 +176,30 @@ public class Requisicao implements Serializable {
 
     public Boolean getUsouAntibiotico() {
         return fezUsoAntibiotico;
+    }
+
+    public boolean getTemHemocultura() {
+        return temHemocultura;
+    }
+
+
+    public void setTemHemocultura(boolean temHemocultura) {
+        this.temHemocultura = temHemocultura;
+    }
+
+    public boolean getTemUrocultura() {
+        return temUrocultura;
+    }
+
+    public boolean getTemSecrecao() {
+        return temSecrecao;
+    }
+
+    public void setTemUrocultura(boolean temUrocultura) {
+        this.temUrocultura = temUrocultura;
+    }
+
+    public void setTemSecrecao(boolean temSecrecao) {
+        this.temSecrecao = temSecrecao;
     }
 }

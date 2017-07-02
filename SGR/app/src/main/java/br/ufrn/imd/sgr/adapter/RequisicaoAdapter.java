@@ -48,9 +48,6 @@ public class RequisicaoAdapter extends ArrayAdapter<Requisicao> {
         //status
         TextView textViewStatus = (TextView) view.findViewById(R.id.text_status);
         textViewStatus.setText(requisicao.getStatus().getDescricao());
-//
-//        ImageView imageView = (ImageView) view.findViewById(R.id.image_situacao);
-//        imageView.setImageBitmap(new Bitmap( R.mipmap.ic_autorenew_black_24dp));
 
         //paciente
         TextView textViewPaciente = (TextView) view.findViewById(R.id.text_paciente);
@@ -60,7 +57,21 @@ public class RequisicaoAdapter extends ArrayAdapter<Requisicao> {
 
         TextView textViewExames = (TextView) view.findViewById(R.id.text_exames);
 
-        textViewExames.setText(requisicao.getExames().toString());
+        List<String> exames = new ArrayList<String>();
+
+        if(requisicao.getTemHemocultura()){
+            exames.add(TipoExame.SANGUE.getDescricao());
+        }
+
+        if(requisicao.getTemUrocultura()){
+            exames.add(TipoExame.URINA.getDescricao());
+        }
+
+        if(requisicao.getTemSecrecao()){
+            exames.add(TipoExame.SECRECAO.getDescricao());
+        }
+
+        textViewExames.setText(exames.toString());
 
         return view;
     }

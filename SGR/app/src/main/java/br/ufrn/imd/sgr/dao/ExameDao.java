@@ -95,7 +95,7 @@ public class ExameDao {
     private ContentValues montarContentValues(Exame exame) {
         ContentValues values = new ContentValues(8);
 
-        values.put("DATA_COLETA", exame.getDataColeta());
+        values.put("DATA_COLETA", BaseDao.FORMATE_DATE.format(exame.getDataColeta()));
         values.put("ID_SITUACAO", exame.getSituacaoExame().getCodigo());
         values.put("ID_REQUISICAO", exame.getIdRequisicao());
         values.put("TIPO_EXAME", exame.getTipoExame().getCodigo());
@@ -110,7 +110,7 @@ public class ExameDao {
         Exame exame = new Exame();
 
         exame.setId(cursor.getLong(0));
-        exame.setDataColeta(cursor.getString(1));
+        exame.setDataColeta(baseDao.montarData(cursor.getString(1)));
         exame.setSituacaoExame(SituacaoExame.getSituacaoExamePeloCodigo(cursor.getInt(2)));
         exame.setIdRequisicao(cursor.getLong(3));
         exame.setTipoExame(TipoExame.getTipoExamePeloCodigo(cursor.getInt(4)));
@@ -121,5 +121,10 @@ public class ExameDao {
         return exame;
     }
 
+    public void delete(long idRequisicao) {
 
+        int alt = baseDao.getDatabase().delete(PacienteDao.PACIENTE, "ID_REQUISICAO=?",
+                new String[] { String.valueOf(idRequisicao) });
+
+    }
 }

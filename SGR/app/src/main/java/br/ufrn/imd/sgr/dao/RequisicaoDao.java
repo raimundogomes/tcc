@@ -13,6 +13,7 @@ import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 
 /**
+ *
  * Created by neto on 07/11/2016.
  */
 
@@ -33,7 +34,7 @@ public class RequisicaoDao {
 
     public Requisicao insert(Requisicao requisicao) {
 
-        ContentValues values = new ContentValues(7);
+        ContentValues values = new ContentValues(13);
 
         values.put("NUMERO", requisicao.getNumero());
         values.put("ID_SITUACAO", requisicao.getStatus().getCodigo());
@@ -55,6 +56,12 @@ public class RequisicaoDao {
 
         values.put("DATA_ULTIMA_ATUALIZACAO", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
 
+        values.put("TEM_HEMOCULTURA", requisicao.getTemHemocultura()==Boolean.TRUE ? 1: 0);
+
+        values.put("TEM_UROCULTURA", requisicao.getTemUrocultura()==Boolean.TRUE ? 1: 0);
+
+        values.put("TEM_SECRECAO", requisicao.getTemSecrecao()==Boolean.TRUE ? 1: 0);
+
         long id = baseDao.getDatabase().insert(REQUISICAO, null, values);
 
         requisicao.setId(id);/////
@@ -63,10 +70,10 @@ public class RequisicaoDao {
 
     }
 
-    public void delete(Requisicao requisicao) {
+    public void delete(long idRequisicao) {
 
         int alt = baseDao.getDatabase().delete(REQUISICAO, "ID=?",
-                new String[] { String.valueOf(requisicao.getId()) });
+                new String[] { String.valueOf(idRequisicao) });
 
     }
 
@@ -94,6 +101,18 @@ public class RequisicaoDao {
                 requisicao.setSituacao(cursor.getInt(cursor.getColumnIndex("ID_SITUACAO")));
                 requisicao.setLaboratorio(Laboratorio.getLaboratorioById(cursor.getInt(cursor.getColumnIndex("ID_LABORATORIO"))));
                 requisicao.setDataUltimaModificacao(baseDao.montarData(cursor.getString(cursor.getColumnIndex("DATA_ULTIMA_ATUALIZACAO"))));
+
+                int temExame = cursor.getInt(cursor.getColumnIndex("TEM_HEMOCULTURA"));
+
+                requisicao.setTemHemocultura( temExame==1 ? true: false);
+
+                temExame = cursor.getInt(cursor.getColumnIndex("TEM_UROCULTURA"));
+
+                requisicao.setTemUrocultura( temExame==1 ? true: false);
+
+                temExame = cursor.getInt(cursor.getColumnIndex("TEM_SECRECAO"));
+
+                requisicao.setTemSecrecao( temExame==1 ? true: false);
 
                 Paciente paciente = montarPaciente(cursor);
 

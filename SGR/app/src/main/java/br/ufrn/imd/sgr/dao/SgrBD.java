@@ -39,7 +39,10 @@ public class SgrBD  extends SQLiteOpenHelper {
                     "USA_ANTIBIOTICO INTEGER, " +
                     "ID_LABORATORIO INTEGER, " +
                     "DATA_ENTREGA TEXT(20), " +
-                    "DATA_ULTIMA_ATUALIZACAO TEXT(20)" +
+                    "DATA_ULTIMA_ATUALIZACAO TEXT(20), " +
+                    "TEM_HEMOCULTURA INTEGER, " +
+                    "TEM_UROCULTURA INTEGER, " +
+                    "TEM_SECRECAO INTEGER " +
                     "); ";
 
     private static final String CREATE_TABLE_EXAME =

@@ -45,4 +45,9 @@ public class DateUtils {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(data);
     }
+
+    public static String obterHora(Date data) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(data);
+    }
 }

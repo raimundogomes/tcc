@@ -31,6 +31,7 @@
     <string name="label_nova_requisicao">Nova Requisição</string>
     <string name="cancelar_requisicao">Cancelar</string>
     <string name="encaminhar_requisicao">Encaminhar</string>
+    <string name="excluir_requisicao">Excluir</string>
     <string name="label_sair">Sair</string>
     <string name="dados_paciente">Dados do Paciente</string>
     <string name="numero_requisicao">Nº requisição</string>

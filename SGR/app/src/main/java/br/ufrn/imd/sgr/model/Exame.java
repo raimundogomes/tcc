@@ -1,6 +1,7 @@
 package br.ufrn.imd.sgr.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Exame implements Serializable {
 
@@ -10,7 +11,7 @@ public class Exame implements Serializable {
 
     private TipoColeta tipoColeta;
 
-    private String dataColeta;
+    private Date dataColeta;
 
     private SituacaoExame situacaoExame = SituacaoExame.COLETADO;
 
@@ -33,11 +34,11 @@ public class Exame implements Serializable {
         this.tipoColeta = tipoColeta;
     }
 
-    public String getDataColeta() {
+    public Date getDataColeta() {
         return dataColeta;
     }
 
-    public void setDataColeta(String dataColeta) {
+    public void setDataColeta(Date dataColeta) {
         this.dataColeta = dataColeta;
     }
 

@@ -151,10 +151,20 @@ public class RequisicoesActivity extends AppCompatActivity
             case R.id.menu_dados_paciente:
                 visualizarDadosPaciente();
                 break;
+            case R.id.menu_excluir_requisicao:
+                excluirRequisicao();
+                break;
             default:
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+
+    private void excluirRequisicao() {
+        requisicaoServiceImpl.excluir(requisicaoSelecionada.getId());
+        requisicoes.remove(requisicaoSelecionada);
+        requisicoesfiltradas.remove(requisicaoSelecionada);
+        requisicaoAdapter.notifyDataSetChanged();
     }
 
     @Override

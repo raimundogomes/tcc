@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import br.ufrn.imd.sgr.R;
@@ -21,7 +22,7 @@ import br.ufrn.imd.sgr.utils.DateUtils;
  * Created by neto on 29/06/2017.
  */
 
-public class ExameSecrecao {
+public class ExameSecrecao extends ExameComum{
 
     private RadioGroup radioTipoColetaSecrecao;
 
@@ -36,9 +37,6 @@ public class ExameSecrecao {
 
     private Switch switchCulturaSecrecao;
 
-    private Button botaoDataSecrecao;
-
-    private Button botaoHoraSecrecao;
 
     public ExameSecrecao(NovaRequisicaoActivity activity) {
         //Cultura de secreção
@@ -58,10 +56,12 @@ public class ExameSecrecao {
 
         switchCulturaSecrecao.setOnCheckedChangeListener(activity);
 
-        botaoDataSecrecao = (Button) activity.findViewById(R.id.bt_data_secrecao);
-        botaoDataSecrecao.setText(" " + DateUtils.obterDataDDMMYYY(new Date()));
+        botaoData = (Button) activity.findViewById(R.id.bt_data_secrecao);
+        botaoData.setText(" " + DateUtils.obterDataDDMMYYY(new Date()));
 
-        botaoHoraSecrecao = (Button) activity.findViewById(R.id.bt_hora_secrecao);
+        botaoHora = (Button) activity.findViewById(R.id.bt_hora_secrecao);
+
+        dataColeta = Calendar.getInstance();
     }
 
     public TipoMaterial obterTipoMaterial(){
@@ -95,8 +95,8 @@ public class ExameSecrecao {
             radioSwab.setEnabled(true);
             radioAspiradoAgulha.setEnabled(true);
 
-            botaoDataSecrecao.setEnabled(true);
-            botaoHoraSecrecao.setEnabled(true);
+            botaoData.setEnabled(true);
+            botaoHora.setEnabled(true);
         } else {
             radioFeridaOperatoria.setEnabled(false);
             radioFeridaOperatoria.setChecked(false);
@@ -113,17 +113,13 @@ public class ExameSecrecao {
             radioSwab.setEnabled(false);
             radioAspiradoAgulha.setEnabled(false);
 
-            botaoDataSecrecao.setEnabled(false);
-            botaoHoraSecrecao.setEnabled(false);
+            botaoData.setEnabled(false);
+            botaoHora.setEnabled(false);
         }
     }
 
     public RadioGroup getRadioTipoColetaSecrecao() {
         return radioTipoColetaSecrecao;
-    }
-
-    public String getDataColeta() {
-        return botaoDataSecrecao.getText() + " " + botaoHoraSecrecao.getText();
     }
 
     public TipoColeta getTipoColeta(){
@@ -136,31 +132,6 @@ public class ExameSecrecao {
                 return null;
         }
     }
-
-    public Button getBotaoHoraSecrecao() {
-        return botaoHoraSecrecao;
-    }
-
-    public Button getBotaoDataSecrecao() {
-        return botaoDataSecrecao;
-    }
-
-    public DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            String dataColetaSecrecao = " " +dayOfMonth + "/" + (monthOfYear+1)  + "/" +year;
-            botaoDataSecrecao.setText(dataColetaSecrecao);
-        }
-    };
-
-    public TimePickerDialog.OnTimeSetListener timePickerListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int selectedHour,
-                                      int selectedMinute) {
-                    botaoHoraSecrecao.setText(selectedHour + ":"+selectedMinute);
-
-                }
-            };
 
 
 }

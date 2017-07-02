@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import br.ufrn.imd.sgr.R;
@@ -19,7 +20,7 @@ import br.ufrn.imd.sgr.utils.DateUtils;
  * Created by neto on 29/06/2017.
  */
 
-public class ExameUrina {
+public class ExameUrina extends ExameComum{
 
     private RadioGroup radioCulturaUrina;
     private RadioButton radioJatoMedio;
@@ -30,9 +31,7 @@ public class ExameUrina {
 
     private Switch switchCulturaUrina;
 
-    private Button botaoData;
 
-    private Button botaoHora;
 
     public ExameUrina(NovaRequisicaoActivity activity) {
 
@@ -51,6 +50,8 @@ public class ExameUrina {
         botaoData.setText(" " + DateUtils.obterDataDDMMYYY(new Date()));
 
         botaoHora = (Button) activity.findViewById(R.id.bt_hora_urina);
+
+        dataColeta = Calendar.getInstance();
 
     }
 
@@ -97,28 +98,9 @@ public class ExameUrina {
         return null;
     }
 
-    public String getDataColeta() {
-        return botaoData.getText() + " " + botaoHora.getText();
-    }
-
     public RadioGroup getRadioCulturaUrina() {
         return radioCulturaUrina;
     }
 
-    public DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            String dataColeta = " " +dayOfMonth + "/" + (monthOfYear+1)  + "/" +year;
-            botaoData.setText(dataColeta);
-        }
-    };
 
-    public TimePickerDialog.OnTimeSetListener timePickerListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int selectedHour,
-                                      int selectedMinute) {
-                    botaoHora.setText(selectedHour + ":"+selectedMinute);
-
-                }
-            };
 }

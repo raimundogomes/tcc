@@ -104,16 +104,16 @@ public class RequisicaoServiceImpl {
 
 
     public void persistirRequisicao(Requisicao requisicao) {
-        requisicao.setNumero(1l);
+
         Paciente pacienteBD = pacienteDao.consultarPeloProntuario(requisicao.getPaciente().getProntuario());
+
+        requisicao.getPaciente().setId(pacienteBD.getId());
 
         if(pacienteBD.getId()==null){
             pacienteBD =  pacienteDao.insert(requisicao.getPaciente());
         }else{
             pacienteDao.update(requisicao.getPaciente());
         }
-
-        requisicao.getPaciente().setId(pacienteBD.getId());
 
         requisicao = requisicaoDao.insert(requisicao);
 
@@ -182,18 +182,21 @@ public class RequisicaoServiceImpl {
                     Long numeroRequisicao = null;
                     try {
                         numeroRequisicao = response.getLong("numero");
+                        requisicao.setNumero(numeroRequisicao);
+
+                        persistirRequisicao(requisicao);
+
+                        Intent result = new Intent();
+                        result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, requisicao);
+                        novaRequisicaoActivity.setResult(novaRequisicaoActivity.RESULT_OK, result);
+                        novaRequisicaoActivity.finish();
                     } catch (JSONException e) {
                         e.printStackTrace(); //TODO refatorar codigo. Lancar e tratar exceção.
+                        Log.d("Teste", e.toString());
+                        Toast.makeText(novaRequisicaoActivity,
+                                "Não foi possível converter o resultado da requisição",
+                                Toast.LENGTH_LONG).show();
                     }
-
-                    requisicao.setNumero(numeroRequisicao);
-
-                    persistirRequisicao(requisicao);
-
-                    Intent result = new Intent();
-                    result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, requisicao);
-                    novaRequisicaoActivity.setResult(novaRequisicaoActivity.RESULT_OK, result);
-                    novaRequisicaoActivity.finish();
 
 
                 }
@@ -307,5 +310,10 @@ public class RequisicaoServiceImpl {
     public List<Requisicao> consultarRequisicoesSolicitadas(){
         List<Requisicao> lista = requisicaoDao.consultarPorSituacao(StatusRequisicao.SOLICITADA.getCodigo());
         return  lista;
+    }
+
+    public void excluir(long id){
+        requisicaoDao.delete(id);
+        exameDao.delete(id);
     }
 }
