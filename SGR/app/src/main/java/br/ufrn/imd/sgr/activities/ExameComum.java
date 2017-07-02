@@ -47,7 +47,8 @@ public class ExameComum {
             new TimePickerDialog.OnTimeSetListener() {
                 public void onTimeSet(TimePicker view, int selectedHour,
                                       int selectedMinute) {
-                    dataColeta.set(Calendar.HOUR, selectedHour);
+
+                    dataColeta.set(Calendar.HOUR_OF_DAY, selectedHour);
                     dataColeta.set(Calendar.MINUTE, selectedMinute);
                     botaoHora.setText(DateUtils.obterHora(dataColeta.getTime()));
 
