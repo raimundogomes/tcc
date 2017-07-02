@@ -43,7 +43,7 @@ public class RequisicaoAdapter extends ArrayAdapter<Requisicao> {
 
         //data de requisição
         TextView textViewDataRequesicao = (TextView) view.findViewById(R.id.text_dataRequisicao);
-        textViewDataRequesicao.setText(DateUtils.obterDataPorExtenso(requisicao.getDataRequisicao()));
+        textViewDataRequesicao.setText(DateUtils.obterData(requisicao.getDataRequisicao()));
 
         //status
         TextView textViewStatus = (TextView) view.findViewById(R.id.text_status);
