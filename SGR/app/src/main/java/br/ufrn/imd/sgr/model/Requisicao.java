@@ -13,10 +13,6 @@ public class Requisicao implements Serializable {
 
     private static final String FORMATO_NUMERO = "%08d";
 
-    private Date dataRequisicao;
-
-    private Integer crm;
-
     private Paciente paciente;
 
     private String emailSolicitante;
@@ -29,7 +25,11 @@ public class Requisicao implements Serializable {
 
     private Laboratorio laboratorio;
 
+    private Date dataRequisicao;
+
     private Date dataUltimaModificacao;
+
+    private Date dataEntrega;
 
     private List<Exame> exames = new ArrayList<Exame>();
 
@@ -109,14 +109,13 @@ public class Requisicao implements Serializable {
         this.id = id;
     }
 
-    public Integer getCrm() {
-        return crm;
+    public Date getDataEntrega() {
+        return dataEntrega;
     }
 
-    public void setCrm(Integer crm) {
-        this.crm = crm;
+    public void setDataEntrega(Date dataEntrega) {
+        this.dataEntrega = dataEntrega;
     }
-
 
     @Override
     public String toString() {

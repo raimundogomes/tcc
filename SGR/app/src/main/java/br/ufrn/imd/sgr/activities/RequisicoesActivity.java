@@ -26,7 +26,7 @@ import java.util.TimerTask;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.adapter.RequisicaoAdapter;
-import br.ufrn.imd.sgr.business.RequisicaoBusiness;
+import br.ufrn.imd.sgr.service.RequisicaoServiceImpl;
 import br.ufrn.imd.sgr.comparator.RequisicaoComparator;
 import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Email;
@@ -56,7 +56,7 @@ public class RequisicoesActivity extends AppCompatActivity
     private int criterioOrdenacaoSelecionado = Constantes.CRITERIO_DATA_REQUISICAO;
 
     private RequisicaoDao requisicaoDao;
-    private RequisicaoBusiness requisicaoBusiness;
+    private RequisicaoServiceImpl requisicaoServiceImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class RequisicoesActivity extends AppCompatActivity
 
         requisicaoDao = new RequisicaoDao(this);
 
-        requisicaoBusiness = new RequisicaoBusiness(getApplicationContext());
+        requisicaoServiceImpl = new RequisicaoServiceImpl(getApplicationContext());
 
         if(requisicoes.size()==0){
             requisicoes = requisicaoDao.listar();
@@ -181,7 +181,7 @@ public class RequisicoesActivity extends AppCompatActivity
                 abrirConfiguracoes();
                 break;
             case R.id.menu_desconectar:
-                requisicaoBusiness.desconectar(this);
+                requisicaoServiceImpl.desconectar(this);
                 finish();
                 break;
             case R.id.menu_nova_requisicao:
@@ -199,7 +199,7 @@ public class RequisicoesActivity extends AppCompatActivity
     public void exibirMensagemSicronizacao() {
 
 
-        requisicaoBusiness.atualizarRequisicoes( this);
+        requisicaoServiceImpl.atualizarRequisicoes( this);
 
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("Sincronizando as requisições...");
@@ -292,7 +292,7 @@ public class RequisicoesActivity extends AppCompatActivity
     public void onClick(DialogInterface dialog, int which) {
 
         //realizar o cancelamento da requisição pelo serviço
-        requisicaoBusiness.cancelarRequisicaoServico(requisicaoSelecionada, getApplicationContext());
+        requisicaoServiceImpl.cancelarRequisicaoServico(requisicaoSelecionada, getApplicationContext());
         requisicaoSelecionada.setStatus(StatusRequisicao.CANCELADA);
         requisicaoAdapter.notifyDataSetChanged();
         Toast.makeText(this,

@@ -16,7 +16,7 @@ import java.util.List;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.adapter.PacienteAdapter;
-import br.ufrn.imd.sgr.business.PacienteServiceImpl;
+import br.ufrn.imd.sgr.service.PacienteServiceImpl;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.service.PacienteService;

@@ -21,7 +21,7 @@ public class RequisicaoDao {
     public static final String REQUISICAO = "requisicao";
 
     //public static String[] COLUNAS_REQUISICAO = new String[]{"ID", "NUMERO", "DATA_REQUISICAO", "ID_SITUACAO", "ID_LABORATORIO",
-     //       "ID_PACIENTE", "EMAIL_SOLICITANTE", "DATA_COLETA", "DATA_ULTIMA_ATUALIZACAO"};
+     //       "ID_PACIENTE", "EMAIL_SOLICITANTE", "DATA_ENTREGA", "DATA_ULTIMA_ATUALIZACAO"};
 
     private BaseDao baseDao;
 
@@ -51,7 +51,7 @@ public class RequisicaoDao {
 
         values.put("DATA_REQUISICAO", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
 
-        values.put("DATA_COLETA", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
+        //values.put("DATA_ENTREGA", BaseDao.FORMATE_DATE.format(requisicao.getDataEntrega()));
 
         values.put("DATA_ULTIMA_ATUALIZACAO", BaseDao.FORMATE_DATE.format(requisicao.getDataRequisicao()));
 
@@ -60,7 +60,6 @@ public class RequisicaoDao {
         requisicao.setId(id);/////
 
         return requisicao;
-
 
     }
 
@@ -72,7 +71,6 @@ public class RequisicaoDao {
     }
 
     public List<Requisicao> listar(){
-
 
         String rawQuery = "SELECT * FROM "+ REQUISICAO +" INNER JOIN " + PacienteDao.PACIENTE
                 + " ON " + REQUISICAO+ ".ID_PACIENTE" + " = " + PacienteDao.PACIENTE +".ID";
@@ -89,9 +87,9 @@ public class RequisicaoDao {
 
                 Log.d("SGR", cursor.getInt(cursor.getColumnIndex("NUMERO"))+"");
                 Log.d("SGR", cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))+"");
-
-
-
+                if(cursor.getString(cursor.getColumnIndex("DATA_ENTREGA"))!=null) {
+                    requisicao.setDataEntrega(baseDao.montarData(cursor.getString(cursor.getColumnIndex("DATA_ENTREGA"))));
+                }
                 requisicao.setDataRequisicao(baseDao.montarData(cursor.getString(cursor.getColumnIndex("DATA_REQUISICAO"))));
                 requisicao.setSituacao(cursor.getInt(cursor.getColumnIndex("ID_SITUACAO")));
                 requisicao.setLaboratorio(Laboratorio.getLaboratorioById(cursor.getInt(cursor.getColumnIndex("ID_LABORATORIO"))));
@@ -122,13 +120,11 @@ public class RequisicaoDao {
         return p;
     }
 
-
     public void cancelar(Requisicao requisicao) {
 
         ContentValues values = montarContentValues(requisicao);
 
-        baseDao.getDatabase().update(REQUISICAO, values, "id = ?",
-                new String[] { "" + requisicao.getId()});
+        baseDao.getDatabase().update(REQUISICAO, values, "id = ?",  new String[] { "" + requisicao.getId()});
 
     }
 

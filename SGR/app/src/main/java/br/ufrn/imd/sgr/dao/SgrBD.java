@@ -38,7 +38,7 @@ public class SgrBD  extends SQLiteOpenHelper {
                     "FEZ_PROCEDIMENTO_INVASIVO INTEGER, " +
                     "USA_ANTIBIOTICO INTEGER, " +
                     "ID_LABORATORIO INTEGER, " +
-                    "DATA_COLETA TEXT(20), " +
+                    "DATA_ENTREGA TEXT(20), " +
                     "DATA_ULTIMA_ATUALIZACAO TEXT(20)" +
                     "); ";
 

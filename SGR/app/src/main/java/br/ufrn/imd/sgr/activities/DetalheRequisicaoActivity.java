@@ -13,7 +13,7 @@ import java.util.List;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.adapter.ExameAdapter;
-import br.ufrn.imd.sgr.business.ExameServiceImpl;
+import br.ufrn.imd.sgr.service.ExameServiceImpl;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.service.ExameService;
@@ -36,7 +36,6 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         requisicao = (Requisicao)intent.getExtras().get(Constantes.REQUISICAO_DETALHE_ACTIVITY);
-
 
         criarDadosRequisicao(requisicao);
 
@@ -64,7 +63,10 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
 
         if(requisicao.getDataUltimaModificacao()!=null){
             TextView dataFim = (TextView) findViewById(R.id.text_dataFinal);
-            dataFim.setText(DateUtils.obterData(requisicao.getDataUltimaModificacao()));
+            if(requisicao.getDataEntrega()!=null){
+                dataFim.setText(DateUtils.obterData(requisicao.getDataEntrega()));
+            }
+
         }
 
         TextView nomePaciente = (TextView) findViewById(R.id.text_paciente);

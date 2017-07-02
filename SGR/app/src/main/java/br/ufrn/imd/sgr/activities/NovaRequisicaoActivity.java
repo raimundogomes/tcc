@@ -22,13 +22,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.ufrn.imd.sgr.R;
-import br.ufrn.imd.sgr.business.RequisicaoBusiness;
+import br.ufrn.imd.sgr.service.RequisicaoServiceImpl;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Laboratorio;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.model.StatusRequisicao;
-import br.ufrn.imd.sgr.model.TipoColeta;
 import br.ufrn.imd.sgr.model.TipoExame;
 import br.ufrn.imd.sgr.model.TipoMaterial;
 import br.ufrn.imd.sgr.utils.Constantes;
@@ -46,7 +45,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
     private Button buttonSalvar;
 
-    private RequisicaoBusiness requisicaoService;
+    private RequisicaoServiceImpl requisicaoService;
 
     private DadosPaciente dadosPaciente;
     private ExameSecrecao exameSecrecao;
@@ -58,7 +57,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_requisicao);
 
-        requisicaoService = new RequisicaoBusiness(getApplicationContext());
+        requisicaoService = new RequisicaoServiceImpl(getApplicationContext());
 
         iniciarRequisicao();
 
@@ -115,7 +114,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         montarRequisicao();
 
         if (requisicaoService.validarRequisicao(requisicao)) {
-            requisicao = requisicaoService.salvarRequisicaoSemInternet(requisicao, this);
+            requisicao = requisicaoService.salvarRequisicao(requisicao, this);
 
         } else {
             String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);
