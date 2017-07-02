@@ -100,7 +100,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //outState.putString(EDIT_SANGUE, (String) txtDataColeta.getText().toString());
+     //   outState.putString(HORA_COLETA_SANGUE, (String) exameSangue.getDataColeta());
         super.onSaveInstanceState(outState);
     }
 
@@ -114,7 +114,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         montarRequisicao();
 
         if (requisicaoService.validarRequisicao(requisicao)) {
-            requisicao = requisicaoService.salvarRequisicao(requisicao, this);
+            requisicao = requisicaoService.salvarRequisicaoSemInternet(requisicao, this);
 
         } else {
             String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);

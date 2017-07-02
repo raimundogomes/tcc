@@ -39,6 +39,8 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
 
         criarDadosRequisicao(requisicao);
 
+        setTitle(super.getTitle() + " Nº " + requisicao.getNumeroFormatado());
+
         exameService = new ExameServiceImpl(getApplicationContext());
 
         List<Exame> exames = exameService.consultarExames(requisicao.getId());
@@ -54,9 +56,6 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
         TextView situacaoRequisicao = (TextView) findViewById(R.id.text_situacaoRequisicao);
         situacaoRequisicao.setText(requisicao.getStatus().getDescricao());
 
-
-        TextView numeroRequisicao = (TextView) findViewById(R.id.text_numeroRequisicao);
-        numeroRequisicao.setText(requisicao.getNumeroFormatado());
 
         TextView textViewDataRequesicao = (TextView) findViewById(R.id.text_dataRequisicao);
         textViewDataRequesicao.setText(DateUtils.obterData(requisicao.getDataRequisicao()));
@@ -90,7 +89,7 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
 
     public void telefonarLaboratorio(View v){
         if(requisicao.getLaboratorio()!=null ) {
-            telefonar(requisicao.getPaciente().getTelefone());
+            telefonar(requisicao.getLaboratorio().getTelefone());
         }
 
     }

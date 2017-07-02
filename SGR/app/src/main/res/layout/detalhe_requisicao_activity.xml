@@ -15,33 +15,31 @@
         android:layout_height="wrap_content"
         android:stretchColumns="0,1,2" >
 
-        <TableRow>
-            <TextView android:text="@string/numero_requisicao" android:textStyle="bold"/>
-            <TextView  android:text="@string/situacao_requisicao" android:textStyle="bold"/>
-        </TableRow>
-
-        <TableRow>
-            <TextView android:id="@+id/text_numeroRequisicao" />
-            <TextView android:id="@+id/text_situacaoRequisicao"/>
-        </TableRow>
         <TableRow android:layout_marginTop="6dp">
             <TextView android:id="@+id/label_paciente" android:text="@string/paciente" android:textStyle="bold"/>
             <TextView android:text="@string/laboratorio" android:textStyle="bold"/>
         </TableRow>
         <TableRow>
              <TextView  android:id="@+id/text_paciente"
-                 android:elegantTextHeight="true" android:onClick="telefonarPaciente"
-                 android:drawableStart="@android:drawable/sym_action_call"/>
+                 android:elegantTextHeight="true" android:onClick="telefonarPaciente" />
 
              <TextView android:id="@+id/text_laboratorio" android:elegantTextHeight="true"
                  android:drawableStart="@android:drawable/sym_action_call"  android:onClick="telefonarLaboratorio"/>
         </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1,2" >
         <TableRow android:layout_marginTop="6dp">
+            <TextView  android:text="@string/situacao_requisicao" android:textStyle="bold"/>
             <TextView android:text="@string/data_requisicao" android:textStyle="bold"/>
             <TextView android:text="@string/data_entrega"  android:textStyle="bold"/>
         </TableRow>
         <TableRow>
-
+            <TextView android:id="@+id/text_situacaoRequisicao"/>
             <TextView android:id="@+id/text_dataRequisicao"    android:layout_width="wrap_content" />
             <TextView android:id="@+id/text_dataFinal"    android:layout_width="wrap_content" />
         </TableRow>
