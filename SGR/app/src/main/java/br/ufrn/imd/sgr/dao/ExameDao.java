@@ -123,7 +123,7 @@ public class ExameDao {
 
     public void delete(long idRequisicao) {
 
-        int alt = baseDao.getDatabase().delete(PacienteDao.PACIENTE, "ID_REQUISICAO=?",
+        int alt = baseDao.getDatabase().delete(EXAME, "ID_REQUISICAO=?",
                 new String[] { String.valueOf(idRequisicao) });
 
     }
