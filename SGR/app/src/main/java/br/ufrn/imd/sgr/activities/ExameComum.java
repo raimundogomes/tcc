@@ -54,4 +54,12 @@ public class ExameComum {
 
                 }
             };
+
+    public Button getBotaoHora() {
+        return botaoHora;
+    }
+
+    public void setBotaoHora(Button botaoHora) {
+        this.botaoHora = botaoHora;
+    }
 }

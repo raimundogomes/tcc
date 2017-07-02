@@ -31,15 +31,20 @@ import br.ufrn.imd.sgr.model.StatusRequisicao;
 import br.ufrn.imd.sgr.model.TipoExame;
 import br.ufrn.imd.sgr.model.TipoMaterial;
 import br.ufrn.imd.sgr.utils.Constantes;
+import br.ufrn.imd.sgr.utils.DateUtils;
 
 public class NovaRequisicaoActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private static final int DATA_COLETA_SECRECAO = 0;
-    private static final int HORA_COLETA_SECRECAO = 1;
+    private static final int ID_HORA_COLETA_SECRECAO = 1;
     private static final int DATA_COLETA_SANGUE = 2;
-    private static final int HORA_COLETA_SANGUE = 3;
+    private static final int ID_HORA_COLETA_SANGUE = 3;
     private static final int DATA_COLETA_URINA = 4;
-    private static final int HORA_COLETA_URINA = 5;
+    private static final int ID_HORA_COLETA_URINA = 5;
+
+    private static final String HORA_COLETA_SANGUE = "HORA_COLETA_SANGUE";
+    private static final String HORA_COLETA_URINA = "HORA_COLETA_URINA";
+    private static final String HORA_COLETA_SECRECAO = "HORA_COLETA_SECRECAO";
 
     private Requisicao requisicao;
 
@@ -100,13 +105,17 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-     //   outState.putString(HORA_COLETA_SANGUE, (String) exameSangue.getDataColeta());
+        outState.putString(HORA_COLETA_SANGUE, DateUtils.obterHora(exameSangue.getDataColeta()));
+        outState.putString(HORA_COLETA_URINA, DateUtils.obterHora(exameUrina.getDataColeta()));
+        outState.putString(HORA_COLETA_SECRECAO, DateUtils.obterHora(exameSecrecao.getDataColeta()));
         super.onSaveInstanceState(outState);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // txtDataColeta.setText(savedInstanceState.getString(EDIT_SANGUE));
+        exameSangue.getBotaoHora().setText(savedInstanceState.getString(HORA_COLETA_SANGUE));
+        exameUrina.getBotaoHora().setText(savedInstanceState.getString(HORA_COLETA_URINA));
+        exameSecrecao.getBotaoHora().setText(savedInstanceState.getString(HORA_COLETA_SECRECAO));
     }
 
     public void salvar(View v) {
@@ -129,7 +138,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
     }
 
     public void atualizarHoraColetaSecrecao(View v) {
-        showDialog(HORA_COLETA_SECRECAO);
+        showDialog(ID_HORA_COLETA_SECRECAO);
     }
 
     public void atualizarDataColetaSangue(View v) {
@@ -138,7 +147,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
     }
 
     public void atualizarHoraColetaSangue(View v) {
-        showDialog(HORA_COLETA_SANGUE);
+        showDialog(ID_HORA_COLETA_SANGUE);
     }
 
     public void atualizarDataColetaUrina(View v) {
@@ -147,7 +156,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
     }
 
     public void atualizarHoraColetaUrina(View v) {
-        showDialog(HORA_COLETA_URINA);
+        showDialog(ID_HORA_COLETA_URINA);
     }
 
 
@@ -216,20 +225,19 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
     @Override
     protected Dialog onCreateDialog(int id) {
 
-        Calendar calendario = GregorianCalendar.getInstance();
+        final Calendar calendario = GregorianCalendar.getInstance();
 
         int ano = calendario.get(Calendar.YEAR);
         int mes = calendario.get(Calendar.MONTH);
         int dia = calendario.get(Calendar.DAY_OF_MONTH);
-        final Calendar c = Calendar.getInstance();
-        int Hora = c.get(Calendar.HOUR_OF_DAY);
-        int Minuto = c.get(Calendar.MINUTE);
+        int Hora = calendario.get(Calendar.HOUR_OF_DAY);
+        int Minuto = calendario.get(Calendar.MINUTE);
 
         if (id == DATA_COLETA_SECRECAO) {
             return new DatePickerDialog(this, exameSecrecao.dataPickerListener, ano, mes, dia);
         }
 
-        if (id == HORA_COLETA_SECRECAO) {
+        if (id == ID_HORA_COLETA_SECRECAO) {
             return new TimePickerDialog(this, exameSecrecao.timePickerListener, Hora, Minuto, true);
         }
 
@@ -237,7 +245,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
             return new DatePickerDialog(this, exameSangue.dataPickerListener, ano, mes, dia);
         }
 
-        if (id == HORA_COLETA_SANGUE) {
+        if (id == ID_HORA_COLETA_SANGUE) {
             return new TimePickerDialog(this, exameSangue.timePickerListener, Hora, Minuto, true);
         }
 
@@ -245,7 +253,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
             return new DatePickerDialog(this, exameUrina.dataPickerListener, ano, mes, dia);
         }
 
-        if (id == HORA_COLETA_URINA) {
+        if (id == ID_HORA_COLETA_URINA) {
             return new TimePickerDialog(this, exameUrina.timePickerListener, Hora, Minuto, true);
         }
 
