@@ -1,4 +1,4 @@
-package br.ufrn.imd.sgr.activities;
+package br.ufrn.imd.sgr.activities.novaRequisicao;
 
 import android.widget.RadioGroup;
 

@@ -54,4 +54,5 @@
     <string name="label_nao">NÃO</string>
     <string name="label_swab">SWAB</string>
     <string name="radio_aspirado_por_agulha">Aspirado por agulha</string>
+    <string name="app_sigla">SGR</string>
 </resources>

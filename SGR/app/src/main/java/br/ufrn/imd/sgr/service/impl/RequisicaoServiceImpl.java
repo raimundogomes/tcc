@@ -1,4 +1,4 @@
-package br.ufrn.imd.sgr.service;
+package br.ufrn.imd.sgr.service.impl;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,35 +23,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.ufrn.imd.sgr.activities.NovaRequisicaoActivity;
+import br.ufrn.imd.sgr.activities.novaRequisicao.NovaRequisicaoActivity;
 import br.ufrn.imd.sgr.activities.RequisicoesActivity;
-import br.ufrn.imd.sgr.dao.ExameDao;
-import br.ufrn.imd.sgr.dao.PacienteDao;
 import br.ufrn.imd.sgr.dao.RequisicaoDao;
+import br.ufrn.imd.sgr.dao.impl.RequisicaoDaoImpl;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.model.ListaRequisicaoTO;
 import br.ufrn.imd.sgr.model.StatusRequisicao;
+import br.ufrn.imd.sgr.service.ExameService;
+import br.ufrn.imd.sgr.service.PacienteService;
+import br.ufrn.imd.sgr.service.RequisicaoService;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.VolleyApplication;
 
 
-public class RequisicaoServiceImpl {
+public class RequisicaoServiceImpl implements RequisicaoService {
 
     private RequisicaoDao requisicaoDao;
 
-    private PacienteDao pacienteDao;
+    private PacienteService pacienteService;
 
-    private ExameDao exameDao;
+    private ExameService exameService;
 
     private Context applicationContext;
 
     public RequisicaoServiceImpl(Context applicationContext){
-        requisicaoDao = new RequisicaoDao(applicationContext);
-        pacienteDao = new PacienteDao(applicationContext);
-        exameDao = new ExameDao(applicationContext);
-
+        requisicaoDao = new RequisicaoDaoImpl(applicationContext);
+        pacienteService = new PacienteServiceImpl(applicationContext) ;
+        exameService = new ExameServiceImpl(applicationContext);
 
     }
 
@@ -105,14 +106,14 @@ public class RequisicaoServiceImpl {
 
     public void persistirRequisicao(Requisicao requisicao) {
 
-        Paciente pacienteBD = pacienteDao.consultarPeloProntuario(requisicao.getPaciente().getProntuario());
+        Paciente pacienteBD = pacienteService.consultarPeloProntuario(requisicao.getPaciente().getProntuario());
 
         requisicao.getPaciente().setId(pacienteBD.getId());
 
         if(pacienteBD.getId()==null){
-            pacienteBD =  pacienteDao.insert(requisicao.getPaciente());
+            pacienteBD =  pacienteService.insert(requisicao.getPaciente());
         }else{
-            pacienteDao.update(requisicao.getPaciente());
+            pacienteService.update(requisicao.getPaciente());
         }
 
         requisicao = requisicaoDao.insert(requisicao);
@@ -121,7 +122,7 @@ public class RequisicaoServiceImpl {
 
         for (Exame exame :requisicao.getExames() ) {
             exame.setIdRequisicao(requisicao.getId());
-            exameDao.insert(exame);
+            exameService.insert(exame);
         }
 
 
@@ -314,6 +315,11 @@ public class RequisicaoServiceImpl {
 
     public void excluir(long id){
         requisicaoDao.delete(id);
-        exameDao.delete(id);
+        exameService.delete(id);
+    }
+
+    @Override
+    public List<Requisicao> listar() {
+        return requisicaoDao.listar();
     }
 }

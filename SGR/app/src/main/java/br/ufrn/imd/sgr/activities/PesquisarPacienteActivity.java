@@ -15,8 +15,9 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.ufrn.imd.sgr.R;
+import br.ufrn.imd.sgr.activities.novaRequisicao.NovaRequisicaoActivity;
 import br.ufrn.imd.sgr.adapter.PacienteAdapter;
-import br.ufrn.imd.sgr.service.PacienteServiceImpl;
+import br.ufrn.imd.sgr.service.impl.PacienteServiceImpl;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.service.PacienteService;
@@ -29,6 +30,8 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
     private ProgressBar progressBar;
 
     private PacienteService pacienteService;
+
+    private PacienteAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +109,7 @@ public class PesquisarPacienteActivity extends AppCompatActivity implements View
             txt_lista_paciente.setVisibility(View.VISIBLE);
         }
 
-        PacienteAdapter adapter = new PacienteAdapter(view.getContext(), list);
+        adapter = new PacienteAdapter(view.getContext(), list);
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

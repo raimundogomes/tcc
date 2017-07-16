@@ -16,4 +16,10 @@ public interface PacienteService {
     List<Paciente> pesquisarPaciente(String prontuario, ProgressBar progressBar);
 
     List<Paciente> pesquisarPacientesPeloNome(String nome, ProgressBar progressBar);
+
+    void update(Paciente paciente);
+
+    Paciente consultarPeloProntuario(Long prontuario);
+
+    Paciente insert(Paciente paciente);
 }

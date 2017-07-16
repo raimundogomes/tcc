@@ -1,13 +1,9 @@
-package br.ufrn.imd.sgr.activities;
+package br.ufrn.imd.sgr.activities.novaRequisicao;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
-import android.widget.TimePicker;
 
 import java.util.Calendar;
 import java.util.Date;

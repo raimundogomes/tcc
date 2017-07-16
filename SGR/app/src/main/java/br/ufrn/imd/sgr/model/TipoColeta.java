@@ -10,10 +10,10 @@ public enum TipoColeta {
     JATO_MEDIO (4, "Jato médio"),
     SVD   (5, "SVD"),
     SONDA_ALIVIO   (6, "Sonda alívio"),
-    PUNCAO_SUBPUBICA (7, "Punção subpúbica"),
+    PUNCAO_SUBPUBICA (7, "Punção sub púbica"),
     SACO_COLETOR (8, "Saco coletor"),
     SWAB (9, "SWAB"),
-    ASPIRADO_AGULHA (10, "SWAB");
+    ASPIRADO_AGULHA (10, "Aspirado por agulha");
 
     private int codigo;
 

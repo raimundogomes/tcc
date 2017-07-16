@@ -42,7 +42,7 @@ public class PacienteActivity extends AppCompatActivity {
         cns.setText(paciente.getCns());
 
         TextView nomeMae = (TextView) findViewById(R.id.text_nomeMae);
-        nomeMae.setText(paciente.getNome());
+        nomeMae.setText(paciente.getNomeMae());
 
 
         TextView nome = (TextView) findViewById(R.id.text_paciente);

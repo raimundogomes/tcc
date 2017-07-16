@@ -26,9 +26,9 @@ import java.util.TimerTask;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.adapter.RequisicaoAdapter;
-import br.ufrn.imd.sgr.service.RequisicaoServiceImpl;
+import br.ufrn.imd.sgr.service.RequisicaoService;
+import br.ufrn.imd.sgr.service.impl.RequisicaoServiceImpl;
 import br.ufrn.imd.sgr.comparator.RequisicaoComparator;
-import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Email;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.model.StatusRequisicao;
@@ -55,20 +55,19 @@ public class RequisicoesActivity extends AppCompatActivity
 
     private int criterioOrdenacaoSelecionado = Constantes.CRITERIO_DATA_REQUISICAO;
 
-    private RequisicaoDao requisicaoDao;
-    private RequisicaoServiceImpl requisicaoServiceImpl;
+    private RequisicaoService requisicaoServiceImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requisicoes);
 
-        requisicaoDao = new RequisicaoDao(this);
+        requisicaoServiceImpl = new RequisicaoServiceImpl(this);
 
         requisicaoServiceImpl = new RequisicaoServiceImpl(getApplicationContext());
 
         if(requisicoes.size()==0){
-            requisicoes = requisicaoDao.listar();
+            requisicoes = requisicaoServiceImpl.listar();
         }
 
 

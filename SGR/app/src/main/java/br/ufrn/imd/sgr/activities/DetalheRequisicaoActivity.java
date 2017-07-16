@@ -13,7 +13,7 @@ import java.util.List;
 
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.adapter.ExameAdapter;
-import br.ufrn.imd.sgr.service.ExameServiceImpl;
+import br.ufrn.imd.sgr.service.impl.ExameServiceImpl;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.service.ExameService;
@@ -26,6 +26,8 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
     private Requisicao requisicao;
 
     private ExameService exameService;
+
+    private ExameAdapter exameAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class DetalheRequisicaoActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_exames);
 
-        final ExameAdapter exameAdapter = new ExameAdapter(this,  exames);
+        exameAdapter = new ExameAdapter(this,  exames);
         listView.setAdapter(exameAdapter);
     }
 

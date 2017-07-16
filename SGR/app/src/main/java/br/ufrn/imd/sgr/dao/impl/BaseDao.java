@@ -1,4 +1,4 @@
-package br.ufrn.imd.sgr.dao;
+package br.ufrn.imd.sgr.dao.impl;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 /**
  * Created by netou on 07/11/2016.

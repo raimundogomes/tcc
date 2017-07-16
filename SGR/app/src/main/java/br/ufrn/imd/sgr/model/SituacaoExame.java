@@ -7,9 +7,9 @@ public enum SituacaoExame {
 
     EM_ANALISE(2, "Em análise"),
 
-    LIBERADO(3, "Liberado"),
+    FINALIZADO(3, "Finalizado"),
 
-    CANCELADO(4, "Cancelado");
+    REJEITADO(4, "Rejeitado");
 
     private int codigo;
     private String descricao;

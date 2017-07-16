@@ -11,4 +11,8 @@ import br.ufrn.imd.sgr.model.Exame;
 public interface ExameService {
 
     List<Exame> consultarExames(long idRequisicao);
+
+    Exame insert(Exame exame);
+
+    void delete(long id);
 }

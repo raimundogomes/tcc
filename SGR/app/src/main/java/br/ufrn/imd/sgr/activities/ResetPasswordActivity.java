@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import br.ufrn.imd.sgr.R;
+import br.ufrn.imd.sgr.utils.Constantes;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -41,7 +42,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), "Digite o e-mail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), String.format(Constantes.PRENCHIMENTO_OBRIGATORIO, "E-mail"), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -51,7 +52,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(ResetPasswordActivity.this, "As instruçoes foram enviadas ppor e-mail!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ResetPasswordActivity.this, "As instruções para mudar a senha foram enviadas por e-mail!", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(ResetPasswordActivity.this, "Falha ao resetar senha!", Toast.LENGTH_SHORT).show();
                                 }

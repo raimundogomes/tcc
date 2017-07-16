@@ -1,4 +1,4 @@
-package br.ufrn.imd.sgr.activities;
+package br.ufrn.imd.sgr.activities.novaRequisicao;
 
 
 import android.app.DatePickerDialog;
@@ -22,7 +22,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.ufrn.imd.sgr.R;
-import br.ufrn.imd.sgr.service.RequisicaoServiceImpl;
+
+import br.ufrn.imd.sgr.service.RequisicaoService;
+import br.ufrn.imd.sgr.service.impl.RequisicaoServiceImpl;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Laboratorio;
 import br.ufrn.imd.sgr.model.Paciente;
@@ -50,7 +52,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
     private Button buttonSalvar;
 
-    private RequisicaoServiceImpl requisicaoService;
+    private RequisicaoService requisicaoService;
 
     private DadosPaciente dadosPaciente;
     private ExameSecrecao exameSecrecao;

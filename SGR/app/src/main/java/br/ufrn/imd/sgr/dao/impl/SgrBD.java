@@ -1,4 +1,4 @@
-package br.ufrn.imd.sgr.dao;
+package br.ufrn.imd.sgr.dao.impl;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -56,7 +56,7 @@ public class SgrBD  extends SQLiteOpenHelper {
                     "TIPO_MATERIAL INTEGER, " +
                     "RESULTADO TEXT ); ";
 
-    SgrBD(Context context) {
+    public SgrBD(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 

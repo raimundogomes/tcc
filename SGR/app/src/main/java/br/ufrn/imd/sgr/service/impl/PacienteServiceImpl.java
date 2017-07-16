@@ -1,4 +1,4 @@
-package br.ufrn.imd.sgr.service;
+package br.ufrn.imd.sgr.service.impl;
 
 import android.content.Context;
 import android.util.Log;
@@ -21,6 +21,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufrn.imd.sgr.dao.PacienteDao;
+import br.ufrn.imd.sgr.dao.impl.PacienteDaoImpl;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.service.PacienteService;
 import br.ufrn.imd.sgr.utils.Constantes;
@@ -35,8 +37,11 @@ public class PacienteServiceImpl implements PacienteService {
 
     private Context applicationContext;
 
+    private PacienteDao pacienteDao;
+
     public PacienteServiceImpl(Context contexto){
        applicationContext = contexto;
+        pacienteDao = new PacienteDaoImpl(contexto);
     }
 
     public List<Paciente> pesquisarPaciente(String prontuario, final ProgressBar progressBar) {
@@ -129,6 +134,20 @@ public class PacienteServiceImpl implements PacienteService {
         return listaPaciente;
     }
 
+    @Override
+    public void update(Paciente paciente) {
+        pacienteDao.update(paciente);
+    }
+
+    @Override
+    public Paciente consultarPeloProntuario(Long prontuario) {
+        return pacienteDao.consultarPeloProntuario(prontuario);
+    }
+
+    @Override
+    public Paciente insert(Paciente paciente) {
+        return pacienteDao.insert(paciente);
+    }
 
 
 }
