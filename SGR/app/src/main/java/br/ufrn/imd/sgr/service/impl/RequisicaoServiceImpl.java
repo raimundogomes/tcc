@@ -12,8 +12,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +34,7 @@ import br.ufrn.imd.sgr.dao.impl.RequisicaoDaoImpl;
 import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
-import br.ufrn.imd.sgr.model.ListaRequisicaoTO;
+import br.ufrn.imd.sgr.TO.ListaRequisicaoTO;
 import br.ufrn.imd.sgr.model.StatusRequisicao;
 import br.ufrn.imd.sgr.service.ExameService;
 import br.ufrn.imd.sgr.service.PacienteService;
@@ -248,6 +252,14 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
         Map map = new HashMap<Long, Date>();
 
+        final Gson builder = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                    public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+                        return new Date(jsonElement.getAsJsonPrimitive().getAsLong());
+                    }
+                })
+                .create();
+
         List<Requisicao> lista = consultarRequisicoesSolicitadas();
 
         for (Requisicao r: lista) {
@@ -272,17 +284,24 @@ public class RequisicaoServiceImpl implements RequisicaoService {
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.d("Teste", response.toString());
+                    try {
+                        JSONArray t = response.getJSONArray("listaRequisicoes");
+                        for (int i = 0; i < t.length(); ++i) {
+                            JSONObject j = t.getJSONObject(i);
+                            Requisicao r = builder.fromJson(j.toString(), Requisicao.class);
+                            j.toString();
+                        }
 
-                    String resultado = response.toString();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                    Type listType = new TypeToken<List<Requisicao>>() {}.getType();
 
-                    List<String> yourList = new Gson().fromJson(resultado, listType);
+                    Log.d("Teste", response.toString());
+                    Toast.makeText(novaRequisicaoActivity,
+                            "HAHAhHHHAHAHAHAHAH",
+                            Toast.LENGTH_LONG).show();
 
-                    Intent result = new Intent();
-                    result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, resultado);
-                    novaRequisicaoActivity.setResult(RequisicoesActivity.RESULT_OK, result);
-                    novaRequisicaoActivity.finish();
 
 
                 }

@@ -1,4 +1,4 @@
-package br.ufrn.imd.sgr.model;
+package br.ufrn.imd.sgr.TO;
 
 import java.io.Serializable;
 import java.util.Date;
