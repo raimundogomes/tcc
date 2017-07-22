@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
-                                    // there was an error
+
                                     if (password.length() < 6) {
                                         inputPassword.setError(getString(R.string.minimum_password));
                                     } else {
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferencias.edit();
         editor.putBoolean(Constantes.CONFIGURACAO_CONECTADO, manterConectado.isChecked());
         editor.putString(Constantes.EMAIL, inputEmail.getText().toString());
-        editor.commit();
+        editor.apply();
 
     }
 }

@@ -32,8 +32,6 @@ public class ConfiguracoesActivity extends AppCompatActivity implements
 
 		setContentView(R.layout.activity_configuracoes);
 
-		Intent intent = getIntent();
-
         SharedPreferences preferencias = getSharedPreferences(Constantes.PREF_NAME, MODE_PRIVATE);
 
         criterioSelecionado = preferencias.getInt(Constantes.CONFIGURACAO_CRITERIO_SELECIONADO, Constantes.CRITERIO_DATA_REQUISICAO);

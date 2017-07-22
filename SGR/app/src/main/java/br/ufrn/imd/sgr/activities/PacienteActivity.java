@@ -36,7 +36,7 @@ public class PacienteActivity extends AppCompatActivity {
     private void atualizarTelaDadosPaciente(Paciente paciente) {
 
         TextView prontuario = (TextView) findViewById(R.id.text_prontuario);
-        prontuario.setText(paciente.getProntuario().toString());
+        prontuario.setText(String.format("%010d",paciente.getProntuario()));
 
         TextView cns = (TextView) findViewById(R.id.text_cns);
         cns.setText(paciente.getCns());

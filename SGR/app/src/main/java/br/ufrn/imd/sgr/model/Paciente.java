@@ -56,7 +56,7 @@ public class Paciente  implements Serializable {
         this.nome = nome;
         this.cpf = cpf;
         this.cns = cns;
-        this.email = "netoufc@gmail.com";
+        this.email = "";
     }
 
     public Paciente(){

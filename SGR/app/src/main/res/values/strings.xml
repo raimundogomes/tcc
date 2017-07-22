@@ -1,24 +1,21 @@
 <resources>
     <string name="app_name">Sistema de gestão de requisições</string>
+    <string name="app_sigla">SGR</string>
 
     <!-- Strings related to login -->
-    <string name="action_sign_in_short">Registrar</string>
     <string name="email">Email</string>
-    <string name="minimum_password">Senha muita curta, digite no mínimo 6 characters!</string>
+    <string name="minimum_password">Senha muito curta, digite no mínimo 6 caracteres!</string>
     <string name="auth_failed">Falha na autenticação, verifique seu email and senha</string>
     <string name="change_email">Change Email</string>
     <string name="change_password">Change Password</string>
     <string name="send_password_reset_email">Solicitar nova senha por email</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Senha</string>
-    <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_link_to_register">Não possui usuário. Entre em contato com a maternidade e solicite o seu.</string>
-    <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Esqueceu sua senha?</string>
     <string name="btn_reset_password">Nova senha</string>
     <string name="btn_back"><![CDATA[<< Voltar]]></string>
-    <string name="btn_change">Change</string>
     <string name="btn_sign_out">Sair</string>
     <string name="lbl_forgot_password">Esqueceu a senha?</string>
     <string name="forgot_password_msg">Entre com seu e-mail para envio da nova senha</string>
@@ -45,7 +42,6 @@
     <string name="label_desconectar">Desconectar</string>
     <string name="label_requisicao">Requisição</string>
 
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_requisicoes">Requisições</string>
     <string name="title_activity_pesquisar_paciente">Pesquisar paciente</string>
 
@@ -54,5 +50,5 @@
     <string name="label_nao">NÃO</string>
     <string name="label_swab">SWAB</string>
     <string name="radio_aspirado_por_agulha">Aspirado por agulha</string>
-    <string name="app_sigla">SGR</string>
+
 </resources>
