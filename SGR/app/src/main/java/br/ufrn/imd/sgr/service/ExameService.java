@@ -15,4 +15,6 @@ public interface ExameService {
     Exame insert(Exame exame);
 
     void delete(long id);
+
+    void atualizarExames(List<Exame> exames);
 }

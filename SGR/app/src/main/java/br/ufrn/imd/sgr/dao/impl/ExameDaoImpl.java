@@ -18,7 +18,7 @@ import br.ufrn.imd.sgr.model.TipoMaterial;
 public class ExameDaoImpl implements ExameDao{
 
     public static final String EXAME = "exame";
-    public static String[] COLUNAS = new String[]{"ID_EXAME", "DATA_COLETA", "ID_SITUACAO", "ID_REQUISICAO",
+    public static String[] COLUNAS = new String[]{"ID_EXAME","NUMERO_EXAME",  "DATA_COLETA", "ID_SITUACAO", "ID_REQUISICAO",
             "TIPO_EXAME", "TIPO_COLETA", "TIPO_MATERIAL", "RESULTADO"};
 
 
@@ -81,7 +81,10 @@ public class ExameDaoImpl implements ExameDao{
 
     public void update(Exame exame) {
 
-        ContentValues values = montarContentValues(exame);
+        ContentValues values = new ContentValues(8);
+
+        values.put("ID_SITUACAO", exame.getSituacaoExame().getCodigo());
+        values.put("RESULTADO", exame.getResultado());
 
         baseDao.getDatabase().update(EXAME, values, "id = ?",
                 new String[] { "" + exame.getId()});
@@ -91,6 +94,7 @@ public class ExameDaoImpl implements ExameDao{
     private ContentValues montarContentValues(Exame exame) {
         ContentValues values = new ContentValues(8);
 
+        values.put("NUMERO_EXAME", exame.getNumero());
         values.put("DATA_COLETA", BaseDao.FORMATE_DATE.format(exame.getDataColeta()));
         values.put("ID_SITUACAO", exame.getSituacaoExame().getCodigo());
         values.put("ID_REQUISICAO", exame.getIdRequisicao());
@@ -106,13 +110,14 @@ public class ExameDaoImpl implements ExameDao{
         Exame exame = new Exame();
 
         exame.setId(cursor.getLong(0));
-        exame.setDataColeta(baseDao.montarData(cursor.getString(1)));
-        exame.setSituacaoExame(SituacaoExame.getSituacaoExamePeloCodigo(cursor.getInt(2)));
-        exame.setIdRequisicao(cursor.getLong(3));
-        exame.setTipoExame(TipoExame.getTipoExamePeloCodigo(cursor.getInt(4)));
-        exame.setTipoColeta(TipoColeta.getTipoColetaPeloCodigo(cursor.getInt(5)));
-        exame.setTipoMaterial(TipoMaterial.getTipoMaterialPeloCodigo(cursor.getInt(6)));
-        exame.setResultadoCompleto(cursor.getString(7));
+        exame.setNumero(cursor.getLong(1));
+        exame.setDataColeta(baseDao.montarData(cursor.getString(2)));
+        exame.setSituacaoExame(SituacaoExame.getSituacaoExamePeloCodigo(cursor.getInt(3)));
+        exame.setIdRequisicao(cursor.getLong(4));
+        exame.setTipoExame(TipoExame.getTipoExamePeloCodigo(cursor.getInt(5)));
+        exame.setTipoColeta(TipoColeta.getTipoColetaPeloCodigo(cursor.getInt(6)));
+        exame.setTipoMaterial(TipoMaterial.getTipoMaterialPeloCodigo(cursor.getInt(7)));
+        exame.setResultadoCompleto(cursor.getString(8));
 
         return exame;
     }

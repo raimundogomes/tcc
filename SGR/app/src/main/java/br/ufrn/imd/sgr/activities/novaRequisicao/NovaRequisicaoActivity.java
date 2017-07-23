@@ -29,7 +29,7 @@ import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Laboratorio;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
-import br.ufrn.imd.sgr.model.StatusRequisicao;
+import br.ufrn.imd.sgr.model.SituacaoRequisicao;
 import br.ufrn.imd.sgr.model.TipoExame;
 import br.ufrn.imd.sgr.model.TipoMaterial;
 import br.ufrn.imd.sgr.utils.Constantes;
@@ -169,7 +169,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
         requisicao.setEmailSolicitante(email);
 
-        requisicao.setStatus(StatusRequisicao.SOLICITADA);
+        requisicao.setStatus(SituacaoRequisicao.SOLICITADA);
         requisicao.setDataRequisicao(new Date());
 
         requisicao.setInternadoUltimas72Horas(dadosPaciente.internadoUltimas72Horas());

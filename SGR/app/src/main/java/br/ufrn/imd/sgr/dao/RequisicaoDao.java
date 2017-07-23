@@ -21,12 +21,13 @@ public interface RequisicaoDao {
 
     Requisicao insert(Requisicao requisicao);
 
-    public void delete(long idRequisicao) ;
+    void delete(long idRequisicao) ;
 
-    public List<Requisicao> listar();
+    List<Requisicao> listar();
 
-    public void cancelar(Requisicao requisicao);
+    void cancelar(Requisicao requisicao);
 
-    public List<Requisicao> consultarPorSituacao(int idSituacao);
+    List<Requisicao> consultarPorSituacao(int idSituacao);
 
+    void atualizarRequisicao(Requisicao requisicao);
 }

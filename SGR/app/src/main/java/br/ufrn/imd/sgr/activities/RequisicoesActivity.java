@@ -31,7 +31,7 @@ import br.ufrn.imd.sgr.service.impl.RequisicaoServiceImpl;
 import br.ufrn.imd.sgr.comparator.RequisicaoComparator;
 import br.ufrn.imd.sgr.model.Email;
 import br.ufrn.imd.sgr.model.Requisicao;
-import br.ufrn.imd.sgr.model.StatusRequisicao;
+import br.ufrn.imd.sgr.model.SituacaoRequisicao;
 import br.ufrn.imd.sgr.utils.Constantes;
 import br.ufrn.imd.sgr.utils.DateUtils;
 import br.ufrn.imd.sgr.utils.DetectaConexao;
@@ -45,6 +45,8 @@ public class RequisicoesActivity extends AppCompatActivity
 
     public static final String SUBJECT_EMAIL = "[SGR] - Encaminhamento de Requisição";
 
+    private ListView listView;
+
     private List<Requisicao> requisicoes = new ArrayList<Requisicao>();
 
     private List<Requisicao> requisicoesfiltradas;
@@ -56,6 +58,8 @@ public class RequisicoesActivity extends AppCompatActivity
     private int criterioOrdenacaoSelecionado = Constantes.CRITERIO_DATA_REQUISICAO;
 
     private RequisicaoService requisicaoServiceImpl;
+
+    private  ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +74,13 @@ public class RequisicoesActivity extends AppCompatActivity
             requisicoes = requisicaoServiceImpl.listar();
         }
 
-
-
-        ListView listView = (ListView) findViewById(R.id.list_requisicao);
-
-        registerForContextMenu(listView);
-
         requisicoesfiltradas = ((List) ((ArrayList) requisicoes).clone());
 
         ordenarComBaseConfiguracao();
+
+        listView = (ListView) findViewById(R.id.list_requisicao);
+
+        registerForContextMenu(listView);
 
         requisicaoAdapter = new RequisicaoAdapter(this,  requisicoesfiltradas);
 
@@ -92,6 +94,8 @@ public class RequisicoesActivity extends AppCompatActivity
         EditText editSearch = (EditText) findViewById(R.id.edit_search);
 
         editSearch.addTextChangedListener(this);
+
+        dialog = new ProgressDialog(this);
 
     }
 
@@ -164,8 +168,6 @@ public class RequisicoesActivity extends AppCompatActivity
         builder.setMessage("Confirme a exclusão da requisição de número " + requisicaoSelecionada.getNumeroFormatado() + "?");
         builder.setPositiveButton("Sim" ,new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
-                // if this button is clicked, close
-                // current activity
                 excluir();
             }
         });
@@ -222,25 +224,33 @@ public class RequisicoesActivity extends AppCompatActivity
 
     public void exibirMensagemSicronizacao() {
 
+        exibirDialog("Sincronizando as requisições...", "Aguarde, por favor.");
 
         requisicaoServiceImpl.atualizarRequisicoes( this);
 
-        final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setTitle("Sincronizando as requisições...");
-        dialog.setMessage("Aguarde, por favor.");
+    }
+
+    private void exibirDialog(String titulo, String mensagem){
+        dialog.setTitle(titulo);
+        dialog.setMessage(mensagem);
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.show();
+    }
+    public void ocultarDialog(){
+        dialog.dismiss();
+    }
 
-        long delayInMillis = 2000;
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-            }
-        }, delayInMillis);
+    public void atualizarTela() {
+        requisicoes = requisicaoServiceImpl.listar();
 
+        requisicoesfiltradas = ((List) ((ArrayList) requisicoes).clone());
+
+        ordenarComBaseConfiguracao();
+        requisicaoAdapter = new RequisicaoAdapter(this,  requisicoesfiltradas);
+
+        listView.setAdapter(requisicaoAdapter);
+        requisicaoAdapter.notifyDataSetChanged();
     }
 
     public void novaRequisicao() {
@@ -322,7 +332,7 @@ public class RequisicoesActivity extends AppCompatActivity
 
         //realizar o cancelamento da requisição pelo serviço
         requisicaoServiceImpl.cancelarRequisicaoServico(requisicaoSelecionada, getApplicationContext());
-        requisicaoSelecionada.setStatus(StatusRequisicao.CANCELADA);
+        requisicaoSelecionada.setStatus(SituacaoRequisicao.CANCELADA);
         requisicaoAdapter.notifyDataSetChanged();
         Toast.makeText(this,
                 "Requisição cancelada com sucesso.",

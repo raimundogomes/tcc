@@ -7,6 +7,8 @@ public class Exame implements Serializable {
 
     private long id;
 
+    private long numero;
+
     private TipoExame tipoExame;
 
     private TipoColeta tipoColeta;
@@ -94,6 +96,14 @@ public class Exame implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(long numero) {
+        this.numero = numero;
     }
 
     public TipoExame getTipoExame() {

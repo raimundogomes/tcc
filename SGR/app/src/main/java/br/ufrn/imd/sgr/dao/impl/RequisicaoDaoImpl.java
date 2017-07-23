@@ -13,6 +13,7 @@ import br.ufrn.imd.sgr.dao.RequisicaoDao;
 import br.ufrn.imd.sgr.model.Laboratorio;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
+import br.ufrn.imd.sgr.utils.Constantes;
 
 /**
  *
@@ -143,19 +144,14 @@ public class RequisicaoDaoImpl implements RequisicaoDao{
 
     public void cancelar(Requisicao requisicao) {
 
-        ContentValues values = montarContentValues(requisicao);
+        ContentValues values = new ContentValues(1);
+
+        values.put("ID_SITUACAO", requisicao.getStatus().getCodigo());
 
         baseDao.getDatabase().update(REQUISICAO, values, "id = ?",  new String[] { "" + requisicao.getId()});
 
     }
 
-    private ContentValues montarContentValues(Requisicao requisicao) {
-        ContentValues values = new ContentValues(1);
-
-        values.put("ID_SITUACAO", requisicao.getStatus().getCodigo());
-
-        return values;
-    }
 
     public List<Requisicao> consultarPorSituacao(int idSituacao){
 
@@ -185,6 +181,23 @@ public class RequisicaoDaoImpl implements RequisicaoDao{
         }
         cursor.close();
         return requisicoes;
+    }
+
+    @Override
+    public void atualizarRequisicao(Requisicao requisicao) {
+
+        ContentValues values = new ContentValues(2);
+
+        values.put("ID_SITUACAO", requisicao.getStatus().getCodigo());
+
+        //values.put("DATA_ENTREGA", BaseDao.FORMATE_DATE.format(requisicao.getDataEntrega()));
+
+        values.put("DATA_ULTIMA_ATUALIZACAO", BaseDao.FORMATE_DATE.format(requisicao.getDataUltimaModificacao()));
+
+        baseDao.getDatabase().update(REQUISICAO, values, "id = ?",  new String[] { "" + requisicao.getNumero()});
+
+        Log.d(Constantes.SGR, RequisicaoDao.class.getCanonicalName() + " atualizarRequisicao" + requisicao.toString());
+
     }
 
 }

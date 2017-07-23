@@ -1,5 +1,6 @@
 package br.ufrn.imd.sgr.service;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface RequisicaoService {
 
     void desconectar(final Context applicationContext);
 
-    void persistirRequisicao(Requisicao requisicao);
+    Requisicao persistirRequisicao(Requisicao requisicao);
 
     boolean validarRequisicao(final Requisicao requisicao);
 
@@ -23,7 +24,7 @@ public interface RequisicaoService {
 
     Requisicao salvarRequisicaoSemInternet(final Requisicao requisicao,final NovaRequisicaoActivity novaRequisicaoActivity) ;
 
-    Requisicao atualizarRequisicoes( final RequisicoesActivity novaRequisicaoActivity);
+    Requisicao atualizarRequisicoes(final RequisicoesActivity novaRequisicaoActivity);
 
     List<Requisicao> consultarRequisicoesSolicitadas();
 

@@ -48,6 +48,7 @@ public class SgrBD  extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_EXAME =
             " CREATE TABLE EXAME " +
                     "(ID INTEGER PRIMARY KEY," +
+                    "NUMERO_EXAME INTEGER, " +
                     "DATA_COLETA TEXT(20), " +
                     "ID_SITUACAO INTEGER, " +
                     "ID_REQUISICAO INTEGER , " +

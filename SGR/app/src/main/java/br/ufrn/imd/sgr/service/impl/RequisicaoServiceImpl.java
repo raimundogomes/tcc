@@ -1,8 +1,10 @@
 package br.ufrn.imd.sgr.service.impl;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,7 +37,7 @@ import br.ufrn.imd.sgr.model.Exame;
 import br.ufrn.imd.sgr.model.Paciente;
 import br.ufrn.imd.sgr.model.Requisicao;
 import br.ufrn.imd.sgr.TO.ListaRequisicaoTO;
-import br.ufrn.imd.sgr.model.StatusRequisicao;
+import br.ufrn.imd.sgr.model.SituacaoRequisicao;
 import br.ufrn.imd.sgr.service.ExameService;
 import br.ufrn.imd.sgr.service.PacienteService;
 import br.ufrn.imd.sgr.service.RequisicaoService;
@@ -108,7 +110,7 @@ public class RequisicaoServiceImpl implements RequisicaoService {
     }
 
 
-    public void persistirRequisicao(Requisicao requisicao) {
+    public Requisicao persistirRequisicao(Requisicao requisicao) {
 
         Paciente pacienteBD = pacienteService.consultarPeloProntuario(requisicao.getPaciente().getProntuario());
 
@@ -122,15 +124,13 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
         requisicao = requisicaoDao.insert(requisicao);
 
-
-
         for (Exame exame :requisicao.getExames() ) {
             exame.setIdRequisicao(requisicao.getId());
-            exameService.insert(exame);
+            exame = exameService.insert(exame);
         }
 
 
-        // Log.d("Teste", requisicaoDao.listar().toString());
+      return requisicao;
     }
 
     public boolean validarRequisicao(final Requisicao requisicao){
@@ -189,10 +189,10 @@ public class RequisicaoServiceImpl implements RequisicaoService {
                         numeroRequisicao = response.getLong("numero");
                         requisicao.setNumero(numeroRequisicao);
 
-                        persistirRequisicao(requisicao);
+                        Requisicao requisicaoTemp = persistirRequisicao(requisicao);
 
                         Intent result = new Intent();
-                        result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, requisicao);
+                        result.putExtra(Constantes.REQUISICAO_NOVA_ACTIVITY, requisicaoTemp);
                         novaRequisicaoActivity.setResult(novaRequisicaoActivity.RESULT_OK, result);
                         novaRequisicaoActivity.finish();
                     } catch (JSONException e) {
@@ -208,7 +208,7 @@ public class RequisicaoServiceImpl implements RequisicaoService {
             },new Response.ErrorListener(){
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    
                     Log.d("Teste", error.toString());
                     Toast.makeText(novaRequisicaoActivity,
                             "Não foi possível estabelecer conexão para inserir a requisição.",
@@ -240,33 +240,10 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
     }
 
-    public Requisicao atualizarRequisicoes( final RequisicoesActivity novaRequisicaoActivity) {
+    public Requisicao atualizarRequisicoes(final RequisicoesActivity contexto) {
         String url = Constantes.URL_REQUISICAO + "consultarRequisicoesAtualizadas";
 
-        ListaRequisicaoTO req= new ListaRequisicaoTO();
-
-        SharedPreferences preferencias = novaRequisicaoActivity.getSharedPreferences(Constantes.PREF_NAME, novaRequisicaoActivity.MODE_PRIVATE);
-        String email = preferencias.getString(Constantes.EMAIL, "");
-        req.setEmailSolicitante(email);
-        req.setDataUltimaAtualizacao(new Date());
-
-        Map map = new HashMap<Long, Date>();
-
-        final Gson builder = new GsonBuilder()
-                .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-                    public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-                        return new Date(jsonElement.getAsJsonPrimitive().getAsLong());
-                    }
-                })
-                .create();
-
-        List<Requisicao> lista = consultarRequisicoesSolicitadas();
-
-        for (Requisicao r: lista) {
-            map.put(r.getId(), r.getDataUltimaModificacao());
-        }
-
-        req.setMapIdDataUltimaAtualizao(map);
+        final ListaRequisicaoTO req = montarListaRequisicaoTO(contexto);
 
         final JSONObject jsonBody;
         try {
@@ -285,23 +262,47 @@ public class RequisicaoServiceImpl implements RequisicaoService {
                 public void onResponse(JSONObject response) {
                     Log.d("Teste", response.toString());
                     try {
-                        JSONArray t = response.getJSONArray("listaRequisicoes");
-                        for (int i = 0; i < t.length(); ++i) {
-                            JSONObject j = t.getJSONObject(i);
-                            Requisicao r = builder.fromJson(j.toString(), Requisicao.class);
-                            j.toString();
+                        JSONArray jsonArray = response.getJSONArray("listaRequisicoes");
+
+                        final Gson builder = new GsonBuilder()
+                                .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                                    public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+                                        return new Date(jsonElement.getAsJsonPrimitive().getAsLong());
+                                    }
+                                })
+                                .create();
+
+                        if(jsonArray.length()==0){
+                            contexto.ocultarDialog();
+
+                            Toast.makeText(contexto,
+                                    "Não houve atualização desde da última sincronização!",
+                                    Toast.LENGTH_LONG).show();
+                            return;
                         }
 
+                        for (int i = 0; i < jsonArray.length(); ++i) {
+                            JSONObject j = jsonArray.getJSONObject(i);
+                            Requisicao r = builder.fromJson(j.toString(), Requisicao.class);
+                            requisicaoDao.atualizarRequisicao(r);
+                            exameService.atualizarExames(r.getExames());
+                        }
+
+                        contexto.ocultarDialog();
+
+                        contexto.atualizarTela();
+
+                        Toast.makeText(contexto,
+                                "Requisições sincronizadas!",
+                                Toast.LENGTH_LONG).show();
+
                     } catch (JSONException e) {
+                        contexto.ocultarDialog();
+                        Toast.makeText(contexto,
+                                "Falha ao sincronizar!",
+                                Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
-
-
-                    Log.d("Teste", response.toString());
-                    Toast.makeText(novaRequisicaoActivity,
-                            "HAHAhHHHAHAHAHAHAH",
-                            Toast.LENGTH_LONG).show();
-
 
 
                 }
@@ -309,8 +310,9 @@ public class RequisicaoServiceImpl implements RequisicaoService {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
-                    Log.d("Teste", error.toString());
-                    Toast.makeText(novaRequisicaoActivity,
+                    Log.d("SGR-APP", error.toString());
+                    contexto.ocultarDialog();
+                    Toast.makeText(contexto,
                             "Não foi possível estabelecer conexão para inserir a requisição.",
                             Toast.LENGTH_LONG).show();
 
@@ -327,8 +329,30 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
     }
 
+    @NonNull
+    private ListaRequisicaoTO montarListaRequisicaoTO(RequisicoesActivity novaRequisicaoActivity) {
+        ListaRequisicaoTO req = new ListaRequisicaoTO();
+
+        SharedPreferences preferencias = novaRequisicaoActivity.getSharedPreferences(Constantes.PREF_NAME, novaRequisicaoActivity.MODE_PRIVATE);
+        String email = preferencias.getString(Constantes.EMAIL, "");
+        req.setEmailSolicitante(email);
+        req.setDataUltimaAtualizacao(new Date());
+
+        Map map = new HashMap<Long, Date>();
+
+
+        List<Requisicao> lista = consultarRequisicoesSolicitadas();
+
+        for (Requisicao r: lista) {
+            map.put(r.getId(), r.getDataUltimaModificacao());
+        }
+
+        req.setMapIdDataUltimaAtualizao(map);
+        return req;
+    }
+
     public List<Requisicao> consultarRequisicoesSolicitadas(){
-        List<Requisicao> lista = requisicaoDao.consultarPorSituacao(StatusRequisicao.SOLICITADA.getCodigo());
+        List<Requisicao> lista = requisicaoDao.consultarPorSituacao(SituacaoRequisicao.SOLICITADA.getCodigo());
         return  lista;
     }
 

@@ -17,7 +17,7 @@ public class Requisicao implements Serializable {
 
     private String emailSolicitante;
 
-    private StatusRequisicao status;
+    private SituacaoRequisicao status;
 
     private Long id;
 
@@ -45,7 +45,7 @@ public class Requisicao implements Serializable {
 
     }
 
-    public Requisicao(Date dataRequisicao, Paciente paciente, StatusRequisicao status) {
+    public Requisicao(Date dataRequisicao, Paciente paciente, SituacaoRequisicao status) {
         this.dataRequisicao = dataRequisicao;
         this.paciente = paciente;
         this.status = status;
@@ -67,11 +67,11 @@ public class Requisicao implements Serializable {
         this.paciente = paciente;
     }
 
-    public StatusRequisicao getStatus() {
+    public SituacaoRequisicao getStatus() {
         return status;
     }
 
-    public void setStatus(StatusRequisicao status) {
+    public void setStatus(SituacaoRequisicao status) {
         this.status = status;
     }
 
@@ -135,7 +135,7 @@ public class Requisicao implements Serializable {
 
     public void setSituacao(int situacao) {
 
-        this.setStatus(StatusRequisicao.getStatusRequisicaoByCodigo(situacao));
+        this.setStatus(SituacaoRequisicao.getStatusRequisicaoByCodigo(situacao));
     }
 
     public void setExames(List<Exame> exames) {
@@ -197,6 +197,22 @@ public class Requisicao implements Serializable {
 
     public void setTemUrocultura(boolean temUrocultura) {
         this.temUrocultura = temUrocultura;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Requisicao that = (Requisicao) o;
+
+        return numero.equals(that.numero);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return numero.hashCode();
     }
 
     public void setTemSecrecao(boolean temSecrecao) {

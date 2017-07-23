@@ -1,16 +1,18 @@
 package br.ufrn.imd.sgr.model;
 
 
-public enum StatusRequisicao {
+public enum SituacaoRequisicao {
     SOLICITADA (0, "Solicitada"),
+    RECEBIDA (1, "Cancelada"),
     CANCELADA (2, "Cancelada"),
-    FINALIZADA(3, "Finalizada");
+    FINALIZADA(3, "Finalizada"),
+    REJEITADA(4, "Rejeitada");
 
     private int codigo;
 
     private String descricao;
 
-    StatusRequisicao(int codigo, String descricao) {
+    SituacaoRequisicao(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -31,9 +33,9 @@ public enum StatusRequisicao {
         this.descricao = descricao;
     }
 
-    public static StatusRequisicao getStatusRequisicaoByCodigo(int codigo){
+    public static SituacaoRequisicao getStatusRequisicaoByCodigo(int codigo){
 
-     for (StatusRequisicao status: StatusRequisicao.values()){
+     for (SituacaoRequisicao status: SituacaoRequisicao.values()){
          if(status.codigo== codigo){
              return status;
          }
