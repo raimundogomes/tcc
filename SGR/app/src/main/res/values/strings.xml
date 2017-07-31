@@ -5,7 +5,7 @@
     <!-- Strings related to login -->
     <string name="email">Email</string>
     <string name="minimum_password">Senha muito curta, digite no mínimo 6 caracteres!</string>
-    <string name="auth_failed">Falha na autenticação, verifique seu email and senha</string>
+    <string name="auth_failed">Falha na autenticação, verifique seu email e senha</string>
     <string name="change_email">Change Email</string>
     <string name="change_password">Change Password</string>
     <string name="send_password_reset_email">Solicitar nova senha por email</string>
@@ -50,5 +50,10 @@
     <string name="label_nao">NÃO</string>
     <string name="label_swab">SWAB</string>
     <string name="radio_aspirado_por_agulha">Aspirado por agulha</string>
+    <string name="label_internado_72">Internado nas últimas 72h?</string>
+    <string name="label_submetid_proc_invasivo">Submetido a algum procedimento invasivo?</string>
+    <string name="label_antibioticos">Fez uso de antibióticos nos últimos 10 dias?</string>
+    <string name="label_tipo_coleta">Tipo da coleta?</string>
+    <string name="label_data_e_hora_da_coleta">Data e hora da coleta</string>
 
 </resources>

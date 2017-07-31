@@ -20,7 +20,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import br.ufrn.imd.sgr.R;
 import br.ufrn.imd.sgr.activities.RequisicoesActivity;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class FirebaseNotificationService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
 

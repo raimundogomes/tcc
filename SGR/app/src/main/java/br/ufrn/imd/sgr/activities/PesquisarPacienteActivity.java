@@ -1,5 +1,6 @@
 package br.ufrn.imd.sgr.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

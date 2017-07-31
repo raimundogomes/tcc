@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submetido a algum procedimento invasivo?"
+                android:text="@string/label_submetid_proc_invasivo"
                 android:textColor="@color/primary_text" />
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Internado nas últimas 72h?"
+                android:text="@string/label_internado_72"
                 android:textColor="@color/primary_text" />
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
@@ -77,7 +77,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fez uso de antibióticos nos últimos 10 dias?"
+                android:text="@string/label_antibioticos"
                 android:textColor="@color/primary_text" />
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
@@ -201,7 +201,7 @@
 
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="Tipo da coleta?" />
+                android:text="@string/label_tipo_coleta" />
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/radio_group_secrecao_tipo_coleta"
@@ -285,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="none"
-                        android:text="Data e hora da coleta" />
+                        android:text="@string/label_data_e_hora_da_coleta" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

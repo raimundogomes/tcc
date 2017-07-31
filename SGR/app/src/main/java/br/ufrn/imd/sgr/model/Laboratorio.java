@@ -4,7 +4,7 @@ package br.ufrn.imd.sgr.model;
 public enum Laboratorio {
 
     MICROBIOLOGIA (0, "Microbiologia", "84 32758431"),
-    CITOLOGIA (1, "Citologia", "84 32758431");
+    CITOLOGIA (1, "Citologia", "(84)32758431");
 
     private int id;
 

@@ -47,6 +47,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
     private static final String HORA_COLETA_SANGUE = "HORA_COLETA_SANGUE";
     private static final String HORA_COLETA_URINA = "HORA_COLETA_URINA";
     private static final String HORA_COLETA_SECRECAO = "HORA_COLETA_SECRECAO";
+    public static final String CAMPO_OBRIGATORIO = "Campo %s obrigatório";
 
     private Requisicao requisicao;
 
@@ -122,16 +123,59 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
 
     public void salvar(View v) {
 
-        montarRequisicao();
+            montarRequisicao();
 
-        if (requisicaoService.validarRequisicao(requisicao)) {
-            requisicao = requisicaoService.salvarRequisicao(requisicao, this);
+            if (validarRequisicao(requisicao)) {
+                requisicao = requisicaoService.salvarRequisicao(requisicao, this);
 
-        } else {
-            String mensagemErro = getString(R.string.erro_preenchimento_obrigatorio);
-            Toast toast = Toast.makeText(this, mensagemErro, Toast.LENGTH_SHORT);
+            }
+    }
+
+    private boolean validarRequisicao(final Requisicao requisicao){
+
+        if(requisicao.getSubmetidoProcedimentoInvasivo() == null){
+            Toast toast = Toast.makeText(this, String.format(CAMPO_OBRIGATORIO, getResources().getString(R.string.label_submetid_proc_invasivo)), Toast.LENGTH_SHORT);
             toast.show();
+            return false;
         }
+
+        if(requisicao.getInternadoUltimas72Horas()==null){
+            Toast toast = Toast.makeText(this, String.format(CAMPO_OBRIGATORIO, getResources().getString(R.string.label_internado_72)), Toast.LENGTH_SHORT);
+            toast.show();
+            return false;
+        }
+
+        if(requisicao.getUsouAntibiotico() ==null){
+            Toast toast = Toast.makeText(this, String.format(CAMPO_OBRIGATORIO, getResources().getString(R.string.label_antibioticos)), Toast.LENGTH_SHORT);
+            toast.show();
+            return false;
+        }
+
+        if(requisicao.getExames().size()== 0){
+            Toast toast = Toast.makeText(this, "Pelo menos um exame precisa ser selicionado", Toast.LENGTH_SHORT);
+            toast.show();
+            return false;
+        }
+
+        for (Exame e: requisicao.getExames()) {
+            if( e.getTipoColeta()== null){
+                Toast toast = Toast.makeText(this, String.format(CAMPO_OBRIGATORIO, getResources().getString(R.string.label_tipo_coleta)), Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
+            if(e.getTipoMaterial()==null){
+                Toast toast = Toast.makeText(this, String.format(CAMPO_OBRIGATORIO, "Tipo do material"), Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
+            if(e.getDataColeta()==null){
+                Toast toast = Toast.makeText(this, String.format(CAMPO_OBRIGATORIO, getResources().getString(R.string.label_data_e_hora_da_coleta)), Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void atualizarDataColetaSecrecao(View v) {

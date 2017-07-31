@@ -11,13 +11,13 @@
         android:icon="@mipmap/ic_person_black_24dp"
         android:title="@string/dados_paciente"/>
 
-    <item
-        android:id="@+id/menu_encaminhar_requisicao"
-        android:icon="@mipmap/ic_forward_black_24dp"
-        android:title="@string/encaminhar_requisicao"/>
-
-    <item
-        android:id="@+id/menu_excluir_requisicao"
-        android:icon="@android:drawable/ic_delete"
-        android:title="@string/excluir_requisicao"/>
-</menu>
+    <!-- <item
+         android:id="@+id/menu_encaminhar_requisicao"
+         android:icon="@mipmap/ic_forward_black_24dp"
+         android:title="@string/encaminhar_requisicao"/>
+ -->
+     <item
+         android:id="@+id/menu_excluir_requisicao"
+         android:icon="@android:drawable/ic_delete"
+         android:title="@string/excluir_requisicao"/>
+ </menu>

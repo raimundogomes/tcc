@@ -43,7 +43,7 @@ public class RequisicoesActivity extends AppCompatActivity
 
         TextWatcher {
 
-    public static final String SUBJECT_EMAIL = "[SGR] - Encaminhamento de Requisição";
+    public static final String SUBJECT_EMAIL = "[MEJC][SGR] - Requisição N°: /%s";
 
     private ListView listView;
 
@@ -147,9 +147,9 @@ public class RequisicoesActivity extends AppCompatActivity
             case R.id.menu_cancelar_requisicao:
                 cancelarRequisicao();
                 break;
-            case R.id.menu_encaminhar_requisicao:
-                encaminharRequisicao();
-                break;
+//            case R.id.menu_encaminhar_requisicao:
+//                encaminharRequisicao();
+//                break;
 
             case R.id.menu_dados_paciente:
                 visualizarDadosPaciente();
@@ -288,7 +288,8 @@ public class RequisicoesActivity extends AppCompatActivity
 
     private void encaminharRequisicao() {
         if(requisicaoSelecionada.getPaciente().getEmail()!=null){
-            Email email = new Email(new String[]{requisicaoSelecionada.getPaciente().getEmail()}, SUBJECT_EMAIL, montarCorpoEmail());
+            Email email = new Email(new String[]{requisicaoSelecionada.getPaciente().getEmail()},
+                    String.format(SUBJECT_EMAIL, requisicaoSelecionada.getNumero()), montarCorpoEmail());
             EmailUtil emailUtil = new EmailUtil();
             Intent intentEmail =  emailUtil.enviarEmail(email);
 
@@ -309,7 +310,7 @@ public class RequisicoesActivity extends AppCompatActivity
         corpoEmail = "Prezado(a) " + requisicaoSelecionada.getPaciente().getNome() + " segue as informações da sua requisição:" + "\n" +
                 "Número da requisição: " + requisicaoSelecionada.getNumeroFormatado() + "\n" +
                 "Data da requisição: " + DateUtils.obterDataPorExtenso(requisicaoSelecionada.getDataRequisicao()) + "\n" +
-                "Status da requisição: " + requisicaoSelecionada.getStatus().getDescricao() + "\n";
+                "Situação da requisição: " + requisicaoSelecionada.getStatus().getDescricao() + "\n";
         return corpoEmail;
     }
 
