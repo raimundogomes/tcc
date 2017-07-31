@@ -152,7 +152,7 @@ public class NovaRequisicaoActivity extends AppCompatActivity implements Compoun
         }
 
         if(requisicao.getExames().size()== 0){
-            Toast toast = Toast.makeText(this, "Pelo menos um exame precisa ser selicionado", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "Pelo menos um exame precisa ser selecionado", Toast.LENGTH_SHORT);
             toast.show();
             return false;
         }
